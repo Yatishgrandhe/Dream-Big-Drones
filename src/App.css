@@ -92,3 +92,304 @@ footer { min-height: 118px; max-width: 1200px; padding: 0; margin: 0 auto; displ
     font-size: 1.24rem;
   }
 }
+/* Motion system: GSAP + Motion */
+.hero-parallax,
+.hero-parallax img,
+.hero-copy,
+.capability-strip > div,
+.service,
+.booking-card,
+.film-media,
+.faq-item,
+.hero-atmosphere {
+  will-change: transform, opacity, filter;
+}
+
+.hero {
+  position: relative;
+}
+
+.hero-atmosphere {
+  position: absolute;
+  inset: auto;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(0);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+}
+
+.hero-atmosphere--one {
+  top: 16%;
+  right: 18%;
+  width: 320px;
+  height: 320px;
+  background:
+    radial-gradient(circle, oklch(78% 0.16 82 / 0.35) 0%, oklch(74% 0.12 215 / 0.1) 45%, transparent 72%);
+}
+
+.hero-atmosphere--two {
+  right: 8%;
+  bottom: 10%;
+  width: 260px;
+  height: 260px;
+  background:
+    radial-gradient(circle, oklch(70% 0.16 33 / 0.28) 0%, oklch(70% 0.14 215 / 0.1) 44%, transparent 72%);
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-actions > * {
+  transform-origin: left center;
+}
+
+.capability-strip > div,
+.service,
+.booking-card,
+.film-media {
+  transform: translateZ(0);
+}
+
+.service {
+  transition: background-color 220ms ease, border-color 220ms ease;
+}
+
+.service:hover {
+  background: linear-gradient(90deg, oklch(97% 0.01 225 / 0.9), transparent 84%);
+}
+
+.film-media {
+  overflow: hidden;
+}
+
+.film-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transform-origin: center;
+}
+
+.faq-answer {
+  overflow: hidden;
+}
+
+.faq-answer p {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .hero-atmosphere--one {
+    top: 14%;
+    right: -4%;
+    width: 210px;
+    height: 210px;
+    opacity: 0.38;
+  }
+
+  .hero-atmosphere--two {
+    right: -8%;
+    bottom: 12%;
+    width: 180px;
+    height: 180px;
+    opacity: 0.32;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-atmosphere,
+  .hero-parallax,
+  .hero-parallax img {
+    transform: none !important;
+  }
+}
+
+/* Responsive card formatting */
+.capability-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+}
+
+.capability-strip > div {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'index title'
+    'index copy';
+  column-gap: 18px;
+  row-gap: 6px;
+  align-content: start;
+  padding: 0 24px 0 28px;
+  border-right: 1px solid var(--line);
+}
+
+.capability-strip > div:last-child {
+  border-right: 0;
+}
+
+.capability-strip > div > span {
+  grid-area: index;
+  align-self: start;
+  margin-top: 2px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.capability-strip > div > b {
+  grid-area: title;
+  display: block;
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.2rem;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.capability-strip > div > small {
+  grid-area: copy;
+  display: block;
+  color: var(--soft-ink);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.service {
+  min-width: 0;
+}
+
+.service > div,
+.service p,
+.booking-card,
+.film-copy,
+.faq-item p {
+  min-width: 0;
+}
+
+@media (max-width: 1180px) {
+  .capability-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .capability-strip > div {
+    min-height: 132px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .capability-strip > div:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .capability-strip > div:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .services {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .services-intro {
+    max-width: 46rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .feature-film,
+  .questions,
+  .booking {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .film-copy,
+  .booking-card {
+    padding: 34px 28px;
+  }
+
+  .service {
+    min-height: 0;
+    grid-template-columns: 40px 1fr 40px;
+    padding: 22px 0;
+  }
+
+  .service > span {
+    padding-top: 2px;
+  }
+}
+
+@media (max-width: 680px) {
+  .capability-strip {
+    grid-template-columns: 1fr;
+    margin: 0 20px;
+    padding: 14px 0;
+  }
+
+  .capability-strip > div {
+    min-height: 0;
+    padding: 16px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .capability-strip > div:last-child {
+    border-bottom: 0;
+  }
+
+  .capability-strip > div > b {
+    font-size: 1.05rem;
+  }
+
+  .capability-strip > div > small {
+    font-size: 0.88rem;
+  }
+
+  .service {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'content action'
+      'index action';
+    gap: 14px 16px;
+    align-items: start;
+  }
+
+  .service > span {
+    grid-area: index;
+    padding-top: 0;
+  }
+
+  .service > div {
+    grid-area: content;
+  }
+
+  .service > a {
+    grid-area: action;
+    margin-top: 2px;
+  }
+
+  .service h3 {
+    font-size: 1.3rem;
+  }
+
+  .service p {
+    max-width: none;
+    font-size: 0.95rem;
+  }
+
+  .film-copy,
+  .booking-card {
+    padding: 28px 22px;
+  }
+
+  .booking-card p,
+  .faq-item p {
+    max-width: none;
+  }
+}
