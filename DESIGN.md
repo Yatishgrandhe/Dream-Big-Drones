@@ -2,87 +2,173 @@
 
 ## 0. Research Log
 
-- Live reference: reviewed Dribbble's drone landing page collection Flight concept in Chrome; harvested an image-led hero, dark technical canvas, clear service path, and concise conversion treatment without copying visuals or copy.
-- Supplied visual reference: `public/dream-big-drones-hero.png`; extracted luminous blue, coral, gold, and garden-green cues from the dream-to-flight narrative.
-- Supplied motion reference: `1355d6fa0abf46de71b3764b18ab4aa1.mp4`; reviewed clean product-film composition, large single-object imagery, capability rows, and compact FAQ disclosure. Adapted the visual grammar for Dream Big Drones without reusing DJI identity, copy, or claims.
-- Official motion research: reviewed Motion for React docs for `motion/react`, enter animation, transform animation, and `useReducedMotion`; reviewed GSAP React and ScrollTrigger docs for `@gsap/react`, scoped cleanup, and responsive scroll choreography.
-- Embedded references: the supplied artwork and approved video reference provided the strongest direction, so no extra brand-system reference was used for this animation pass.
-- Skipped lanes: Imagen drafts and lazyweb research were not needed because the supplied artwork already defined the hero atmosphere.
+- Supplied visual reference: `public/dream-big-drones-hero.png`; kept as the core branded hero image while moving the overall layout toward a cleaner, lighter product-page structure.
+- Supplied motion reference: `1355d6fa0abf46de71b3764b18ab4aa1.mp4`; used for a more minimal product-film style loading moment rather than the previous dark splash overlay.
+- Supplied screenshot reference: `Screenshot 2026-08-03 at 5.12.30 PM.png`; extracted the key composition cues: white canvas, concise nav, oversized left copy, dominant right visual, rounded CTA buttons, and bottom support cards.
+- Font research: reviewed Google Fonts specimens for [Hanken Grotesk](https://fonts.google.com/specimen/Hanken+Grotesk), [Onest](https://fonts.google.com/specimen/Onest), and [Public Sans](https://fonts.google.com/specimen/Public+Sans). Chosen direction: Hanken Grotesk, because its classic-grotesque foundation reads cleaner and more product-grade than the previous Manrope styling.
+- Product context: placeholders are intentional because the user plans to send additional drone photography later. The layout needs obvious drop zones that feel designed now and easy to replace later.
+- DJI runtime study (Chrome, 2026-08-03): inspected the rendered homepage at desktop, tablet, and mobile viewport overrides. Its product modules use edge-led media, 16px gutters, 576px desktop media tiles, compact 48px-top text treatment, and deliberate two-up / full-width grid spans rather than isolated floating cards. We are borrowing that layout grammar only, not DJI copy, branding, or assets.
+- Image sourcing: selected three temporary, replaceable Unsplash aerial images for the portfolio placeholders. Each remains visibly labelled as a placeholder and can be swapped for original Dream Big Drones photography later.
+- Official logo asset: extracted the supplied Dream Big Drones by RLM PNG into a non-destructive full wordmark (`public/dream-big-drones-logo.png`) and compact flight-path crop (`public/dream-big-drones-mark.png`). These preserve the original navy/gold artwork and are matted for use against white.
 
 ## 1. Atmosphere & Identity
 
-Product-film ambitious ideas: image-first, direct, composed. The signature move is a full-bleed flight frame led by the supplied Dream Big artwork, while calm high-contrast copy and a low-profile capability strip retain clarity.
+An editorial aerial journal for elevated local stories. The signature is real, full-bleed photography framed by warm off-white space, charcoal type, and a restrained golden signal—less service-template UI, more considered visual publication.
 
 ## 2. Color
 
 | Role | Token | Value | Usage |
 |---|---|---:|---|
-| Night | `--ink` | `oklch(20% 0.03 240)` | Main canvas and dark panels |
-| Sky | `--sky` | `oklch(70% 0.12 235)` | Supporting surfaces and links |
-| Cloud | `--cloud` | `oklch(97% 0.01 230)` | Light sections and panel backgrounds |
-| Coral | `--coral` | `oklch(68% 0.16 33)` | Primary action moments |
-| Gold | `--gold` | `oklch(80% 0.15 82)` | Hero emphasis and warm highlights |
+| Ink | `--ink` | `#102C46` | Primary text and structural contrast; logo navy |
+| Soft ink | `--ink-soft` | `#5B6670` | Supporting copy |
+| Paper | `--paper` | `#FFFFFF` | Main page background |
+| Paper deep | `--paper-deep` | `#F7F4EE` | Soft panels and secondary fills |
+| Gold | `--gold` | `#D99027` | Primary CTA, route line, and focus emphasis; logo gold |
+| Amber | `--amber` | `#E4A645` | Hover emphasis only |
+| Forest | `--forest` | `#102C46` | Dark editorial section / image scrim |
 
 ## 3. Typography
 
-| Level | Size | Weight | Line-height | Usage |
-|---|---:|---:|---:|---|
-| Display | `clamp(3rem, 7vw, 6rem)` | 700 | 0.96 | Hero statement |
-| H1 | `clamp(2.25rem, 4vw, 4rem)` | 700 | 1.02 | Major section title |
-| H2 | `clamp(1.5rem, 2.4vw, 2.5rem)` | 700 | 1.12 | Service and CTA titles |
-| Body large | `1.125rem` | 400 | 1.6 | Leads |
-| Body | `1rem` | 400 | 1.6 | Supporting text |
-| Label | `0.75rem` | 700 | 1.3 | Navigation and metadata |
+Display family: `DM Serif Display, Georgia, serif`.
 
-Font stack: `Manrope, Avenir Next, Avenir, Helvetica Neue, Arial, sans-serif`. Display uses the same family with weight and scale contrast rather than a second family.
+Interface family: `Manrope, Avenir Next, Avenir, Helvetica Neue, Arial, sans-serif`.
+
+Why this family:
+
+- DM Serif Display gives the editorial headlines a calm, cinematic character without becoming ornate.
+- Manrope keeps navigation, labels, forms, and body copy restrained and exceptionally legible.
+
+Type rules:
+
+- Hero display: `clamp(3.5rem, 6vw, 6.5rem)`, 0.92 line-height, `-0.055em` tracking; mobile caps at `3rem` and 0.96 line-height.
+- Section display: `clamp(2.25rem, 4vw, 4rem)`.
+- Body copy: 16–18px desktop / 16px mobile at 1.65 line-height; eyebrow labels are 11px uppercase with 0.14em tracking.
+- Navigation and CTA labels are 13px and remain quiet, not over-tracked marketing chrome.
 
 ## 4. Spacing & Layout
 
-Base unit: 4px. Use spacing steps `--space-2` (8px), `--space-3` (12px), `--space-4` (16px), `--space-6` (24px), `--space-8` (32px), `--space-12` (48px), `--space-16` (64px), `--space-20` (80px), and `--space-28` (112px). Content max width: 1200px. Mobile gutter: 20px; desktop gutter: 40px. Grid shifts from one column below 720px to a wider marketing composition above it.
+Base unit: 8px.
+
+Layout direction:
+
+- Max shell width: `1280px`, with 28–40px desktop gutters.
+- Hero begins 48px beneath the 64px desktop header (28px beneath the 56px mobile header), with 72–96px desktop and 48–64px mobile vertical padding.
+- Editorial media grid: 16px gutters; on wide screens the gallery uses two equal feature cards followed by one full-width card, on tablet two columns with the final card spanning both columns, and on mobile a single column. This prevents a stranded narrow card and uses the full available line length.
+- DJI-derived page frame: a full-width, hairline-divided header; a full-bleed hero with no rounded outer container; then 16px-gutter media modules that use the whole viewport. Explanatory copy, FAQs, and booking content remain constrained to the `1380px` reading width.
+- The selected-work grid uses a 7/5 asymmetric editorial composition at desktop: one tall anchor image and two stacked supporting images; it collapses deliberately without leaving empty tracks.
+- Hero uses a two-part composition on wide screens and a stacked composition on narrower screens.
+- Bottom-of-hero support cards should feel like product feature blocks, not random floating badges.
 
 ## 5. Components
 
-### Flight Button
+### Header Capsule
 
-- Structure: accessible anchor button with optional Lucide arrow icon.
-- Variants: coral primary, transparent light secondary, compact nav.
-- States: hover lifts slightly, active returns to baseline, focus remains high contrast, disabled lowers opacity.
-- Motion: Motion for React handles hover and tap feedback; movement should feel crisp and short rather than springy.
+- Sticky 64px/56px white header with the supplied full logo at 160px/136px, fine lower divider, and compact gold CTA on the right.
+- A translucent blur and shadow only appear after scroll. Navigation links use a fine gold underline state.
+- Navigation is constrained to `Home`, `About`, `Services`, `Portfolio`, and `Contact`; the matching scroll section receives the active underline. Pricing is custom-quote copy inside Contact only, never a navigation destination.
 
-### Capability Strip
+### Hero Module
 
-- Structure: four compact benefit tiles immediately below the hero.
-- Layout: horizontal on desktop, two-column stack on mobile.
-- Motion: each tile can rise subtly on hover and reveal in sequence after the hero.
+- Full-bleed, unrounded product stage with left copy and a right hero image stage for the branded drone artwork.
+- Uses generous desktop height and deliberate edge-to-edge framing, inspired by DJI's 800px hero module, while preserving the Dream Big content and artwork.
+- A new secondary action: `See more pictures`.
+- Soft foreground wash at the bottom to echo the cleaner agricultural/product-page style without copying DJI branding.
 
-### Service Route
+### Placeholder Gallery Cards
 
-- Structure: number, title, concise outcome, arrow link.
-- Layout: ruled editorial list rather than repeated boxed cards.
-- Motion: rows reveal from below on scroll and shift slightly on hover.
+- Presented as “Selected work,” using temporary Unsplash aerial photography until original work is available.
+- The gallery begins directly with its media cards; it does not repeat an introductory heading or explanatory paragraph above them.
+- Structure: semantic `article` with a full-bleed image, darkened gradient scrim, label, title, and supporting copy aligned to the lower edge.
+- Variants: two half-width feature cards plus one full-width landscape card on desktop; final card spans the row at tablet; one column on mobile.
+- States: default, hover (image-only transform), focus-visible when cards become links, loading, and empty/fallback.
+- Accessibility: descriptive image alt text; text remains on a high-contrast scrim; images use explicit aspect ratios to avoid layout shift.
+- Surface: `--radius-xl` rounded image tiles with a subtle white inner edge and restrained shadow.
+- Motion: image transform only, 280ms ease-out; no decorative placeholder bars.
 
-### FAQ Disclosure
+### Clean Service Cards
 
-- Structure: direct question button followed by a collapsible answer panel.
-- Motion: answer expansion should feel smooth and controlled, paired with a rotating disclosure icon.
+- Three short, rounded cards with direct copy.
+- No overbuilt iconography or fake dashboard decoration.
+
+### Project Standards Strip
+
+- A three-part, border-led proof strip replacing generic value cards.
+- Covers project direction, flight planning, and final handoff without inventing certifications, clients, or delivery-time claims.
+
+### Contact Form
+
+- Contact uses a deliberate two-column editorial composition: calm explanation and scheduling handoff on the left; a white, navy-hairline form panel with a single muted-gold flight-path line on the right.
+- Form fields are square-edged, clearly labelled, and use gold focus treatment with inline red error text. The success state replaces the form in-place so the reading rhythm never jumps.
+- The invisible honeypot is visually removed without taking keyboard focus. Server-side submission limiting is intentionally invisible unless it needs to explain a retry.
+
+### Private Studio Dashboard
+
+- The unlinked studio route uses the same white/navy/gold system, but trims the marketing motion in favour of fast, accessible data scanning.
+- Desktop uses a structured table and restrained status pills; mobile deliberately changes to stacked inquiry cards rather than shrinking the table into an unreadable surface.
+- The detail drawer is a white editorial sheet with no dark SaaS chrome. Its only decorative treatment is typography and navy/gold hierarchy.
+
+### Editorial Proof Blocks
+
+- A quiet testimonial treatment sits between selected work and services; it must never name an unverified client or invent attribution.
+- A delivery-detail block names the tangible handoff: edited stills, short-form video, delivery timeline, and usage-ready files.
+- Footer contact and service-area fields are visibly ready for verified business details instead of fabricating them.
+
+### One-page Section Grammar
+
+- Home: editorial hero with two direct actions.
+- About: one wide image, editorial explanation, numbered principles, and the flight-plan timeline.
+- Services: three services followed by a thin delivery-detail row and one concise custom-quote note.
+- Portfolio: the large lead / two supporting image composition is the most expressive visual moment.
+- Contact: a validated inquiry form plus one secondary external Calendly call-to-action, quoted as custom after the introductory call.
+
+### Official Brand Assets
+
+- Use `dream-big-drones-logo.png` for desktop/mobile navigation, the hero anchor, and footer.
+- Use `dream-big-drones-mark.png` only for loader and mobile navigation treatment.
+- Never redraw, recolor, or place the supplied raster logo against a grey or dark boxed background. The footer uses a small white logo frame for legibility.
+
+### Cinematic Flight-Path Loader
+
+- Desktop-only white prelude under 1.8 seconds with the supplied compact flight-path mark followed by the supplied full wordmark.
+- Structure: a restrained navy/gold SVG route behind the official logo. No counters, spinners, or sound treatment.
+- States: desktop normal journey; reduced-motion 250ms fade. It is omitted below 768px.
+- Motion: SVG stroke-dashoffset draws the path/trail, the tracking point follows the curve, and the overlay exits via transform, opacity, and filter only.
 
 ## 6. Motion
 
-- Split responsibilities by job: Motion for React handles entry sequences, disclosure, and hover/tap interactions; GSAP handles section reveals, atmospheric drift, and desktop scroll-linked depth.
-- Hero motion should suggest lift and atmosphere, not gimmicks. Background depth can move more than the copy, while the copy remains legible and grounded.
-- Section reveals should settle into place with transform, opacity, and gentle blur reduction instead of dramatic fly-ins.
-- Motion stays on transform, opacity, and filter. No layout-property animation.
-- `prefers-reduced-motion` removes parallax-like movement and swaps in calmer opacity-first transitions.
+- Cinematic flight-path loading moment on a warm white stage: the travel line resolves into a low horizon, then cloud-cover-like upward dissolve reveals the hero.
+- Navigation and eyebrow fade up on load; the hero claim enters line-by-line with a 500–900ms upward blur-to-sharp reveal. The hero image settles from `scale(1.04)` to `scale(1)` over 1.8 seconds.
+- GSAP handles scoped, intersection-driven section reveals, the reading-progress scale, a restrained gallery media parallax, and the process route-line draw. It must not animate layout properties. Below 768px, it uses only short opacity / 12–16px translateY reveals; parallax, grain drift, and large image-scale entrances are disabled.
+- Gallery hover deepens the overlay, slowly scales the image, and fades project metadata up. Service cards rise 6px while a gold top-line draws across. FAQ disclosure rotates its icon and expands its answer.
+- A desktop-only `View project` cursor follows only gallery pointers; touch users see no custom cursor and always retain visible project copy.
+- Motion should feel cleaner and more precise than flashy: reveal, settle, breathe. Durations are 500–900ms unless the hero-settle or slow sunlight drift explicitly needs longer.
+- Reduced motion remains supported: transitions become near-instant, section content stays visible, and the reading indicator renders complete.
 
 ## 7. Depth & Surface
 
-Mixed strategy. Dark tonal shifts create the main hierarchy. Fine translucent borders define interactive or information-rich areas; broader softer shadows are reserved for the hero image frame and key media surfaces.
+Primary surface language:
+
+- Warm ivory canvas (`#F4F0E8`), deep blue-charcoal ink (`#162018`), muted olive supporting text (`#5E655E`), and selective burnt ochre (`#B96E35`).
+- Rounded editorial media frames, low-contrast borders, and light shadow depth
+- Minimal chrome and strong image framing with muted contrast, warm highlights, rich shadows, and a restrained grain treatment
+
+This redesign should feel more refined by subtraction, not by removing personality altogether.
 
 ## 8. Accessibility Constraints & Accepted Debt
 
-Constraints: WCAG 2.2 AA target, 4.5:1 body-text contrast, visible focus, keyboard-reachable links, reduced-motion support, and meaningful alt text on all images.
+Constraints:
 
-| Item | Location | Why accepted | Owner / Exit |
+- WCAG 2.2 AA contrast target
+- Visible focus states
+- Reduced motion fallback
+- Meaningful alt text
+- Touch-friendly button sizing
+- Contact error and success feedback is exposed with `role="alert"` / `role="status"`; the admin table has a mobile card alternative and each status control remains label-addressable.
+
+Accepted debt:
+
+| Item | Location | Why accepted | Exit |
 |---|---|---|---|
-| Direct booking URL not supplied | Booking CTA | Calendly can only be linked once an account and event URL exist | Replace `#calendly-setup` with the live Calendly event URL |
-| Portfolio photography is pending | Work section | Brand artwork is carrying the visual load until real drone photography arrives | Replace the repeated brand-art media treatment when portfolio assets are supplied |
+| Owned gallery imagery pending | Selected work gallery and hero | Temporary Unsplash aerial imagery keeps the layout editorial while the user gathers original photos | Replace each temporary source with Dream Big Drones photos when assets arrive |
+| Live Calendly URL pending | Booking CTA | Calendly setup is not yet supplied | Swap placeholder CTA target with the final booking URL |
+| First admin credential provisioning | Convex Auth password provider | A strong unique password must be selected by the owner; no default can be safely generated or committed | Run `npm run admin:hash`, set the resulting hash as `ADMIN_PASSWORD_HASH` on Convex, then create the single allowed admin account |

@@ -1,8 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap');
 
-:root { font-family: Manrope, "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif; color: oklch(20% .03 240); background: oklch(20% .03 240); font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; }
-button, a { font: inherit; }
-a { color: inherit; }
+:root {
+  font-family: Manrope, 'Avenir Next', Avenir, 'Helvetica Neue', Arial, sans-serif;
+  color: #162018;
+  background: #F4F0E8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
