@@ -10,6 +10,7 @@ import './App.css'
 import './RouteMasthead.css'
 import './BrandArtwork.css'
 import './FlightMotion.css'
+import './HeaderSizing.css'
 
 gsap.registerPlugin(ScrollTrigger, Flip, useGSAP)
 

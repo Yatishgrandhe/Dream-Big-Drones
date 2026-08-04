@@ -1,0 +1,14 @@
+/* Compact flight-deck header: less surrounding chrome, more room for the supplied brand mark. */
+:root{--dbd-header-height:80px}
+.site-header{min-height:var(--dbd-header-height);height:var(--dbd-header-height);padding-block:0}
+.logo-link{display:flex;align-items:center;height:100%}
+.site-header .brand-logo{width:132px;height:80px;object-fit:contain}
+.page-hero,.hero-copy{min-height:calc(100svh - var(--dbd-header-height))}
+
+@media(max-width:680px){
+  :root{--dbd-header-height:68px}
+  .site-header{height:var(--dbd-header-height);min-height:var(--dbd-header-height);padding-block:0}
+  .site-header .brand-logo{width:112px;height:68px}
+  .site-header nav{inset:var(--dbd-header-height) 0 auto}
+  .page-hero,.hero-copy{min-height:calc(100svh - var(--dbd-header-height))}
+}
