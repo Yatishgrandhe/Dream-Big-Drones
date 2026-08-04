@@ -152,10 +152,14 @@ function App() {
 
   const hideGalleryCursor = () => galleryCursorRef.current?.classList.remove('gallery-cursor--visible')
 
-  const getSectionScrollPosition = (target) => {
+  const getNavigationClearance = () => {
     const headerHeight = document.querySelector('.site-header--clean')?.offsetHeight ?? 64
     const headerGap = window.innerWidth < 768 ? 16 : 24
-    return Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerHeight - headerGap)
+    return headerHeight + headerGap
+  }
+
+  const getSectionScrollPosition = (target) => {
+    return Math.max(0, target.getBoundingClientRect().top + window.scrollY - getNavigationClearance())
   }
 
   const navigateToSection = (event, id) => {
@@ -201,8 +205,7 @@ function App() {
   useEffect(() => {
     const sections = navigation.map(([id]) => document.getElementById(id)).filter(Boolean)
     const updateActiveSection = () => {
-      const headerHeight = document.querySelector('.site-header--clean')?.offsetHeight ?? 64
-      const readingLine = window.scrollY + headerHeight + 60
+      const readingLine = window.scrollY + getNavigationClearance()
       const current = sections.reduce((active, section) => (
         section.offsetTop <= readingLine ? section : active
       ), sections[0])
@@ -429,7 +432,7 @@ function App() {
           <nav id="site-navigation" className={menuOpen ? 'nav-open' : ''} aria-label="Main navigation">
             <BrandLogo mark className="mobile-nav-mark" alt="" />
             {navigation.map(([id, label]) => (
-              <a key={id} href={`#${id}`} className={activeSection === id ? 'nav-link-active' : ''} onClick={(event) => navigateToSection(event, id)}>
+              <a key={id} href={`#${id}`} className={activeSection === id ? 'nav-link-active' : ''} aria-current={activeSection === id ? 'page' : undefined} onClick={(event) => navigateToSection(event, id)}>
                 {label}
               </a>
             ))}
