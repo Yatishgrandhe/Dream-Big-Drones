@@ -182,6 +182,8 @@ Accepted debt:
 - Signature moment: a single logo-led launch brief. It paints as one complete scene from the first frame, then fades away; no preliminary logo flash, competing animation, or second loader is permitted.
 - August 2026 visual correction: `dream-big-drones-hero.png` is a complete illustrated brand scene (drone, destination bubbles, stonework sign, sky, and park), not just a wordmark. The global tone now takes its cues from that scene: sky blue, deep blue-green, leaf green, weathered limestone, warm copper, and the logo's jewel-like cyan/red/gold details. The homepage hero is always full-bleed art with an accessible navy gradient for copy—never a split stock-photo panel with the artwork reduced to a floating card.
 - The loader begins with the official brand artwork at full stage scale, has one brief focus/settle motion, and dissolves directly into the matching homepage hero. It does not introduce a disconnected card or secondary logo treatment.
+- Route hierarchy correction: only Home uses the full-viewport illustrated brand hero. Inner routes use compact, individually art-directed mastheads with their own content image, information density, and task-oriented headline. This preserves the homepage as the signature moment and makes route changes feel intentional.
+- Motion correction: section content enters only when it becomes relevant in the viewport; cards stagger in as a related group, images settle from a subtle scale, and interactive panels transition only when their state changes. Every sequence uses opacity, transform, and filter; reduced-motion users receive fully visible static content.
 
 ### Route grammar
 
