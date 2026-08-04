@@ -1,88 +1,18 @@
-import { ArrowDownRight, CheckCircle2 } from 'lucide-react'
+import { CheckCircle2, Send } from 'lucide-react'
 import { useState } from 'react'
 import { useMutation } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 
-const initialValues = { name: '', email: '', phone: '', location: '', shootType: '', preferredDate: '', projectDetails: '', consent: false, honeypot: '' }
-const labels = { name: 'Full name', email: 'Email address', location: 'Project location', shootType: 'Shoot type', projectDetails: 'Project details', consent: 'Consent' }
-
-function validate(values) {
-  const errors = {}
-  if (values.name.trim().length < 2) errors.name = 'Please enter your full name.'
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) errors.email = 'Enter a valid email address.'
-  if (values.location.trim().length < 2) errors.location = 'Please tell us where the project is located.'
-  if (!values.shootType) errors.shootType = 'Choose the type of shoot you have in mind.'
-  if (values.projectDetails.trim().length < 12) errors.projectDetails = 'A little more detail will help us plan the right approach.'
-  if (!values.consent) errors.consent = 'Please agree before sending your details.'
-  return errors
-}
-
-export function ContactForm() {
-  const submit = useMutation(api.contacts.submit)
-  const [values, setValues] = useState(initialValues)
-  const [errors, setErrors] = useState({})
-  const [sending, setSending] = useState(false)
-  const [sent, setSent] = useState(false)
-  const [serverError, setServerError] = useState('')
-
-  const update = (event) => {
-    const { name, value, type, checked } = event.target
-    setValues((current) => ({ ...current, [name]: type === 'checkbox' ? checked : value }))
-    if (errors[name]) setErrors((current) => ({ ...current, [name]: undefined }))
-    setServerError('')
-  }
-
-  const onSubmit = async (event) => {
-    event.preventDefault()
-    const nextErrors = validate(values)
-    setErrors(nextErrors)
-    if (Object.keys(nextErrors).length) return
-    setSending(true)
-    setServerError('')
-    try {
-      await submit({ ...values, sourcePage: window.location.pathname || '/' })
-      setValues(initialValues)
-      setSent(true)
-    } catch (error) {
-      setServerError(error?.data ?? error?.message ?? 'We could not send your details. Please try again.')
-    } finally {
-      setSending(false)
-    }
-  }
-
-  if (sent) return (
-    <div className="contact-success" role="status" aria-live="polite">
-      <CheckCircle2 size={28} aria-hidden="true" />
-      <p className="kicker kicker--clean">Message received</p>
-      <h3>Your project details are on their way.</h3>
-      <p>We’ll be in touch soon.</p>
-      <button type="button" className="text-action" onClick={() => setSent(false)}>Send another inquiry <ArrowDownRight size={16} /></button>
-    </div>
-  )
-
-  return (
-    <form className="contact-form" onSubmit={onSubmit} noValidate>
-      <div className="contact-flight-path" aria-hidden="true"><span /></div>
-      <div className="form-grid">
-        <Field label={labels.name} error={errors.name}><input name="name" autoComplete="name" value={values.name} onChange={update} aria-invalid={Boolean(errors.name)} /></Field>
-        <Field label={labels.email} error={errors.email}><input name="email" type="email" autoComplete="email" value={values.email} onChange={update} aria-invalid={Boolean(errors.email)} /></Field>
-        <Field label="Phone number (optional)"><input name="phone" type="tel" autoComplete="tel" value={values.phone} onChange={update} /></Field>
-        <Field label={labels.location} error={errors.location}><input name="location" autoComplete="address-level2" value={values.location} onChange={update} aria-invalid={Boolean(errors.location)} /></Field>
-        <Field label={labels.shootType} error={errors.shootType} className="form-field--full">
-          <select name="shootType" value={values.shootType} onChange={update} aria-invalid={Boolean(errors.shootType)}><option value="">Select one</option><option>Property or place</option><option>Event or gathering</option><option>Brand story or campaign</option><option>Something else</option></select>
-        </Field>
-        <Field label="Preferred flight date (optional)" className="form-field--full"><input name="preferredDate" type="date" value={values.preferredDate} onChange={update} /></Field>
-        <Field label={labels.projectDetails} error={errors.projectDetails} className="form-field--full"><textarea name="projectDetails" rows="5" value={values.projectDetails} onChange={update} aria-invalid={Boolean(errors.projectDetails)} /></Field>
-      </div>
-      <div className="honeypot" aria-hidden="true"><label>Leave this field empty<input name="honeypot" tabIndex="-1" autoComplete="off" value={values.honeypot} onChange={update} /></label></div>
-      <label className="consent-field"><input name="consent" type="checkbox" checked={values.consent} onChange={update} aria-invalid={Boolean(errors.consent)} /><span>I agree to be contacted about this project.</span></label>
-      {errors.consent ? <p className="field-error" role="alert">{errors.consent}</p> : null}
-      {serverError ? <p className="form-error" role="alert">{serverError}</p> : null}
-      <button className="flight-button" type="submit" disabled={sending}>{sending ? 'Sending project details…' : <>Send project details <ArrowDownRight size={17} /></>}</button>
-    </form>
-  )
-}
-
-function Field({ label, error, className = '', children }) {
-  return <label className={`form-field ${className}`}><span>{label}</span>{children}{error ? <em className="field-error" role="alert">{error}</em> : null}</label>
-}
+const industries = ['Construction', 'Energy', 'Entertainment', 'Finance', 'Government', 'Hospitality', 'Insurance', 'Legal', 'Real Estate (Commercial)', 'Real Estate (Residential)', 'Manufacturing', 'Media', 'Property Management', 'REIT', 'Roofing', 'Transportation & Logistics', 'Other']
+const projectTypes = ['One site / one-off job', 'Multiple Sites (2–50 Locations)', 'Large Portfolio (50+ Locations)', 'Ongoing / Recurring Program']
+const timelines = ['ASAP (≤2 weeks)', '2–4 weeks', '1–3 months', '3+ months', 'Just exploring']
+const initial = { firstName: '', lastName: '', email: '', phone: '', state: '', company: '', industry: '', assist: 'Imagery Services', help: '', description: '', projectType: '', timeline: '', honeypot: '' }
+const required = ['firstName', 'lastName', 'email', 'phone', 'state', 'company', 'help', 'description', 'projectType', 'timeline']
+const stateOptions = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+function validate(v) { const e = {}; required.forEach((key) => { if (!v[key].trim()) e[key] = 'This field is required.' }); if (v.firstName.length > 15) e.firstName = 'First name must be 15 characters or fewer.'; if (v.lastName.length > 15) e.lastName = 'Last name must be 15 characters or fewer.'; if (v.company.length > 40) e.company = 'Company must be 40 characters or fewer.'; if (v.description.length > 1500) e.description = 'Description must be 1,500 characters or fewer.'; if (v.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) e.email = 'Enter a valid email address.'; if (v.phone && !/[0-9]{7,}/.test(v.phone.replace(/\D/g, ''))) e.phone = 'Enter a valid phone number.'; return e }
+function Field({ label, children, error, count, required: isRequired = false }) { return <label className={`form-field ${error ? 'field-invalid' : ''}`}><span>{label}{isRequired && <b aria-hidden="true"> *</b>}</span>{children}{count && <small>{count}</small>}{error && <em role="alert">{error}</em>}</label> }
+export function ContactForm() { const submit = useMutation(api.contacts.submit); const [values, setValues] = useState(initial); const [touched, setTouched] = useState({}); const [submitted, setSubmitted] = useState(false); const [sending, setSending] = useState(false); const [serverError, setServerError] = useState(''); const [success, setSuccess] = useState(false); const errors = validate(values); const visibleError = (name) => (submitted || touched[name]) ? errors[name] : ''
+  const update = (event) => { const { name, value } = event.target; setValues((v) => ({ ...v, [name]: value })); setServerError('') }
+  const send = async (event) => { event.preventDefault(); setSubmitted(true); if (Object.keys(errors).length) return; setSending(true); try { await submit({ name: `${values.firstName} ${values.lastName}`, email: values.email, phone: values.phone, location: values.state, shootType: 'Property or place', projectDetails: `${values.help}\n\n${values.description}`, consent: true, honeypot: values.honeypot, sourcePage: '/contact', intake: values }); setSuccess(true) } catch (error) { setServerError(error?.data ?? error?.message ?? 'We could not send your inquiry. Please try again.') } finally { setSending(false) } }
+  if (success) return <div className="contact-success" role="status" aria-live="polite"><CheckCircle2 size={34} /><p className="eyebrow">Inquiry received</p><h3>Your project is ready for review.</h3><p>Thank you for sharing the details. We’ll respond through the contact information you provided.</p><button className="text-button" onClick={() => { setValues(initial); setSuccess(false); setSubmitted(false) }}>Send another inquiry</button></div>
+  return <form className="contact-form intake-form" onSubmit={send} noValidate><div className="form-grid"><Field label="First Name" name="firstName" required error={visibleError('firstName')} count={`${values.firstName.length}/15`}><input name="firstName" maxLength="15" autoComplete="given-name" value={values.firstName} onChange={update} onBlur={() => setTouched((t) => ({ ...t, firstName: true }))} aria-invalid={!!visibleError('firstName')} /></Field><Field label="Last Name" required error={visibleError('lastName')} count={`${values.lastName.length}/15`}><input name="lastName" maxLength="15" autoComplete="family-name" value={values.lastName} onChange={update} onBlur={() => setTouched((t) => ({ ...t, lastName: true }))} aria-invalid={!!visibleError('lastName')} /></Field><Field label="Email" required error={visibleError('email')}><input name="email" type="email" autoComplete="email" value={values.email} onChange={update} onBlur={() => setTouched((t) => ({ ...t, email: true }))} aria-invalid={!!visibleError('email')} /></Field><Field label="Phone" required error={visibleError('phone')}><input name="phone" type="tel" autoComplete="tel" value={values.phone} onChange={update} onBlur={() => setTouched((t) => ({ ...t, phone: true }))} aria-invalid={!!visibleError('phone')} /></Field><Field label="Where Will Services Be Performed?" required error={visibleError('state')}><select name="state" value={values.state} onChange={update} onBlur={() => setTouched((t) => ({ ...t, state: true }))} aria-invalid={!!visibleError('state')}><option value="">Select state</option>{stateOptions.map((state) => <option key={state}>{state}</option>)}</select></Field><Field label="Company" required error={visibleError('company')} count={`${values.company.length}/40`}><input name="company" maxLength="40" autoComplete="organization" value={values.company} onChange={update} onBlur={() => setTouched((t) => ({ ...t, company: true }))} aria-invalid={!!visibleError('company')} /></Field><Field label="Industry"><select name="industry" value={values.industry} onChange={update}><option value="">Select Your Industry</option>{industries.map((industry) => <option key={industry}>{industry}</option>)}</select></Field><Field label="Assist Me With"><span className="radio-group">{['Imagery Services', 'Drone Training', 'Other'].map((option) => <label key={option}><input type="radio" name="assist" value={option} checked={values.assist === option} onChange={update} />{option}</label>)}</span></Field><Field label="How Can We Help?" required error={visibleError('help')}><input name="help" value={values.help} onChange={update} onBlur={() => setTouched((t) => ({ ...t, help: true }))} aria-invalid={!!visibleError('help')} placeholder="What would you like to accomplish?" /></Field><Field label="Project Type" required error={visibleError('projectType')}><select name="projectType" value={values.projectType} onChange={update} onBlur={() => setTouched((t) => ({ ...t, projectType: true }))} aria-invalid={!!visibleError('projectType')}><option value="">Please Select</option>{projectTypes.map((option) => <option key={option}>{option}</option>)}</select></Field><Field label="Project Timeline" required error={visibleError('timeline')}><select name="timeline" value={values.timeline} onChange={update} onBlur={() => setTouched((t) => ({ ...t, timeline: true }))} aria-invalid={!!visibleError('timeline')}><option value="">Please Select</option>{timelines.map((option) => <option key={option}>{option}</option>)}</select></Field><Field label="Describe Your Project" required error={visibleError('description')} count={`${values.description.length}/1,500`}><p className="field-help">Tell us about the site location(s), inspection or capture type, desired photos, video, 3D models, thermal imaging, or mapping. For multi-site work, include the approximate total site count.</p><textarea name="description" maxLength="1500" rows="7" value={values.description} onChange={update} onBlur={() => setTouched((t) => ({ ...t, description: true }))} aria-invalid={!!visibleError('description')} /></Field></div><div className="honeypot" aria-hidden="true"><input name="honeypot" tabIndex="-1" autoComplete="off" value={values.honeypot} onChange={update} /></div>{serverError && <p className="form-error" role="alert">{serverError}</p>}<button className="action" type="submit" disabled={sending}>{sending ? 'Sending inquiry…' : <>Send project details <Send size={16} /></>}</button></form> }

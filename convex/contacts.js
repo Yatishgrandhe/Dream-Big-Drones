@@ -62,7 +62,7 @@ export const submit = mutation({
   args: {
     name: v.string(), email: v.string(), phone: v.optional(v.string()), location: v.string(),
     shootType: shootTypes, preferredDate: v.optional(v.string()), projectDetails: v.string(),
-    consent: v.boolean(), sourcePage: v.optional(v.string()), honeypot: v.optional(v.string()),
+    consent: v.boolean(), sourcePage: v.optional(v.string()), honeypot: v.optional(v.string()), intake: v.optional(v.any()),
   },
   returns: v.id("contactSubmissions"),
   handler: async (ctx, args) => {
@@ -81,7 +81,7 @@ export const submit = mutation({
       location: args.location.trim(), shootType: args.shootType,
       ...(args.preferredDate ? { preferredDate: args.preferredDate } : {}),
       projectDetails: args.projectDetails.trim(), consent: true, status: "new", createdAt,
-      ...(args.sourcePage ? { sourcePage: args.sourcePage } : {}), notificationSent: false,
+      ...(args.sourcePage ? { sourcePage: args.sourcePage } : {}), ...(args.intake ? { intake: args.intake } : {}), notificationSent: false,
     });
     await incrementMetric(ctx, "total", 1);
     await incrementMetric(ctx, "new", 1);

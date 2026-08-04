@@ -172,3 +172,30 @@ Accepted debt:
 | Owned gallery imagery pending | Selected work gallery and hero | Temporary Unsplash aerial imagery keeps the layout editorial while the user gathers original photos | Replace each temporary source with Dream Big Drones photos when assets arrive |
 | Live Calendly URL pending | Booking CTA | Calendly setup is not yet supplied | Swap placeholder CTA target with the final booking URL |
 | First admin credential provisioning | Convex Auth password provider | A strong unique password must be selected by the owner; no default can be safely generated or committed | Run `npm run admin:hash`, set the resulting hash as `ADMIN_PASSWORD_HASH` on Convex, then create the single allowed admin account |
+
+## 9. August 2026 rebuild contract
+
+### Reference fidelity and direction
+
+- The supplied browser screenshot is the structural reference: a legible brand header, cinematic hero, editorial media stage, solution cards, and a utilitarian contact/footer ending. It is not a visual style to copy; the new surface replaces its dated cards and cramped proportions with a spacious navy, sand, and copper editorial system.
+- The supplied original `dream-big-drones-hero.png` is the official hero/logo artwork. It is never recolored, stretched, cropped, or replaced with an invented drone mark. `dream-big-drones-logo.png` remains the clean wordmark treatment for navigation and footer surfaces.
+- Signature moment: a single logo-led launch brief. It paints as one complete scene from the first frame, then fades away; no preliminary logo flash, competing animation, or second loader is permitted.
+
+### Route grammar
+
+- Public routes: `/`, `/solutions`, `/fleet`, `/portfolio`, `/support`, `/about`, and `/contact`. All share the same header, flight-strip, floating quote CTA, and footer.
+- The header uses the screenshot's requested seven navigation destinations and a compact mobile disclosure. Route changes retain keyboard focus on the document main landmark.
+- Page modules use only documented `--dbd-*` tokens. Reusable primitives: `SiteHeader`, `PageHero`, `Action`, `SolutionCard`, `AircraftCard`, `PortfolioGallery`, `Modal`, `FaqList`, `IntakeForm`, and `SiteFooter`.
+
+### Accessibility and inclusive tasks
+
+- A keyboard-only visitor can open every menu, filter the gallery, open/close a project dialog, expand fleet details and FAQ items, and submit or recover from the intake form.
+- A motion-sensitive visitor sees the entire loader as a short static fade and never receives auto-playing decorative motion.
+- A busy project manager receives a progressive-disclosure intake form with clear labels, non-color validation, explicit required status, live counters, and an in-place completion state.
+
+### Current accepted debt
+
+| Item | Affected users | Resolution path |
+|---|---|---|
+| Placeholder imagery is hosted by Unsplash | Visitors with offline/slow connections | Replace with supplied, responsive client photography once available. Fallback color treatments remain in place. |
+| Mail/delivery endpoint requires Convex deployment configuration | Prospective clients | The built form submits to the existing Convex integration when configured; the UI communicates retry rather than pretending delivery succeeded. |

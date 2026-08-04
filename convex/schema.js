@@ -29,6 +29,7 @@ export default defineSchema({
     createdAt: v.number(),
     sourcePage: v.optional(v.string()),
     notificationSent: v.boolean(),
+    intake: v.optional(v.any()),
   })
     .index("by_status_and_createdAt", ["status", "createdAt"])
     .index("by_email", ["email"])
