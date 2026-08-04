@@ -130,7 +130,7 @@ Layout direction:
 ### Cinematic Flight-Path Loader
 
 - Desktop-only warm-white flight briefing, under 2.1 seconds, with the supplied unaltered full logo centered inside a white framed presentation card.
-- Structure: a fine navy coordinate grid, restrained editorial flight route, short status line, and a single gold progress rail. This is a branded prelude, not a spinner or a generic loading screen.
+- Structure: a single logo-led entrance over a fine navy coordinate grid, restrained editorial flight route, short status line, and one gold progress rail. The loader must never run a preliminary animation before the branded scene; all visual elements resolve as one coordinated sequence.
 - States: desktop normal journey; reduced-motion 250ms fade. It is omitted below 768px.
 - Motion: SVG stroke-dashoffset draws the route and a gold trailing segment; logo-frame sheen, progress rail, and overlay exit use transform, opacity, and filter only.
 

@@ -180,7 +180,7 @@ function App() {
 
   useEffect(() => {
     if (!isLoading) return undefined
-    const timer = window.setTimeout(() => setIsLoading(false), prefersReducedMotion ? 250 : 2100)
+    const timer = window.setTimeout(() => setIsLoading(false), prefersReducedMotion ? 250 : 1750)
     return () => window.clearTimeout(timer)
   }, [isLoading, prefersReducedMotion])
 
@@ -379,41 +379,34 @@ function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <AnimatePresence>
-        {isLoading ? (
-          <motion.div
-            key="cinematic-loader"
+      {isLoading ? (
+          <div
             className="cinematic-loader"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -72, filter: 'blur(8px)', transition: { duration: prefersReducedMotion ? 0.25 : 0.62, ease: [0.22, 1, 0.36, 1] } }}
             aria-label="Loading Dream Big Drones"
           >
             <div className="cinematic-loader__grid" aria-hidden="true" />
-            <div className="cinematic-loader__grain" aria-hidden="true" />
-            <div className="cinematic-loader__corner cinematic-loader__corner--north" aria-hidden="true" />
-            <div className="cinematic-loader__corner cinematic-loader__corner--south" aria-hidden="true" />
+            <div className="cinematic-loader__vignette" aria-hidden="true" />
             <div className="cinematic-loader__status" aria-hidden="true">
               <span className="cinematic-loader__status-dot" />
-              Flight brief loading
+              Establishing the flight path
             </div>
             <div className="cinematic-loader__identity">
               <div className="cinematic-loader__logo-frame">
                 <div className="cinematic-loader__logo-sheen" aria-hidden="true" />
                 <BrandLogo className="cinematic-loader__official-logo" />
               </div>
-              <p className="cinematic-loader__caption">Aerial stories, thoughtfully mapped.</p>
+              <p className="cinematic-loader__caption">Dream big. See farther.</p>
             </div>
             <svg className="cinematic-loader__flightpath" viewBox="0 0 1440 440" role="presentation" aria-hidden="true">
               <path className="cinematic-loader__path-base" d="M-40 316C184 120 348 354 568 238S919 91 1130 220s212 53 350-86" />
               <path className="cinematic-loader__path-draw" pathLength="1" d="M-40 316C184 120 348 354 568 238S919 91 1130 220s212 53 350-86" />
               <path className="cinematic-loader__path-trail" pathLength="1" d="M-40 316C184 120 348 354 568 238S919 91 1130 220s212 53 350-86" />
             </svg>
-            <div className="cinematic-loader__coordinates cinematic-loader__coordinates--left" aria-hidden="true">40.7128° N&nbsp;&nbsp;•&nbsp;&nbsp;74.0060° W</div>
-            <div className="cinematic-loader__coordinates cinematic-loader__coordinates--right" aria-hidden="true">ESTABLISHING ROUTE&nbsp;&nbsp;01 / 01</div>
+            <div className="cinematic-loader__coordinates cinematic-loader__coordinates--left" aria-hidden="true">RLM · AERIAL VISUALS</div>
+            <div className="cinematic-loader__coordinates cinematic-loader__coordinates--right" aria-hidden="true">ROUTE READY · 01 / 01</div>
             <div className="cinematic-loader__progress" aria-hidden="true"><span /></div>
-          </motion.div>
+          </div>
         ) : null}
-      </AnimatePresence>
 
       <div className="site-shell site-shell--clean" ref={rootRef}>
         <div className="reading-progress" aria-hidden="true">
@@ -502,8 +495,8 @@ function App() {
             >
               <div className="hero-visual-frame">
                 <img
-                  src="https://images.unsplash.com/photo-1476231682828-37e571bc172f?auto=format&fit=crop&w=2200&q=90"
-                  alt="Aerial view of a road running through dense green woodland"
+                  src="/dream-big-drones-hero.png"
+                  alt="Dream Big Drones aircraft with visions of global landmarks"
                   fetchPriority="high"
                 />
               </div>

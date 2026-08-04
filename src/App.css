@@ -1644,3 +1644,71 @@ nav > a:hover::after, nav > a:focus-visible::after { transform: scaleX(1); }
   .cinematic-loader__logo-frame,
   .cinematic-loader__caption { animation: none; opacity: 1; transform: none; }
 }
+
+/* Loader v2: a single, logo-led flight brief with no competing intro state. */
+.cinematic-loader {
+  background: #f7f4ee;
+}
+
+.cinematic-loader__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 24%, rgb(16 44 70 / 0.1) 100%);
+  pointer-events: none;
+}
+
+.cinematic-loader__grid {
+  opacity: 0.22;
+  animation: loader-grid-settle 1.45s ease-out both;
+}
+
+.cinematic-loader__identity { gap: 14px; }
+
+.cinematic-loader__logo-frame {
+  width: min(68vw, 580px);
+  min-height: 0;
+  padding: clamp(16px, 2vw, 26px) clamp(20px, 3vw, 38px);
+  border-color: rgb(16 44 70 / 0.18);
+  box-shadow: 0 28px 80px rgb(16 44 70 / 0.15), inset 0 0 0 5px rgb(255 255 255 / 0.82);
+  animation: loader-card-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.cinematic-loader__official-logo {
+  width: min(100%, 500px);
+  animation: none;
+}
+
+.cinematic-loader__caption {
+  animation: loader-caption-in 0.42s ease-out 0.32s both;
+}
+
+.cinematic-loader__flightpath {
+  bottom: 17%;
+  opacity: 0.72;
+}
+
+.cinematic-loader__path-draw { animation-duration: 1.35s; }
+.cinematic-loader__path-trail { animation-duration: 1.28s; animation-delay: 0.1s; }
+.cinematic-loader__progress span { animation-duration: 1.28s; animation-delay: 0.1s; }
+
+.cinematic-loader__status { animation-delay: 0.1s; }
+.cinematic-loader__coordinates--left { animation-delay: 0.42s; }
+.cinematic-loader__coordinates--right { animation-delay: 0.52s; }
+
+.hero-visual-frame {
+  width: min(100%, 760px);
+  aspect-ratio: 1.25;
+  background: var(--paper-deep);
+}
+
+.hero-visual-frame img { object-position: center; }
+
+@keyframes loader-grid-settle {
+  from { opacity: 0; transform: scale(1.04); }
+  to { opacity: 0.22; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-loader__vignette { display: none; }
+  .cinematic-loader__grid { animation: none; }
+}
