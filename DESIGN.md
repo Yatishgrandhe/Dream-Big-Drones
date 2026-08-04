@@ -180,6 +180,8 @@ Accepted debt:
 - The supplied browser screenshot is the structural reference: a legible brand header, cinematic hero, editorial media stage, solution cards, and a utilitarian contact/footer ending. It is not a visual style to copy; the new surface replaces its dated cards and cramped proportions with a spacious navy, sand, and copper editorial system.
 - The supplied original `dream-big-drones-hero.png` is the official hero/logo artwork. It is never recolored, stretched, cropped, or replaced with an invented drone mark. `dream-big-drones-logo.png` remains the clean wordmark treatment for navigation and footer surfaces.
 - Signature moment: a single logo-led launch brief. It paints as one complete scene from the first frame, then fades away; no preliminary logo flash, competing animation, or second loader is permitted.
+- August 2026 visual correction: `dream-big-drones-hero.png` is a complete illustrated brand scene (drone, destination bubbles, stonework sign, sky, and park), not just a wordmark. The global tone now takes its cues from that scene: sky blue, deep blue-green, leaf green, weathered limestone, warm copper, and the logo's jewel-like cyan/red/gold details. The homepage hero is always full-bleed art with an accessible navy gradient for copy—never a split stock-photo panel with the artwork reduced to a floating card.
+- The loader begins with the official brand artwork at full stage scale, has one brief focus/settle motion, and dissolves directly into the matching homepage hero. It does not introduce a disconnected card or secondary logo treatment.
 
 ### Route grammar
 
