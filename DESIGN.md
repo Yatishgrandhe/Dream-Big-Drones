@@ -136,6 +136,12 @@ Layout direction:
 
 ## 6. Motion
 
+### Navigation control
+
+- The mobile navigation reveals as one contained flight-deck panel: its surface settles first over 780ms, followed by 80ms-spaced links and the quote action last. The header remains above the panel so the close control is always visible.
+- While the panel is open, document scrolling is locked. Escape closes the panel and returns keyboard focus to the trigger; selecting any route closes it before the page-travel overlay begins.
+- Reduced-motion users receive the same complete navigation state without staged movement.
+
 - Cinematic flight-path loading moment on a warm white stage: the travel line resolves into a low horizon, then cloud-cover-like upward dissolve reveals the hero.
 - Navigation and eyebrow fade up on load; the hero claim enters line-by-line with a 500–900ms upward blur-to-sharp reveal. The hero image settles from `scale(1.04)` to `scale(1)` over 1.8 seconds.
 - GSAP handles scoped, intersection-driven section reveals, the reading-progress scale, a restrained gallery media parallax, and the process route-line draw. It must not animate layout properties. Below 768px, it uses only short opacity / 12–16px translateY reveals; parallax, grain drift, and large image-scale entrances are disabled.

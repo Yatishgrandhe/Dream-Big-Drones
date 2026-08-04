@@ -47,13 +47,42 @@ const fleet = [
 function go(path) { window.history.pushState({}, '', path); window.dispatchEvent(new PopStateEvent('popstate')) }
 function Link({ to, children, className = '', onClick }) { return <a className={className} href={to} onClick={(e) => { if (to.startsWith('#')) return; e.preventDefault(); onClick?.(); window.dispatchEvent(new CustomEvent('dbd:navigate', { detail: { path: to, returnHome: to === '/' } })) }} onPointerMove={(e) => { if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return; const box = e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--mx', `${(e.clientX - box.left - box.width / 2) * .12}px`); e.currentTarget.style.setProperty('--my', `${(e.clientY - box.top - box.height / 2) * .12}px`) }} onPointerLeave={(e) => { e.currentTarget.style.setProperty('--mx', '0px'); e.currentTarget.style.setProperty('--my', '0px') }}>{children}</a> }
 function BrandLogo({ compact = false }) { return <img className={compact ? 'brand-logo compact' : 'brand-logo'} src="/dream-big-drones-nav-logo.png" alt="Dream Big Drones by RLM official logo" /> }
-function Action({ to = '/contact', children, quiet = false }) { return <Link to={to} className={`action ${quiet ? 'action-quiet' : ''}`}>{children}<ArrowRight size={16} aria-hidden="true" /></Link> }
+function Action({ to = '/contact', children, quiet = false, onClick }) { return <Link to={to} onClick={onClick} className={`action ${quiet ? 'action-quiet' : ''}`}>{children}<ArrowRight size={16} aria-hidden="true" /></Link> }
 
 function Loader({ complete }) { const reduced = useReducedMotion(); return <AnimatePresence>{!complete && <motion.div className="loader" initial={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: reduced ? .12 : .38 } }} aria-label="Loading Dream Big Drones">
   <motion.img className="loader-art" src="/dream-big-drones-hero.png" alt="" initial={{ opacity: .68, scale: reduced ? 1 : 1.06 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: reduced ? .01 : 1.1 }} /><div className="loader-shade" /><motion.div className="loader-card" initial={{ opacity: 0, y: reduced ? 0 : 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? .01 : .42 }}><span>Dream Big Drones by RLM</span><strong>Preparing your aerial perspective</strong><motion.i initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: reduced ? .01 : 1.08, delay: .1 }} /></motion.div>
 </motion.div>}</AnimatePresence> }
 
-function Header({ path }) { const [open, setOpen] = useState(false); useEffect(() => { setOpen(false) }, [path]); return <header className="site-header"><Link to="/" className="logo-link"><BrandLogo /></Link><button className="menu-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="primary-nav">{open ? <X /> : <Menu />}<span className="sr-only">Toggle menu</span></button><nav id="primary-nav" className={open ? 'open' : ''} aria-label="Primary navigation">{routes.map(([to, label]) => <Link key={to} to={to} className={path === to ? 'active nav-link' : 'nav-link'}>{label}{path === to && <motion.i className="nav-travel" layoutId="nav-travel" transition={{ type: 'spring', stiffness: 320, damping: 30 }} />}</Link>)}<Action to="/contact">Request a quote</Action></nav></header> }
+function Header({ path }) {
+  const [open, setOpen] = useState(false)
+  const menuButtonRef = useRef(null)
+  useEffect(() => { setOpen(false) }, [path])
+  useEffect(() => {
+    if (!open) return
+    const previousOverflow = document.body.style.overflow
+    const closeWithEscape = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+        menuButtonRef.current?.focus()
+      }
+    }
+    document.body.style.overflow = 'hidden'
+    addEventListener('keydown', closeWithEscape)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      removeEventListener('keydown', closeWithEscape)
+    }
+  }, [open])
+  const closeMenu = () => setOpen(false)
+  return <header className="site-header">
+    <Link to="/" className="logo-link" onClick={closeMenu}><BrandLogo /></Link>
+    <button ref={menuButtonRef} className="menu-button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="primary-nav">{open ? <X /> : <Menu />}<span className="sr-only">Toggle menu</span></button>
+    <nav id="primary-nav" className={open ? 'open' : ''} aria-label="Primary navigation" aria-hidden={!open && undefined}>
+      {routes.map(([to, label]) => <Link key={to} to={to} onClick={closeMenu} className={path === to ? 'active nav-link' : 'nav-link'}>{label}{path === to && <motion.i className="nav-travel" layoutId="nav-travel" transition={{ duration: .45, ease: [0.22, 1, 0.36, 1] }} />}</Link>)}
+      <Action to="/contact" onClick={closeMenu}>Request a quote</Action>
+    </nav>
+  </header>
+}
 function Reveal({ children, delay = 0, className = '' }) { const reduced = useReducedMotion(); return <motion.div className={className} initial={reduced ? false : { opacity: 0, y: 22, filter: 'blur(6px)' }} whileInView={reduced ? {} : { opacity: 1, y: 0, filter: 'blur(0px)' }} viewport={{ once: true, amount: .16 }} transition={{ duration: .62, delay, ease: [0.22, 1, 0.36, 1] }}>{children}</motion.div> }
 function HomeHero({ kicker, title, copy, children }) { return <section className="page-hero"><img className="hero-brand-art" src="/dream-big-drones-hero.png" alt="Dream Big Drones by RLM drone and world-imagery artwork" fetchPriority="high" /><div className="hero-shade" /><motion.div className="hero-copy" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .75, delay: .15, ease: [0.22, 1, 0.36, 1] }}><p className="eyebrow">{kicker}</p><h1 className="hero-headline">{title.split(' ').map((word, index) => <span className="hero-word" key={`${word}${index}`}>{word}&nbsp;</span>)}</h1><p>{copy}</p>{children}</motion.div><p className="hero-caption">Dream Big Drones <i>by RLM</i></p></section> }
 function PageMasthead({ kicker, title, copy, image }) { return <section className="page-masthead"><div className="masthead-copy"><p className="eyebrow">{kicker}</p><h1>{title}</h1><p>{copy}</p></div><motion.img src={image} alt="Aerial project context" initial={{ opacity: 0, scale: 1.05 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .8, ease: [0.22, 1, 0.36, 1] }} /></section> }
