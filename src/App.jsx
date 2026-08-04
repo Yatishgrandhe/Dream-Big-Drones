@@ -180,7 +180,7 @@ function App() {
 
   useEffect(() => {
     if (!isLoading) return undefined
-    const timer = window.setTimeout(() => setIsLoading(false), prefersReducedMotion ? 250 : 1800)
+    const timer = window.setTimeout(() => setIsLoading(false), prefersReducedMotion ? 250 : 2100)
     return () => window.clearTimeout(timer)
   }, [isLoading, prefersReducedMotion])
 
@@ -306,7 +306,7 @@ function App() {
             duration: 1.2,
             ease: 'power2.out',
             scrollTrigger: {
-              trigger: '.process-clean',
+              trigger: '.process-list--about',
               start: 'top 72%',
               once: true,
             },
@@ -314,14 +314,17 @@ function App() {
         )
       }
 
-      gsap.to(scope.querySelectorAll('[data-float]'), {
-        yPercent: -6,
-        duration: 4.4,
-        repeat: -1,
-        yoyo: true,
-        stagger: 0.35,
-        ease: 'sine.inOut',
-      })
+      const floatTargets = scope.querySelectorAll('[data-float]')
+      if (floatTargets.length) {
+        gsap.to(floatTargets, {
+          yPercent: -6,
+          duration: 4.4,
+          repeat: -1,
+          yoyo: true,
+          stagger: 0.35,
+          ease: 'sine.inOut',
+        })
+      }
 
       mm.add('(min-width: 768px)', () => {
         const heroVisual = scope.querySelector('.hero-visual-shell img')
@@ -385,19 +388,29 @@ function App() {
             exit={{ opacity: 0, y: -72, filter: 'blur(8px)', transition: { duration: prefersReducedMotion ? 0.25 : 0.62, ease: [0.22, 1, 0.36, 1] } }}
             aria-label="Loading Dream Big Drones"
           >
+            <div className="cinematic-loader__grid" aria-hidden="true" />
             <div className="cinematic-loader__grain" aria-hidden="true" />
-            <BrandLogo className="cinematic-loader__official-logo" />
-            <svg className="cinematic-loader__flightpath" viewBox="0 0 1200 260" role="presentation" aria-hidden="true">
-              <path className="cinematic-loader__path-base" d="M-40 172C240 42 432 232 650 162S996 86 1240 146" />
-              <path className="cinematic-loader__path-trail" pathLength="1" d="M-40 172C240 42 432 232 650 162S996 86 1240 146" />
-              <path className="cinematic-loader__path-draw" pathLength="1" d="M-40 172C240 42 432 232 650 162S996 86 1240 146" />
-              <circle className="cinematic-loader__drone-point" r="5">
-                {!prefersReducedMotion ? (
-                  <animateMotion dur="1.72s" begin="0.18s" fill="freeze" path="M-40 172C240 42 432 232 650 162S996 86 1240 146" />
-                ) : null}
-              </circle>
+            <div className="cinematic-loader__corner cinematic-loader__corner--north" aria-hidden="true" />
+            <div className="cinematic-loader__corner cinematic-loader__corner--south" aria-hidden="true" />
+            <div className="cinematic-loader__status" aria-hidden="true">
+              <span className="cinematic-loader__status-dot" />
+              Flight brief loading
+            </div>
+            <div className="cinematic-loader__identity">
+              <div className="cinematic-loader__logo-frame">
+                <div className="cinematic-loader__logo-sheen" aria-hidden="true" />
+                <BrandLogo className="cinematic-loader__official-logo" />
+              </div>
+              <p className="cinematic-loader__caption">Aerial stories, thoughtfully mapped.</p>
+            </div>
+            <svg className="cinematic-loader__flightpath" viewBox="0 0 1440 440" role="presentation" aria-hidden="true">
+              <path className="cinematic-loader__path-base" d="M-40 316C184 120 348 354 568 238S919 91 1130 220s212 53 350-86" />
+              <path className="cinematic-loader__path-draw" pathLength="1" d="M-40 316C184 120 348 354 568 238S919 91 1130 220s212 53 350-86" />
+              <path className="cinematic-loader__path-trail" pathLength="1" d="M-40 316C184 120 348 354 568 238S919 91 1130 220s212 53 350-86" />
             </svg>
-            <div className="cinematic-loader__horizon" aria-hidden="true" />
+            <div className="cinematic-loader__coordinates cinematic-loader__coordinates--left" aria-hidden="true">40.7128° N&nbsp;&nbsp;•&nbsp;&nbsp;74.0060° W</div>
+            <div className="cinematic-loader__coordinates cinematic-loader__coordinates--right" aria-hidden="true">ESTABLISHING ROUTE&nbsp;&nbsp;01 / 01</div>
+            <div className="cinematic-loader__progress" aria-hidden="true"><span /></div>
           </motion.div>
         ) : null}
       </AnimatePresence>

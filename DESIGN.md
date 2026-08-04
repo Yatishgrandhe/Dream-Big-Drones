@@ -129,10 +129,10 @@ Layout direction:
 
 ### Cinematic Flight-Path Loader
 
-- Desktop-only white prelude under 1.8 seconds with the supplied compact flight-path mark followed by the supplied full wordmark.
-- Structure: a restrained navy/gold SVG route behind the official logo. No counters, spinners, or sound treatment.
+- Desktop-only warm-white flight briefing, under 2.1 seconds, with the supplied unaltered full logo centered inside a white framed presentation card.
+- Structure: a fine navy coordinate grid, restrained editorial flight route, short status line, and a single gold progress rail. This is a branded prelude, not a spinner or a generic loading screen.
 - States: desktop normal journey; reduced-motion 250ms fade. It is omitted below 768px.
-- Motion: SVG stroke-dashoffset draws the path/trail, the tracking point follows the curve, and the overlay exits via transform, opacity, and filter only.
+- Motion: SVG stroke-dashoffset draws the route and a gold trailing segment; logo-frame sheen, progress rail, and overlay exit use transform, opacity, and filter only.
 
 ## 6. Motion
 
