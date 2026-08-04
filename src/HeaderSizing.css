@@ -9,6 +9,6 @@
   :root{--dbd-header-height:68px}
   .site-header{height:var(--dbd-header-height);min-height:var(--dbd-header-height);padding-block:0}
   .site-header .brand-logo{width:112px;height:68px}
-  .site-header nav{inset:var(--dbd-header-height) 0 auto}
+  .site-header nav{inset:var(--dbd-header-height) 0 auto;flex-direction:column;max-height:calc(100dvh - var(--dbd-header-height));overflow-y:auto;overscroll-behavior:contain}
   .page-hero,.hero-copy{min-height:calc(100svh - var(--dbd-header-height))}
 }
