@@ -185,6 +185,7 @@ Accepted debt:
 - Route hierarchy correction: only Home uses the full-viewport illustrated brand hero. Inner routes use compact, individually art-directed mastheads with their own content image, information density, and task-oriented headline. This preserves the homepage as the signature moment and makes route changes feel intentional.
 - Motion correction: section content enters only when it becomes relevant in the viewport; cards stagger in as a related group, images settle from a subtle scale, and interactive panels transition only when their state changes. Every sequence uses opacity, transform, and filter; reduced-motion users receive fully visible static content.
 - Brand asset correction: the navigation, footer, and browser-tab icon use `dream-big-drones-hero.png`, the owner-confirmed official logo artwork. It stays at its native 16:9 proportion in contained branded frames.
+- Motion system upgrade: GSAP + ScrollTrigger owns page travel, image parallax, route-line drawing, and footer landing. Navigation uses a navy flight overlay with the current Dream Big Drones logo as its central altitude-change object; it is bypassed under reduced motion. Motion duration stays between 0.45–0.9s and only transforms, opacity, filter, and clip-path are animated.
 
 ### Route grammar
 
