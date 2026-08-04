@@ -152,14 +152,19 @@ function App() {
 
   const hideGalleryCursor = () => galleryCursorRef.current?.classList.remove('gallery-cursor--visible')
 
+  const getSectionScrollPosition = (target) => {
+    const headerHeight = document.querySelector('.site-header--clean')?.offsetHeight ?? 64
+    const breathingRoom = window.innerWidth < 768 ? 112 : 220
+    return Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerHeight - breathingRoom)
+  }
+
   const navigateToSection = (event, id) => {
     event.preventDefault()
     const target = document.getElementById(id)
     if (!target) return
-    const offset = 120
     window.history.pushState(null, '', `#${id}`)
     setActiveSection(id)
-    window.scrollTo({ top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - offset), behavior: 'smooth' })
+    window.scrollTo({ top: getSectionScrollPosition(target), behavior: 'smooth' })
     setMenuOpen(false)
   }
 
@@ -179,7 +184,10 @@ function App() {
     if (isLoading) return undefined
     const targetId = window.location.hash.slice(1)
     if (!navigation.some(([id]) => id === targetId)) return undefined
-    const frame = window.requestAnimationFrame(() => document.getElementById(targetId)?.scrollIntoView())
+    const frame = window.requestAnimationFrame(() => {
+      const target = document.getElementById(targetId)
+      if (target) window.scrollTo({ top: getSectionScrollPosition(target), behavior: 'auto' })
+    })
     return () => window.cancelAnimationFrame(frame)
   }, [isLoading])
 
@@ -461,6 +469,7 @@ function App() {
                 <motion.a
                   className="secondary-action"
                   href="#portfolio"
+                  onClick={(event) => navigateToSection(event, 'portfolio')}
                   whileHover={prefersReducedMotion ? undefined : { x: 4 }}
                   whileTap={{ scale: 0.985 }}
                 >
