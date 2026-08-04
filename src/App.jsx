@@ -154,8 +154,8 @@ function App() {
 
   const getSectionScrollPosition = (target) => {
     const headerHeight = document.querySelector('.site-header--clean')?.offsetHeight ?? 64
-    const breathingRoom = window.innerWidth < 768 ? 112 : 220
-    return Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerHeight - breathingRoom)
+    const headerGap = window.innerWidth < 768 ? 16 : 24
+    return Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerHeight - headerGap)
   }
 
   const navigateToSection = (event, id) => {
