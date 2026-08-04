@@ -38,7 +38,7 @@ const fleet = [
 
 function go(path) { window.history.pushState({}, '', path); window.dispatchEvent(new PopStateEvent('popstate')) }
 function Link({ to, children, className = '', onClick }) { return <a className={className} href={to} onClick={(e) => { e.preventDefault(); onClick?.(); go(to) }}>{children}</a> }
-function BrandLogo({ compact = false }) { return <img className={compact ? 'brand-logo compact' : 'brand-logo'} src="/dream-big-drones-hero.png" alt="Dream Big Drones by RLM official brand artwork" /> }
+function BrandLogo({ compact = false }) { return <img className={compact ? 'brand-logo compact' : 'brand-logo'} src="/dream-big-drones-nav-logo.png" alt="Dream Big Drones by RLM official logo" /> }
 function Action({ to = '/contact', children, quiet = false }) { return <Link to={to} className={`action ${quiet ? 'action-quiet' : ''}`}>{children}<ArrowRight size={16} aria-hidden="true" /></Link> }
 
 function Loader({ complete }) { const reduced = useReducedMotion(); return <AnimatePresence>{!complete && <motion.div className="loader" initial={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: reduced ? .12 : .38 } }} aria-label="Loading Dream Big Drones">
