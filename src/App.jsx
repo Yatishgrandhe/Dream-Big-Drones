@@ -447,12 +447,11 @@ function HomeHero({ kicker, title, copy, children }) {
     </section>
   );
 }
-function PageMasthead({ kicker, title, copy, image, index }) {
+function PageMasthead({ kicker, title, copy, image }) {
   const desktopMotion = useDesktopMotionEnabled();
   return (
     <section className="page-masthead">
       <div className="masthead-copy">
-        {index && <span className="masthead-index" aria-hidden="true">{index}</span>}
         <p className="eyebrow">{kicker}</p>
         <h1>{title}</h1>
         <p>{copy}</p>
@@ -635,7 +634,6 @@ function Solutions() {
   return (
     <>
       <PageMasthead
-        index="01"
         kicker="Solutions"
         title="Aerial capability, shaped to the work."
         copy="A considered set of drone and visual-documentation services designed to clarify a site, show progress, or tell a stronger location story."
@@ -663,7 +661,6 @@ function Fleet() {
   return (
     <>
       <PageMasthead
-        index="02"
         kicker="Drone fleet"
         title="The right platform for a confident perspective."
         copy="Aircraft details shown here are editable placeholders until final fleet specifications are supplied. Each card keeps the essential operational conversation easy to compare."
@@ -763,7 +760,6 @@ function Portfolio() {
   return (
     <>
       <PageMasthead
-        index="03"
         kicker="Portfolio"
         title="A portfolio designed for the details that change the story."
         copy="Filter by assignment, then open a project to review its visual brief, location context, and intended deliverables."
@@ -894,7 +890,6 @@ function Support() {
   return (
     <>
       <PageMasthead
-        index="04"
         kicker="Service & support"
         title="A clear path from first brief to final handoff."
         copy="The working process stays practical: plan the capture, make the flight, organize the files, and keep communication easy when the project needs follow-up."
@@ -1043,7 +1038,6 @@ function Contact() {
   return (
     <>
       <PageMasthead
-        index="06"
         kicker="Contact & project intake"
         title="Tell us what needs a better view."
         copy="Share the location, scope, and timing. The detailed project intake helps us begin with the right questions."
