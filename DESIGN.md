@@ -156,7 +156,8 @@ Layout direction:
 
 ### Desktop editorial motion layer
 
-- Desktop motion is loaded only after a `min-width: 1024px` media query passes and is kept in a separate GSAP chunk. Mobile and reduced-motion visitors never request GSAP, ScrollTrigger, or Flip.
+- Desktop motion is loaded only after a `min-width: 1024px` media query passes and is kept in a separate Anime.js 4.5 chunk. Mobile and reduced-motion visitors never request the complex animation controller.
+- Motion tokens: feedback `120–180ms`; controls `180–260ms`; small reveals `350–550ms`; section scenes `600–850ms`; hero scenes `900–1200ms`; primary ease `out(4)` with `inOut(3)` reserved for route drawing and page travel.
 - The visual grammar borrows only interaction principles from the supplied NESH reference: masked headings, changing directional entrances, oversized route indices, image stages that reveal through a crop, and a single continuous navigation flight. It does not reuse reference assets, markup, copy, or source.
 - Each route has one story-specific moment: shuttered solution rows, technical fleet scans, FLIP portfolio filtering, a support process line, connected About principles, and restrained grouped Contact intake. Repeated generic fade-ups are prohibited.
 - The desktop scenes must read as a deliberate moment at normal scroll speed: Home gets an oversized launch-scale editorial reveal; Solutions uses alternating camera shutters; Fleet exposes a scanning specification sequence; Portfolio uses a filter-led FLIP choreography; Support carries a calm line through its FAQ; About resolves principles into a route; Contact concentrates attention into a staged intake approach.
