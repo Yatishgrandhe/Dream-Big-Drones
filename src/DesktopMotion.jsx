@@ -147,6 +147,14 @@ export default function DesktopMotion({ rootRef, path }) {
         inView(root.querySelectorAll(".principles p"), { x: 64, y: 0, stagger: 0.18 });
         const image = root.querySelector(".about-grid > div > img");
         if (image) gsap.to(image, { yPercent: -8, ease: "none", scrollTrigger: { trigger: image, start: "top 85%", end: "bottom 20%", scrub: 0.8 } });
+        const statement = root.querySelector(".about-statement");
+        if (statement) {
+          gsap.from(statement.querySelector("h2"), { clipPath: "inset(0 0 100% 0)", y: 80, duration: 1.05, ease: "power4.out", scrollTrigger: { trigger: statement, start: "top 74%", once: true } });
+          gsap.from(statement.querySelector(":scope > p"), { opacity: 0, x: 38, duration: 0.75, ease: "power3.out", scrollTrigger: { trigger: statement, start: "top 74%", once: true } });
+        }
+        const stage = root.querySelector(".about-image-stage img");
+        if (stage) gsap.fromTo(stage, { clipPath: "inset(0 45% 0 45%)", scale: 1.16 }, { clipPath: "inset(0)", scale: 1, duration: 1.15, ease: "power4.out", scrollTrigger: { trigger: stage, start: "top 78%", once: true } });
+        inView(root.querySelectorAll(".about-notes article"), { x: 42, y: 0, stagger: 0.14 });
       }
       if (path === "/contact") {
         inView(root.querySelectorAll(".contact-layout > *"), { y: 58, stagger: 0.2 });

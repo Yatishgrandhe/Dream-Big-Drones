@@ -121,6 +121,10 @@ Layout direction:
 - Portfolio: the large lead / two supporting image composition is the most expressive visual moment.
 - Contact: a validated inquiry form plus one secondary external Calendly call-to-action, quoted as custom after the introductory call.
 
+### About narrative extension
+
+- The About masthead remains free of decorative route numerals so the company point of view leads. Its body follows a three-part editorial rhythm: an approach image and principles, a dark point-of-view statement, then a field-perspective image with concise working notes and a project-brief conversion. This adds depth without inventing credentials, scale claims, or client names.
+
 ### Official Brand Assets
 
 - Use `dream-big-drones-logo.png` for desktop/mobile navigation, the hero anchor, and footer.

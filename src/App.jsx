@@ -452,7 +452,7 @@ function PageMasthead({ kicker, title, copy, image, index }) {
   return (
     <section className="page-masthead">
       <div className="masthead-copy">
-        <span className="masthead-index" aria-hidden="true">{index}</span>
+        {index && <span className="masthead-index" aria-hidden="true">{index}</span>}
         <p className="eyebrow">{kicker}</p>
         <h1>{title}</h1>
         <p>{copy}</p>
@@ -965,7 +965,6 @@ function About() {
   return (
     <>
       <PageMasthead
-        index="05"
         kicker="About Dream Big Drones"
         title="A more thoughtful view of every site."
         copy="Dream Big Drones by RLM brings a client-focused aerial approach to property, documentation, media, and location-led storytelling."
@@ -1008,6 +1007,34 @@ function About() {
             <FlightRoute label="Mission route · 01 / 03" />
           </div>
         </Reveal>
+      </section>
+      <section className="about-statement">
+        <div>
+          <p className="eyebrow">The point of view</p>
+          <h2>Aerial work should make a place easier to understand before it asks for attention.</h2>
+        </div>
+        <p>
+          The best aerial perspective is not simply higher—it is more useful.
+          Dream Big Drones by RLM approaches each location with a clear brief,
+          a considered flight plan, and respect for the people who will rely on
+          the finished visual work.
+        </p>
+      </section>
+      <section className="about-fieldwork section">
+        <div className="about-image-stage">
+          <img src={visual.coast} alt="Aerial view of a coastline and water" loading="lazy" />
+          <span>Field perspective</span>
+        </div>
+        <div className="about-fieldwork-copy">
+          <p className="eyebrow">How we work</p>
+          <h2>Thoughtful from the first coordinate to the final file.</h2>
+          <div className="about-notes">
+            <article><b>Brief the purpose</b><p>Start with what the visual needs to help someone see, decide, or communicate.</p></article>
+            <article><b>Plan the perspective</b><p>Shape the capture around the site, its conditions, and the information that matters.</p></article>
+            <article><b>Hand off with clarity</b><p>Deliver an organized visual set that is ready for the next conversation.</p></article>
+          </div>
+          <Action to="/contact">Start a project brief</Action>
+        </div>
       </section>
     </>
   );
