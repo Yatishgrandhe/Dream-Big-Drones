@@ -1,6 +1,9 @@
 /* Route-specific hierarchy and purposeful motion. */
 .page-masthead{display:grid;grid-template-columns:minmax(0,.88fr) minmax(380px,1.12fr);min-height:380px;border-bottom:1px solid var(--dbd-line);background:linear-gradient(125deg,#eef3ed,#dbe7e3)}
 .masthead-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:clamp(54px,7vw,100px) clamp(24px,7vw,120px)}
+.masthead-index{position:absolute;right:clamp(2rem,6vw,8rem);bottom:-.22em;z-index:0;color:rgb(40 124 137/.12);font-family:Georgia,serif;font-size:clamp(8rem,20vw,21rem);line-height:.75;letter-spacing:-.12em;pointer-events:none;will-change:transform}
+.masthead-copy{position:relative;isolation:isolate;overflow:hidden}
+.masthead-copy>*:not(.masthead-index){position:relative;z-index:1}
 .masthead-copy h1{max-width:12ch;margin:0;color:var(--dbd-navy);font-family:Georgia,serif;font-size:clamp(2.7rem,4.4vw,5rem);font-weight:400;line-height:.96;letter-spacing:-.055em}
 .masthead-copy>p:not(.eyebrow){max-width:52ch;margin:22px 0 0;color:var(--dbd-slate);line-height:1.65}
 .page-masthead>img{width:100%;height:100%;min-height:380px;object-fit:cover;opacity:1!important;visibility:visible!important;filter:saturate(.84) contrast(1.03)}
@@ -18,9 +21,11 @@
 /* A shared editorial route primitive: it is a composed illustration, not a decorative divider. */
 .flight-route{position:relative;overflow:hidden;width:min(100% - 48px,1240px);height:clamp(108px,13vw,170px);margin:0 auto;color:var(--dbd-copper)}
 .flight-route span{position:absolute;z-index:1;top:18px;left:0;font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-.flight-route svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.flight-route-base{fill:none;stroke:rgb(40 124 137/.17);stroke-width:1.5}.flight-route-draw{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}.flight-route-origin{fill:var(--dbd-navy)}.flight-route-destination{fill:var(--dbd-copper)}
+.flight-route svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.flight-route-base{fill:none;stroke:rgb(40 124 137/.17);stroke-width:1.5}.flight-route-draw{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}.flight-route-origin{fill:var(--dbd-navy)}.flight-route-waypoint{fill:#fff;stroke:var(--dbd-copper);stroke-width:3;filter:drop-shadow(0 0 6px rgb(217 144 39/.55))}.flight-route-destination{fill:var(--dbd-copper)}
+.masthead-copy h1,.section-head h2,.flight-route-draw,.solution-card img,.fleet-card dl,.contact-form .form-field{will-change:transform,opacity}
 .about-grid .flight-route{width:100%;height:116px;margin-top:26px}.proof-strip+.flight-route{margin-top:-68px;pointer-events:none}.proof-strip+.flight-route span{color:#e7b264}.proof-strip+.flight-route .flight-route-base{stroke:rgb(255 255 255/.18)}.proof-strip+.flight-route .flight-route-origin{fill:#fff}.proof-strip+.flight-route .flight-route-destination{fill:#e7b264}
-@media(max-width:1023px){.flight-route{display:none}}
+.contact-layout .flight-route{width:100%;height:92px;margin-top:18px}.telemetry-line{display:block;width:100%;height:66px;margin-top:30px;overflow:visible}.telemetry-base{fill:none;stroke:rgb(40 124 137/.18);stroke-width:1.4}.telemetry-draw{fill:none;stroke:var(--dbd-copper);stroke-width:2;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}.project-arrow{position:absolute;z-index:1;right:20px;bottom:19px;opacity:0;transform:translateX(-10px);transition:transform .22s ease,opacity .22s ease}.project-card:hover .project-arrow,.project-card:focus-visible .project-arrow{opacity:1;transform:translateX(0)}
+@media(max-width:1023px){.flight-route,.telemetry-line{display:none}.project-arrow{display:none}}
 
 @media (max-width: 1100px) and (min-width: 681px) {
   .site-header { padding-inline: 24px; }

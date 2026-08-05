@@ -447,11 +447,12 @@ function HomeHero({ kicker, title, copy, children }) {
     </section>
   );
 }
-function PageMasthead({ kicker, title, copy, image }) {
+function PageMasthead({ kicker, title, copy, image, index }) {
   const desktopMotion = useDesktopMotionEnabled();
   return (
     <section className="page-masthead">
       <div className="masthead-copy">
+        <span className="masthead-index" aria-hidden="true">{index}</span>
         <p className="eyebrow">{kicker}</p>
         <h1>{title}</h1>
         <p>{copy}</p>
@@ -477,9 +478,18 @@ function FlightRoute({ label = "Flight route" }) {
         <path className="flight-route-base" d="M0 126 C150 18 262 184 424 92 S693 20 804 102 S1026 158 1200 46" />
         <path className="flight-route-draw" d="M0 126 C150 18 262 184 424 92 S693 20 804 102 S1026 158 1200 46" />
         <circle className="flight-route-origin" cx="0" cy="126" r="7" />
+        <circle className="flight-route-waypoint" cx="0" cy="126" r="5" />
         <circle className="flight-route-destination" cx="1200" cy="46" r="7" />
       </svg>
     </div>
+  );
+}
+function TelemetryLine() {
+  return (
+    <svg className="telemetry-line" viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true">
+      <path className="telemetry-base" d="M0 52 H72 L105 22 L138 56 L203 36 L256 58 L322 16 L365 49 L432 28 L494 55 H600" />
+      <path className="telemetry-draw" d="M0 52 H72 L105 22 L138 56 L203 36 L256 58 L322 16 L365 49 L432 28 L494 55 H600" />
+    </svg>
   );
 }
 function Footer() {
@@ -625,6 +635,7 @@ function Solutions() {
   return (
     <>
       <PageMasthead
+        index="01"
         kicker="Solutions"
         title="Aerial capability, shaped to the work."
         copy="A considered set of drone and visual-documentation services designed to clarify a site, show progress, or tell a stronger location story."
@@ -652,6 +663,7 @@ function Fleet() {
   return (
     <>
       <PageMasthead
+        index="02"
         kicker="Drone fleet"
         title="The right platform for a confident perspective."
         copy="Aircraft details shown here are editable placeholders until final fleet specifications are supplied. Each card keeps the essential operational conversation easy to compare."
@@ -671,6 +683,7 @@ function Fleet() {
             </Reveal>
           ))}
         </div>
+        <TelemetryLine />
       </section>
     </>
   );
@@ -750,6 +763,7 @@ function Portfolio() {
   return (
     <>
       <PageMasthead
+        index="03"
         kicker="Portfolio"
         title="A portfolio designed for the details that change the story."
         copy="Filter by assignment, then open a project to review its visual brief, location context, and intended deliverables."
@@ -794,6 +808,7 @@ function Portfolio() {
                 <span>{project[1]}</span>
                 <strong>{project[0]}</strong>
                 <i>{project[3]}</i>
+                <ArrowRight className="project-arrow" size={18} aria-hidden="true" />
               </button>
             </Reveal>
           ))}
@@ -879,6 +894,7 @@ function Support() {
   return (
     <>
       <PageMasthead
+        index="04"
         kicker="Service & support"
         title="A clear path from first brief to final handoff."
         copy="The working process stays practical: plan the capture, make the flight, organize the files, and keep communication easy when the project needs follow-up."
@@ -907,6 +923,7 @@ function Support() {
             </ul>
             <Action>Contact support</Action>
           </div>
+          <FlightRoute label="Support route · 01 / 04" />
         </Reveal>
         <Reveal delay={0.1}>
           <Faq questions={questions} />
@@ -948,6 +965,7 @@ function About() {
   return (
     <>
       <PageMasthead
+        index="05"
         kicker="About Dream Big Drones"
         title="A more thoughtful view of every site."
         copy="Dream Big Drones by RLM brings a client-focused aerial approach to property, documentation, media, and location-led storytelling."
@@ -998,6 +1016,7 @@ function Contact() {
   return (
     <>
       <PageMasthead
+        index="06"
         kicker="Contact & project intake"
         title="Tell us what needs a better view."
         copy="Share the location, scope, and timing. The detailed project intake helps us begin with the right questions."
@@ -1022,6 +1041,7 @@ function Contact() {
                 details are not displayed publicly.
               </p>
             </div>
+            <FlightRoute label="Intake route · 01 / 01" />
           </div>
         </Reveal>
         <Reveal delay={0.12}>

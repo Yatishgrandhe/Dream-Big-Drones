@@ -3,8 +3,9 @@ import gsap from "gsap";
 import { Flip } from "gsap/Flip";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
-gsap.registerPlugin(ScrollTrigger, Flip, SplitText, useGSAP);
+gsap.registerPlugin(ScrollTrigger, Flip, SplitText, MotionPathPlugin, useGSAP);
 
 const inView = (targets, options = {}) => {
   if (!targets?.length) return;
@@ -77,6 +78,12 @@ export default function DesktopMotion({ rootRef, path }) {
         gsap.from(masthead.querySelector(".masthead-copy"), {
           opacity: 0, x: -42, duration: 0.8, ease: "power3.out",
         });
+        gsap.fromTo(masthead.querySelector("img"), { clipPath: "inset(0 100% 0 0)", scale: 1.16 }, { clipPath: "inset(0)", scale: 1, duration: 1.15, ease: "power4.out" });
+        const index = masthead.querySelector(".masthead-index");
+        if (index) {
+          gsap.from(index, { xPercent: 120, duration: 1.15, ease: "power4.out" });
+          gsap.to(index, { xPercent: -26, ease: "none", scrollTrigger: { trigger: masthead, start: "top top", end: "bottom top", scrub: 0.8 } });
+        }
       }
       const splitHeads = [...root.querySelectorAll(".masthead-copy h1, .section-head h2")];
       splitHeads.forEach((heading) => {
@@ -97,13 +104,16 @@ export default function DesktopMotion({ rootRef, path }) {
         const length = path.getTotalLength();
         gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
         const dot = route.querySelector(".flight-route-destination");
+        const waypoint = route.querySelector(".flight-route-waypoint");
         const tl = gsap.timeline({ scrollTrigger: { trigger: route, start: "top 78%", once: true } });
         tl.to(path, { strokeDashoffset: 0, duration: 1.35, ease: "power2.inOut" })
+          .from(waypoint, { scale: 0, duration: 0.2, ease: "power2.out" }, 0)
+          .to(waypoint, { motionPath: { path, align: path, alignOrigin: [0.5, 0.5] }, duration: 1.22, ease: "power2.inOut" }, 0)
           .from(dot, { scale: 0, duration: 0.32, ease: "back.out(1.5)" }, "<.86");
       });
       if (path === "/") {
         const words = root.querySelectorAll(".hero-word");
-        gsap.from(words, { yPercent: 120, opacity: 0, stagger: 0.075, duration: 0.62, ease: "power4.out", delay: 0.2 });
+        gsap.from(words, { yPercent: 150, rotation: 4, opacity: 0, stagger: 0.09, duration: 0.84, ease: "power4.out", delay: 0.2 });
         const hero = root.querySelector(".hero-brand-art");
         if (hero) gsap.to(hero, { yPercent: 5, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 0.7 } });
         const stage = root.querySelector(".showcase img");
@@ -112,20 +122,36 @@ export default function DesktopMotion({ rootRef, path }) {
         inView(root.querySelectorAll(".proof-strip article"), { x: 42, y: 0, stagger: 0.16 });
       }
       if (path === "/solutions") {
-        inView(root.querySelectorAll(".solution-card"), { x: (index) => (index % 2 ? 44 : -44), y: 0, stagger: 0.09 });
+        const cards = [...root.querySelectorAll(".solution-card")];
+        for (let index = 0; index < cards.length; index += 3) inView(cards.slice(index, index + 3), { x: (cardIndex) => ((index + cardIndex) % 2 ? 44 : -44), y: 0, stagger: 0.12 });
         gsap.utils.toArray(root.querySelectorAll(".solution-card img")).forEach((image) => gsap.fromTo(image, { clipPath: "inset(0 50% 0 50%)", scale: 1.16 }, { clipPath: "inset(0)", scale: 1, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: image, start: "top 80%", once: true } }));
       }
       if (path === "/fleet") {
         inView(root.querySelectorAll(".fleet-card"), { y: 48, stagger: 0.16 });
         gsap.utils.toArray(root.querySelectorAll(".fleet-card dl")).forEach((specs) => gsap.from(specs.children, { opacity: 0, x: -18, stagger: 0.07, duration: 0.5, ease: "power3.out", scrollTrigger: { trigger: specs, start: "top 84%", once: true } }));
+        const telemetry = root.querySelector(".telemetry-draw");
+        if (telemetry) {
+          const length = telemetry.getTotalLength();
+          gsap.fromTo(telemetry, { strokeDasharray: length, strokeDashoffset: length }, { strokeDashoffset: 0, duration: 1.2, ease: "power2.inOut", scrollTrigger: { trigger: telemetry, start: "top 84%", once: true } });
+        }
       }
       if (path === "/portfolio") {
         inView(root.querySelectorAll(".project-card"), { scale: 0.94, y: 0, stagger: 0.07 });
         gsap.utils.toArray(root.querySelectorAll(".project-card img")).forEach((image) => gsap.fromTo(image, { scale: 1.14 }, { scale: 1, duration: 1.05, ease: "power3.out", scrollTrigger: { trigger: image, start: "top 82%", once: true } }));
       }
-      if (path === "/support") inView(root.querySelectorAll(".faq article"), { x: 28, y: 0, stagger: 0.1 });
-      if (path === "/about") inView(root.querySelectorAll(".principles p"), { x: 44, y: 0, stagger: 0.15 });
-      if (path === "/contact") inView(root.querySelectorAll(".contact-layout > *"), { y: 40, stagger: 0.18 });
+      if (path === "/support") {
+        inView(root.querySelectorAll(".faq article"), { x: 46, y: 0, stagger: 0.13 });
+        inView(root.querySelectorAll(".support-list li"), { x: -32, y: 0, stagger: 0.15 });
+      }
+      if (path === "/about") {
+        inView(root.querySelectorAll(".principles p"), { x: 64, y: 0, stagger: 0.18 });
+        const image = root.querySelector(".about-grid > div > img");
+        if (image) gsap.to(image, { yPercent: -8, ease: "none", scrollTrigger: { trigger: image, start: "top 85%", end: "bottom 20%", scrub: 0.8 } });
+      }
+      if (path === "/contact") {
+        inView(root.querySelectorAll(".contact-layout > *"), { y: 58, stagger: 0.2 });
+        inView(root.querySelectorAll(".contact-form .form-field"), { y: 30, opacity: 0, stagger: 0.055, duration: 0.62 });
+      }
       const footer = root.querySelector(".footer-logo");
       if (footer) gsap.from(footer, { y: 20, opacity: 0, duration: 0.7, scrollTrigger: { trigger: footer, start: "top 88%", once: true } });
       return () => splitInstances.forEach((split) => split.revert());
