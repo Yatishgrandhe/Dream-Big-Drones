@@ -7,12 +7,8 @@ import {
   Send,
   X,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Flip } from "gsap/Flip";
-import { useGSAP } from "@gsap/react";
 import { ContactForm } from "./components/ContactForm";
 import "./App.css";
 import "./RouteMasthead.css";
@@ -20,7 +16,7 @@ import "./BrandArtwork.css";
 import "./FlightMotion.css";
 import "./HeaderSizing.css";
 
-gsap.registerPlugin(ScrollTrigger, Flip, useGSAP);
+const DesktopMotion = lazy(() => import("./DesktopMotion"));
 
 const routes = [
   ["/", "Home"],
@@ -221,6 +217,18 @@ function go(path) {
   window.history.pushState({}, "", path);
   window.dispatchEvent(new PopStateEvent("popstate"));
 }
+function useDesktopMotionEnabled() {
+  const reduced = useReducedMotion();
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => {
+    const query = matchMedia("(min-width: 1024px)");
+    const sync = () => setEnabled(query.matches && !reduced);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, [reduced]);
+  return enabled;
+}
 function Link({ to, children, className = "", onClick }) {
   return (
     <a
@@ -282,6 +290,8 @@ function Action({ to = "/contact", children, quiet = false, onClick }) {
 
 function Loader({ complete }) {
   const reduced = useReducedMotion();
+  const desktopMotion = useDesktopMotionEnabled();
+  if (!desktopMotion) return null;
   return (
     <AnimatePresence>
       {!complete && (
@@ -389,12 +399,13 @@ function Header({ path }) {
   );
 }
 function Reveal({ children, delay = 0, className = "" }) {
-  const reduced = useReducedMotion();
+  const desktopMotion = useDesktopMotionEnabled();
+  if (!desktopMotion) return <div className={className}>{children}</div>;
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 22, filter: "blur(6px)" }}
-      whileInView={reduced ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y: 22, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, amount: 0.16 }}
       transition={{ duration: 0.62, delay, ease: [0.22, 1, 0.36, 1] }}
     >
@@ -403,6 +414,21 @@ function Reveal({ children, delay = 0, className = "" }) {
   );
 }
 function HomeHero({ kicker, title, copy, children }) {
+  const desktopMotion = useDesktopMotionEnabled();
+  const content = (
+    <>
+      <p className="eyebrow">{kicker}</p>
+      <h1 className="hero-headline">
+        {title.split(" ").map((word, index) => (
+          <span className="hero-word" key={`${word}${index}`}>
+            {word}&nbsp;
+          </span>
+        ))}
+      </h1>
+      <p>{copy}</p>
+      {children}
+    </>
+  );
   return (
     <section className="page-hero">
       <img
@@ -412,23 +438,9 @@ function HomeHero({ kicker, title, copy, children }) {
         fetchPriority="high"
       />
       <div className="hero-shade" />
-      <motion.div
-        className="hero-copy"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <p className="eyebrow">{kicker}</p>
-        <h1 className="hero-headline">
-          {title.split(" ").map((word, index) => (
-            <span className="hero-word" key={`${word}${index}`}>
-              {word}&nbsp;
-            </span>
-          ))}
-        </h1>
-        <p>{copy}</p>
-        {children}
-      </motion.div>
+      {desktopMotion ? (
+        <motion.div className="hero-copy" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}>{content}</motion.div>
+      ) : <div className="hero-copy">{content}</div>}
       <p className="hero-caption">
         Dream Big Drones <i>by RLM</i>
       </p>
@@ -436,6 +448,7 @@ function HomeHero({ kicker, title, copy, children }) {
   );
 }
 function PageMasthead({ kicker, title, copy, image }) {
+  const desktopMotion = useDesktopMotionEnabled();
   return (
     <section className="page-masthead">
       <div className="masthead-copy">
@@ -443,13 +456,7 @@ function PageMasthead({ kicker, title, copy, image }) {
         <h1>{title}</h1>
         <p>{copy}</p>
       </div>
-      <motion.img
-        src={image}
-        alt="Aerial project context"
-        initial={{ opacity: 0, scale: 1.05 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      />
+      {desktopMotion ? <motion.img src={image} alt="Aerial project context" initial={{ opacity: 0, scale: 1.05 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} /> : <img src={image} alt="Aerial project context" />}
     </section>
   );
 }
@@ -712,21 +719,14 @@ function Portfolio() {
             (filter === "Emergency & Disaster Damage Documentation" &&
               disaster.includes(p[1])),
         );
-  const changeFilter = (next) => {
-    const state = gridRef.current
-      ? Flip.getState(gridRef.current.children)
-      : null;
-    setFilter(next);
-    requestAnimationFrame(() => {
-      if (state)
-        Flip.from(state, {
-          duration: 0.55,
-          ease: "power3.inOut",
-          absolute: true,
-          scale: true,
-          stagger: 0.025,
-        });
-    });
+  const changeFilter = async (next) => {
+    if (next === filter) return;
+    if (innerWidth < 1024 || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setFilter(next);
+      return;
+    }
+    const { flipAfterLayout } = await import("./DesktopMotion");
+    flipAfterLayout(gridRef.current, () => setFilter(next));
   };
   useEffect(() => {
     const esc = (e) => e.key === "Escape" && setModal(null);
@@ -1017,63 +1017,21 @@ function Contact() {
   );
 }
 
-function DesktopMotion({ rootRef, path, reduced }) {
-  useGSAP(
-    () => {
-      if (reduced || !window.matchMedia("(min-width: 1024px)").matches) return;
-      const root = rootRef.current;
-      if (!root) return;
-      const createReveal = (targets, vars = {}) => {
-        if (!targets?.length) return;
-        gsap.from(targets, {
-          opacity: 0,
-          y: 34,
-          duration: 0.82,
-          stagger: 0.11,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: targets[0],
-            start: "top 78%",
-            once: true,
-          },
-          ...vars,
-        });
-      };
-      const masthead = root.querySelector(".page-masthead");
-      if (masthead) {
-        gsap.timeline({ defaults: { ease: "power3.out" } })
-          .from(masthead.querySelector(".masthead-copy"), { opacity: 0, x: -42, duration: 0.8 })
-          .from(masthead.querySelector("img"), { opacity: 0, scale: 1.08, duration: 1.05 }, "<.1");
-      }
-      if (path === "/") {
-        createReveal(root.querySelectorAll(".solution-card"), { y: 54, stagger: 0.14 });
-        const steps = root.querySelectorAll(".proof-strip article");
-        createReveal(steps, { x: 42, y: 0, stagger: 0.16 });
-      }
-      if (path === "/solutions") createReveal(root.querySelectorAll(".solution-card"), { x: (index) => (index % 2 ? 38 : -38), y: 0, stagger: 0.09 });
-      if (path === "/fleet") createReveal(root.querySelectorAll(".fleet-card"), { y: 48, stagger: 0.16 });
-      if (path === "/portfolio") {
-        createReveal(root.querySelectorAll(".project-card"), { scale: 0.94, y: 0, stagger: 0.07 });
-        gsap.utils.toArray(root.querySelectorAll(".project-card img")).forEach((image) => {
-          gsap.fromTo(image, { scale: 1.14 }, { scale: 1, duration: 1.05, ease: "power3.out", scrollTrigger: { trigger: image, start: "top 82%", once: true } });
-        });
-      }
-      if (path === "/support") createReveal(root.querySelectorAll(".faq article"), { x: 28, y: 0, stagger: 0.1 });
-      if (path === "/about") createReveal(root.querySelectorAll(".principles p"), { x: 44, y: 0, stagger: 0.15 });
-      if (path === "/contact") createReveal(root.querySelectorAll(".contact-layout > *"), { y: 40, stagger: 0.18 });
-    },
-    { scope: rootRef, dependencies: [path, reduced], revertOnUpdate: true },
-  );
-  return null;
-}
-
 function App() {
   const [path, setPath] = useState(location.pathname);
   const [loading, setLoading] = useState(true);
+  const [desktopMotion, setDesktopMotion] = useState(false);
   const rootRef = useRef(null);
   const overlayRef = useRef(null);
   const routeLogoRef = useRef(null);
   const reduced = useReducedMotion();
+  useEffect(() => {
+    const query = matchMedia("(min-width: 1024px)");
+    const sync = () => setDesktopMotion(query.matches && !reduced);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, [reduced]);
   useEffect(() => {
     const update = () => {
       setPath(location.pathname);
@@ -1094,99 +1052,18 @@ function App() {
         go(next);
         return;
       }
-      const overlay = overlayRef.current;
-      const logo = routeLogoRef.current;
-      const line = overlay?.querySelector(".route-line");
-      const tl = gsap.timeline({
-        defaults: { ease: "power3.inOut" },
-        onComplete: () => gsap.set(overlay, { pointerEvents: "none" }),
-      });
-      gsap.set(overlay, {
-        pointerEvents: "auto",
-        clipPath: event.detail?.returnHome
-          ? "inset(0 0 0 100%)"
-          : "inset(0 100% 0 0)",
-      });
-      gsap.set(line, { scaleX: 0 });
-      tl.to(overlay, { clipPath: "inset(0 0% 0 0)", duration: 0.48 })
-        .fromTo(
-          logo,
-          { opacity: 0, scale: 0.55, rotation: -3, filter: "blur(10px)" },
-          {
-            opacity: 1,
-            scale: 1,
-            rotation: 3,
-            filter: "blur(0px)",
-            duration: 0.48,
-          },
-          "<.12",
-        )
-        .to(line, { scaleX: 1, duration: 0.4 }, "<.12")
-        .add(() => go(next), ">-0.08")
-        .to(logo, {
-          opacity: 0,
-          scale: 1.18,
-          filter: "blur(12px)",
-          duration: 0.28,
-        })
-        .to(overlay, { clipPath: "inset(0 0 0 100%)", duration: 0.46 }, "<.04");
+      import("./DesktopMotion").then(({ runRouteTransition }) =>
+        runRouteTransition({
+          overlay: overlayRef.current,
+          logo: routeLogoRef.current,
+          next: () => go(next),
+          returnHome: event.detail?.returnHome,
+        }),
+      );
     };
     addEventListener("dbd:navigate", navigate);
     return () => removeEventListener("dbd:navigate", navigate);
   }, [path, reduced]);
-  useGSAP(
-    () => {
-      if (reduced || innerWidth < 1024) return;
-      const hero = rootRef.current?.querySelector(".hero-brand-art");
-      if (hero)
-        gsap.to(hero, {
-          yPercent: 5,
-          ease: "none",
-          scrollTrigger: {
-            trigger: hero,
-            start: "top top",
-            end: "bottom top",
-            scrub: 0.7,
-          },
-        });
-      const words = rootRef.current?.querySelectorAll(".hero-word");
-      if (words?.length)
-        gsap.from(words, {
-          yPercent: 120,
-          opacity: 0,
-          stagger: 0.075,
-          duration: 0.62,
-          ease: "power4.out",
-          delay: 0.2,
-        });
-      const showcase = rootRef.current?.querySelector(".showcase img");
-      if (showcase)
-        gsap.fromTo(
-          showcase,
-          { clipPath: "inset(0 28% 0 28%)", scale: 1.12 },
-          {
-            clipPath: "inset(0 0% 0 0%)",
-            scale: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: showcase,
-              start: "top 78%",
-              end: "top 35%",
-              scrub: 0.7,
-            },
-          },
-        );
-      const footer = rootRef.current?.querySelector(".footer-logo");
-      if (footer)
-        gsap.from(footer, {
-          y: 20,
-          opacity: 0,
-          duration: 0.7,
-          scrollTrigger: { trigger: footer, start: "top 88%", once: true },
-        });
-    },
-    { scope: rootRef, dependencies: [path, reduced], revertOnUpdate: true },
-  );
   useEffect(() => {
     const name = routes.find(([route]) => route === path)?.[1] ?? "Home";
     document.title =
@@ -1205,7 +1082,11 @@ function App() {
   };
   return (
     <div ref={rootRef}>
-      <DesktopMotion rootRef={rootRef} path={path} reduced={reduced} />
+      {desktopMotion && (
+        <Suspense fallback={null}>
+          <DesktopMotion rootRef={rootRef} path={path} />
+        </Suspense>
+      )}
       <Loader complete={!loading} />
       <div className="flight-overlay" ref={overlayRef} aria-hidden="true">
         <div className="route-line" />

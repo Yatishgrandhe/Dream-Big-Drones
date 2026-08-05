@@ -150,6 +150,12 @@ Layout direction:
 - Motion should feel cleaner and more precise than flashy: reveal, settle, breathe. Durations are 500–900ms unless the hero-settle or slow sunlight drift explicitly needs longer.
 - Reduced motion remains supported: transitions become near-instant, section content stays visible, and the reading indicator renders complete.
 
+### Desktop editorial motion layer
+
+- Desktop motion is loaded only after a `min-width: 1024px` media query passes and is kept in a separate GSAP chunk. Mobile and reduced-motion visitors never request GSAP, ScrollTrigger, or Flip.
+- The visual grammar borrows only interaction principles from the supplied NESH reference: masked headings, changing directional entrances, oversized route indices, image stages that reveal through a crop, and a single continuous navigation flight. It does not reuse reference assets, markup, copy, or source.
+- Each route has one story-specific moment: shuttered solution rows, technical fleet scans, FLIP portfolio filtering, a support process line, connected About principles, and restrained grouped Contact intake. Repeated generic fade-ups are prohibited.
+
 ## 7. Depth & Surface
 
 Primary surface language:
