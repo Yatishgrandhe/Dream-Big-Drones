@@ -1,0 +1,25 @@
+{
+  "name": "dream-big-drones-nesh",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "oxlint src convex --ignore-pattern 'convex/_generated/**'",
+    "typecheck": "tsc --noEmit -p convex/tsconfig.json",
+    "convex:dev": "convex dev"
+  },
+  "dependencies": {
+    "@convex-dev/auth": "^0.0.94",
+    "@convex-dev/rate-limiter": "^0.3.2",
+    "convex": "^1.43.0",
+    "lucia": "^3.2.2"
+  },
+  "devDependencies": {
+    "oxlint": "^1.75.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
+}
