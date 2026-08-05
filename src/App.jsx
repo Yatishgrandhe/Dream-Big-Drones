@@ -469,6 +469,19 @@ function SectionHead({ eyebrow, title, copy }) {
     </div>
   );
 }
+function FlightRoute({ label = "Flight route" }) {
+  return (
+    <div className="flight-route" aria-hidden="true">
+      <span>{label}</span>
+      <svg viewBox="0 0 1200 180" preserveAspectRatio="none">
+        <path className="flight-route-base" d="M0 126 C150 18 262 184 424 92 S693 20 804 102 S1026 158 1200 46" />
+        <path className="flight-route-draw" d="M0 126 C150 18 262 184 424 92 S693 20 804 102 S1026 158 1200 46" />
+        <circle className="flight-route-origin" cx="0" cy="126" r="7" />
+        <circle className="flight-route-destination" cx="1200" cy="46" r="7" />
+      </svg>
+    </div>
+  );
+}
 function Footer() {
   return (
     <footer className="site-footer">
@@ -578,6 +591,7 @@ function Home() {
           </Reveal>
         ))}
       </section>
+      <FlightRoute label="Flight plan · 01 / 03" />
       <Reveal>
         <section className="section cta-band">
           <SectionHead
@@ -973,6 +987,7 @@ function About() {
                 project, not the other way around.
               </p>
             </div>
+            <FlightRoute label="Mission route · 01 / 03" />
           </div>
         </Reveal>
       </section>

@@ -2,8 +2,9 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Flip } from "gsap/Flip";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger, Flip, useGSAP);
+gsap.registerPlugin(ScrollTrigger, Flip, SplitText, useGSAP);
 
 const inView = (targets, options = {}) => {
   if (!targets?.length) return;
@@ -70,12 +71,36 @@ export default function DesktopMotion({ rootRef, path }) {
     () => {
       const root = rootRef.current;
       if (!root) return;
+      const splitInstances = [];
       const masthead = root.querySelector(".page-masthead");
       if (masthead) {
         gsap.from(masthead.querySelector(".masthead-copy"), {
           opacity: 0, x: -42, duration: 0.8, ease: "power3.out",
         });
       }
+      const splitHeads = [...root.querySelectorAll(".masthead-copy h1, .section-head h2")];
+      splitHeads.forEach((heading) => {
+        const split = SplitText.create(heading, { type: "lines", mask: "lines", autoSplit: true });
+        splitInstances.push(split);
+        gsap.from(split.lines, {
+          yPercent: 105,
+          opacity: 0,
+          duration: 0.86,
+          stagger: 0.1,
+          ease: "power4.out",
+          scrollTrigger: { trigger: heading, start: "top 82%", once: true },
+        });
+      });
+      root.querySelectorAll(".flight-route").forEach((route) => {
+        const path = route.querySelector(".flight-route-draw");
+        if (!path) return;
+        const length = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+        const dot = route.querySelector(".flight-route-destination");
+        const tl = gsap.timeline({ scrollTrigger: { trigger: route, start: "top 78%", once: true } });
+        tl.to(path, { strokeDashoffset: 0, duration: 1.35, ease: "power2.inOut" })
+          .from(dot, { scale: 0, duration: 0.32, ease: "back.out(1.5)" }, "<.86");
+      });
       if (path === "/") {
         const words = root.querySelectorAll(".hero-word");
         gsap.from(words, { yPercent: 120, opacity: 0, stagger: 0.075, duration: 0.62, ease: "power4.out", delay: 0.2 });
@@ -86,8 +111,14 @@ export default function DesktopMotion({ rootRef, path }) {
         inView(root.querySelectorAll(".solution-card"), { y: 54, stagger: 0.14 });
         inView(root.querySelectorAll(".proof-strip article"), { x: 42, y: 0, stagger: 0.16 });
       }
-      if (path === "/solutions") inView(root.querySelectorAll(".solution-card"), { x: (index) => (index % 2 ? 44 : -44), y: 0, stagger: 0.09 });
-      if (path === "/fleet") inView(root.querySelectorAll(".fleet-card"), { y: 48, stagger: 0.16 });
+      if (path === "/solutions") {
+        inView(root.querySelectorAll(".solution-card"), { x: (index) => (index % 2 ? 44 : -44), y: 0, stagger: 0.09 });
+        gsap.utils.toArray(root.querySelectorAll(".solution-card img")).forEach((image) => gsap.fromTo(image, { clipPath: "inset(0 50% 0 50%)", scale: 1.16 }, { clipPath: "inset(0)", scale: 1, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: image, start: "top 80%", once: true } }));
+      }
+      if (path === "/fleet") {
+        inView(root.querySelectorAll(".fleet-card"), { y: 48, stagger: 0.16 });
+        gsap.utils.toArray(root.querySelectorAll(".fleet-card dl")).forEach((specs) => gsap.from(specs.children, { opacity: 0, x: -18, stagger: 0.07, duration: 0.5, ease: "power3.out", scrollTrigger: { trigger: specs, start: "top 84%", once: true } }));
+      }
       if (path === "/portfolio") {
         inView(root.querySelectorAll(".project-card"), { scale: 0.94, y: 0, stagger: 0.07 });
         gsap.utils.toArray(root.querySelectorAll(".project-card img")).forEach((image) => gsap.fromTo(image, { scale: 1.14 }, { scale: 1, duration: 1.05, ease: "power3.out", scrollTrigger: { trigger: image, start: "top 82%", once: true } }));
@@ -97,6 +128,7 @@ export default function DesktopMotion({ rootRef, path }) {
       if (path === "/contact") inView(root.querySelectorAll(".contact-layout > *"), { y: 40, stagger: 0.18 });
       const footer = root.querySelector(".footer-logo");
       if (footer) gsap.from(footer, { y: 20, opacity: 0, duration: 0.7, scrollTrigger: { trigger: footer, start: "top 88%", once: true } });
+      return () => splitInstances.forEach((split) => split.revert());
     },
     { scope: rootRef, dependencies: [path], revertOnUpdate: true },
   );
