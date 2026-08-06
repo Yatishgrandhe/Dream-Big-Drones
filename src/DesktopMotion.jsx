@@ -69,7 +69,7 @@ export default function DesktopMotion({ rootRef, path }) {
     if (masthead) {
       gsap.from(masthead.querySelector(".masthead-copy"), { autoAlpha: 0, x: -42, duration: .8, ease: "power3.out" });
     }
-    root.querySelectorAll(".masthead-copy h1, .section-head h2, .about-statement h2").forEach((heading) => {
+    root.querySelectorAll(".section-head h2, .about-statement h2").forEach((heading) => {
       const split = SplitText.create(heading, { type: "lines", mask: "lines", autoSplit: true });
       splits.push(split);
       gsap.from(split.lines, { yPercent: 110, autoAlpha: 0, duration: .78, stagger: .055, ease: "power4.out", scrollTrigger: { trigger: heading, start: "top 80%", once: true } });
