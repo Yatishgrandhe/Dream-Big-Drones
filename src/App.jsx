@@ -53,7 +53,7 @@ const visual = {
   fleetSurveyor: image("photo-1461696114087-397271a7aedc"),
   fleetVista: image("photo-1477959858617-67f85cf4f1df"),
   fleetMapper: image("photo-1444723121867-7a241cacace9"),
-  mastheadSolutions: image("photo-1519608487953-e999c86e7459"),
+  mastheadSolutions: image("photo-1482192596544-9eb780fc7f66"),
   mastheadFleet: image("photo-1500534623283-312aade485b7"),
   mastheadPortfolio: image("photo-1526772662000-3f88f10405ff"),
   mastheadSupport: image("photo-1500534314209-a25ddb2bd429"),

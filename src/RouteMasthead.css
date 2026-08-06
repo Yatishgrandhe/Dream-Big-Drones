@@ -14,6 +14,38 @@
 @media(max-width:900px){.page-masthead{grid-template-columns:1fr;min-height:0}.masthead-copy{padding:72px 48px}.page-masthead>img{min-height:300px;max-height:420px}}
 @media(max-width:680px){.page-masthead{margin-top:0}.masthead-copy{padding:54px 24px}.masthead-copy h1{font-size:clamp(2.55rem,12vw,3.8rem)}.page-masthead>img{min-height:240px;max-height:280px}.proof-strip>div{border-right:0;border-bottom:1px solid rgb(255 255 255/.15)}}
 
+/* Inner-route mastheads are intentionally compact. Give the grid a definite
+   block size so a portrait or tall stock image can never stretch the whole row. */
+.page-masthead {
+  grid-template-rows: minmax(0, 1fr);
+  min-height: 0;
+  block-size: clamp(360px, 32vw, 460px);
+}
+
+.page-masthead > img {
+  min-height: 0;
+  max-height: none;
+  block-size: 100%;
+}
+
+@media (max-width: 900px) {
+  .page-masthead {
+    block-size: auto;
+  }
+
+  .page-masthead > img {
+    min-height: 0;
+    max-height: none;
+    block-size: clamp(280px, 45vw, 420px);
+  }
+}
+
+@media (max-width: 680px) {
+  .page-masthead > img {
+    block-size: clamp(240px, 61vw, 300px);
+  }
+}
+
 /* Portfolio grid items are Reveal wrappers, so cards must explicitly fill the grid track. */
 .project-grid > div > .project-card { display: block; width: 100%; }
 

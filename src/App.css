@@ -495,3 +495,19 @@ main,
     overflow-wrap: anywhere;
   }
 }
+
+/* The supplied homepage artwork is a finished illustration, so its full frame
+   is preserved at every viewport instead of being cropped to a generic banner. */
+.page-hero {
+  grid-template-rows: auto auto;
+}
+
+.hero-art-stage {
+  min-height: 0;
+  aspect-ratio: 1698 / 926;
+}
+
+.hero-brand-art {
+  object-fit: contain;
+  object-position: center;
+}
