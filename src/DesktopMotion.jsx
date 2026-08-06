@@ -116,7 +116,9 @@ export default function DesktopMotion({ rootRef, path }) {
       const heroStage = root.querySelector(".hero-art-stage");
       const heroInfo = root.querySelector(".hero-info-inner");
       const words = root.querySelectorAll(".hero-word");
-      gsap.fromTo(hero, { clipPath: "inset(0 0 100% 0)", scale: 1.08 }, { clipPath: "inset(0)", scale: 1, duration: 1.1, ease: "power4.out" });
+      // The supplied artwork is the brand anchor, so it is always painted at
+      // rest. A subtle scale settle adds motion without risking a blank hero.
+      gsap.from(hero, { scale: 1.035, duration: .82, ease: "power4.out" });
       const heroTimeline = gsap.timeline({ defaults: { ease: "power4.out" }, delay: .18 })
         .from(words, { yPercent: 130, autoAlpha: 0, duration: .78, stagger: .055 });
       const heroDetail = heroInfo?.querySelector(".hero-detail-block");

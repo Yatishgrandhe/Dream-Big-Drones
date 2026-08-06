@@ -265,6 +265,8 @@
 
 .hero-art-stage {
   position: relative;
+  grid-row: 1;
+  min-height: clamp(280px, 39vw, 510px);
   overflow: hidden;
   background: var(--dbd-navy);
   contain: paint;
@@ -278,7 +280,8 @@
   object-fit: cover;
   object-position: center 52%;
   filter: saturate(0.96) contrast(1.02);
-  will-change: clip-path, transform;
+  clip-path: inset(0) !important;
+  will-change: transform;
 }
 
 .hero-shade {
@@ -287,6 +290,7 @@
 
 .hero-copy {
   display: block;
+  grid-row: 2;
   max-width: none;
   min-height: 0;
   padding: 0;
@@ -386,6 +390,10 @@
     grid-template-rows: clamp(260px, 45vw, 420px) auto;
   }
 
+  .hero-art-stage {
+    min-height: clamp(260px, 45vw, 420px);
+  }
+
   .hero-info-inner {
     grid-template-columns: minmax(230px, 1fr) minmax(260px, 1.1fr);
   }
@@ -399,6 +407,10 @@
 @media (max-width: 680px) {
   .page-hero {
     grid-template-rows: clamp(220px, 61vw, 310px) auto;
+  }
+
+  .hero-art-stage {
+    min-height: clamp(220px, 61vw, 310px);
   }
 
   .hero-brand-art {
