@@ -92,7 +92,7 @@ Layout direction:
 
 ### Portfolio Image Route
 
-- Portfolio keeps its masthead image static. Its flight route is a dedicated scroll scene immediately below the masthead, where three copper waypoints reveal three representative project images in sequence.
+- Portfolio keeps its masthead image static. Its flight route is a dedicated vertical scroll scene immediately below the masthead, where three copper waypoints reveal three alternating project-image stages in sequence.
 - Desktop uses DrawSVG plus ScrollTrigger to tie line progress, waypoint arrival, and image appearance to the visitor’s scroll position. Mobile and reduced-motion visitors receive the same three images as a readable static stack.
 
 ### Clean Service Cards

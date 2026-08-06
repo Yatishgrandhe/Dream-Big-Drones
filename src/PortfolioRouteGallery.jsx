@@ -11,23 +11,25 @@ export function PortfolioRouteGallery({ items }) {
 
   useEffect(() => {
     let context;
-    let cancelled = false;
+    let disposed = false;
+    const desktopMotion = matchMedia("(min-width: 1024px) and (prefers-reduced-motion: no-preference)");
 
     const animate = async () => {
       const section = sectionRef.current;
-      if (!section || !matchMedia("(min-width: 1024px) and (prefers-reduced-motion: no-preference)").matches) return;
+      if (!section || !desktopMotion.matches) return;
 
       const [{ default: gsap }, { DrawSVGPlugin }, { ScrollTrigger }] = await Promise.all([
         import("gsap"),
         import("gsap/DrawSVGPlugin"),
         import("gsap/ScrollTrigger"),
       ]);
-      if (cancelled) return;
+      if (disposed || !desktopMotion.matches) return;
       if (!routePluginsRegistered) {
         gsap.registerPlugin(DrawSVGPlugin, ScrollTrigger);
         routePluginsRegistered = true;
       }
 
+      context?.revert();
       context = gsap.context(() => {
         const route = section.querySelector(".portfolio-route-draw");
         const dots = section.querySelectorAll(".portfolio-route-dot");
@@ -50,19 +52,30 @@ export function PortfolioRouteGallery({ items }) {
           .set(route, { drawSVG: "0% 0%" })
           .set(dots, { autoAlpha: 0, scale: 0.42, transformOrigin: "50% 50%" })
           .set(cards, { autoAlpha: 0, y: 34, scale: 0.96 })
-          .to(route, { drawSVG: "0% 100%", duration: 3 })
-          .to(dots[0], { autoAlpha: 1, scale: 1, duration: 0.22, ease: "power3.out" }, 0.48)
-          .to(cards[0], { autoAlpha: 1, y: 0, scale: 1, duration: 0.38, ease: "power3.out" }, 0.56)
-          .to(dots[1], { autoAlpha: 1, scale: 1, duration: 0.22, ease: "power3.out" }, 1.42)
-          .to(cards[1], { autoAlpha: 1, y: 0, scale: 1, duration: 0.38, ease: "power3.out" }, 1.5)
-          .to(dots[2], { autoAlpha: 1, scale: 1, duration: 0.22, ease: "power3.out" }, 2.28)
-          .to(cards[2], { autoAlpha: 1, y: 0, scale: 1, duration: 0.38, ease: "power3.out" }, 2.36);
+          .to(route, { drawSVG: "0% 100%", duration: 4 })
+          .to(dots[0], { autoAlpha: 1, scale: 1, duration: 0.22, ease: "power3.out" }, 0.72)
+          .to(cards[0], { autoAlpha: 1, y: 0, scale: 1, duration: 0.38, ease: "power3.out" }, 0.82)
+          .to(dots[1], { autoAlpha: 1, scale: 1, duration: 0.22, ease: "power3.out" }, 1.9)
+          .to(cards[1], { autoAlpha: 1, y: 0, scale: 1, duration: 0.38, ease: "power3.out" }, 2)
+          .to(dots[2], { autoAlpha: 1, scale: 1, duration: 0.22, ease: "power3.out" }, 3.08)
+          .to(cards[2], { autoAlpha: 1, y: 0, scale: 1, duration: 0.38, ease: "power3.out" }, 3.18);
       }, section);
     };
 
+    const handleMotionChange = (event) => {
+      if (event.matches) {
+        void animate();
+      } else {
+        context?.revert();
+        context = undefined;
+      }
+    };
+
+    desktopMotion.addEventListener("change", handleMotionChange);
     void animate();
     return () => {
-      cancelled = true;
+      disposed = true;
+      desktopMotion.removeEventListener("change", handleMotionChange);
       context?.revert();
     };
   }, []);
@@ -75,9 +88,9 @@ export function PortfolioRouteGallery({ items }) {
         <p>Scroll through three recent visual directions. Each waypoint opens the work it connects.</p>
       </div>
       <div className="portfolio-route-scene">
-        <svg className="portfolio-route-art" viewBox="0 0 1200 620" fill="none" aria-hidden="true">
-          <path className="portfolio-route-base" d="M-40 488C108 522 172 402 278 372S448 144 586 236S766 498 928 332S1080 174 1240 236" />
-          <path className="portfolio-route-draw" d="M-40 488C108 522 172 402 278 372S448 144 586 236S766 498 928 332S1080 174 1240 236" />
+        <svg className="portfolio-route-art" viewBox="0 0 1200 1700" fill="none" aria-hidden="true">
+          <path className="portfolio-route-base" d="M600-40C600 132 520 172 520 320S700 540 680 820S520 1084 520 1320S610 1528 600 1740" />
+          <path className="portfolio-route-draw" d="M600-40C600 132 520 172 520 320S700 540 680 820S520 1084 520 1320S610 1528 600 1740" />
         </svg>
         {items.map((item, index) => (
           <article className={`portfolio-route-card portfolio-route-card-${index + 1}`} key={item.title}>
