@@ -90,6 +90,11 @@ Layout direction:
 - Surface: `--radius-xl` rounded image tiles with a subtle white inner edge and restrained shadow.
 - Motion: image transform only, 280ms ease-out; no decorative placeholder bars.
 
+### Portfolio Image Route
+
+- Portfolio keeps its masthead image static. Its flight route is a dedicated scroll scene immediately below the masthead, where three copper waypoints reveal three representative project images in sequence.
+- Desktop uses DrawSVG plus ScrollTrigger to tie line progress, waypoint arrival, and image appearance to the visitor’s scroll position. Mobile and reduced-motion visitors receive the same three images as a readable static stack.
+
 ### Clean Service Cards
 
 - The homepage uses an asymmetric lead-card composition: one tall first service beside two supporting services. Service context is sentence-case supporting copy, not a repeated uppercase eyebrow.

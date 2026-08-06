@@ -11,6 +11,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ContactForm } from "./components/ContactForm";
 import { MastheadImageReveal } from "./MastheadImageReveal";
+import { PortfolioRouteGallery } from "./PortfolioRouteGallery";
 import "./App.css";
 import "./RouteMasthead.css";
 import "./BrandArtwork.css";
@@ -496,7 +497,7 @@ function HomeHero({ kicker, title, copy, children }) {
     </section>
   );
 }
-function PageMasthead({ kicker, title, copy, image }) {
+function PageMasthead({ kicker, title, copy, image, revealImage = true }) {
   return (
     <section className="page-masthead">
       <div className="masthead-copy">
@@ -504,7 +505,13 @@ function PageMasthead({ kicker, title, copy, image }) {
         <h1>{title}</h1>
         <p>{copy}</p>
       </div>
-      <MastheadImageReveal src={image} alt="Aerial project context" />
+      {revealImage ? (
+        <MastheadImageReveal src={image} alt="Aerial project context" />
+      ) : (
+        <div className="masthead-image-route masthead-image-static">
+          <img src={image} alt="Aerial project context" />
+        </div>
+      )}
     </section>
   );
 }
@@ -803,6 +810,14 @@ function Portfolio() {
         title="A portfolio designed for the details that change the story."
         copy="Filter by assignment, then open a project to review its visual brief, location context, and intended deliverables."
         image={visual.mastheadPortfolio}
+        revealImage={false}
+      />
+      <PortfolioRouteGallery
+        items={[
+          { title: projects[0][0], category: projects[0][1], image: projects[0][4], alt: "Coastal aerial project" },
+          { title: projects[1][0], category: projects[1][1], image: projects[1][4], alt: "Construction project from above" },
+          { title: projects[4][0], category: projects[4][1], image: projects[4][4], alt: "Weather documentation project" },
+        ]}
       />
       <section className="section portfolio">
         <Reveal>
