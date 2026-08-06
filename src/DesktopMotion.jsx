@@ -54,6 +54,16 @@ export default function DesktopMotion({ rootRef, path }) {
     const tick = (time) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
+    // Lenis owns the desktop scroll interpolation, so keep ScrollTrigger's
+    // measurements and progress in sync whenever either one updates.
+    const syncScrollTrigger = () => ScrollTrigger.update();
+    const refreshLayout = () => {
+      lenis.resize();
+      ScrollTrigger.refresh();
+    };
+    const resizeLenis = () => lenis.resize();
+    lenis.on("scroll", syncScrollTrigger);
+    ScrollTrigger.addEventListener("refresh", resizeLenis);
     const splits = [];
     const masthead = root.querySelector(".page-masthead");
     if (masthead) {
@@ -73,7 +83,7 @@ export default function DesktopMotion({ rootRef, path }) {
       gsap.set(line, { strokeDasharray: length, strokeDashoffset: length });
       gsap.timeline({ scrollTrigger: { trigger: route, start: "top 78%", once: true } })
         .to(line, { strokeDashoffset: 0, duration: 1.15, ease: "power2.inOut" })
-        .from(waypoint, { scale: 0, duration: .18 }, 0)
+        .from(waypoint, { scale: .8, autoAlpha: 0, duration: .18, ease: "power3.out" }, 0)
         .to(waypoint, { motionPath: { path: line, align: line, alignOrigin: [.5, .5] }, duration: 1.08, ease: "power2.inOut" }, 0);
     });
     root.querySelectorAll(".aerial-hud").forEach((hud) => {
@@ -157,8 +167,11 @@ export default function DesktopMotion({ rootRef, path }) {
     if (path === "/contact") reveal(root.querySelectorAll(".contact-layout > *, .contact-form .form-field"), { y: 26, stagger: .05, duration: .6 });
     const footer = root.querySelector(".site-footer");
     if (footer) reveal(footer.children, { y: 26, stagger: .07, duration: .65 });
+    const refreshFrame = requestAnimationFrame(refreshLayout);
     return () => {
       removeHeroPointer?.();
+      cancelAnimationFrame(refreshFrame);
+      ScrollTrigger.removeEventListener("refresh", resizeLenis);
       gsap.ticker.remove(tick);
       lenis.destroy();
       splits.forEach((split) => split.revert());

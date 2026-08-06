@@ -32,15 +32,35 @@ const routes = [
 const image = (id, width = 1500) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=82`;
 const visual = {
-  city: image("photo-1500534623283-312aade485b7"),
-  build: image("photo-1541888946425-d81bb19240f5"),
-  coast: image("photo-1507525428034-b723cf961d3e"),
-  farm: image("photo-1469474968028-56623f02e42e"),
-  roof: image("photo-1511818966892-d7d671e672a2"),
-  tower: image("photo-1494526585095-c41746248156"),
-  storm: image("photo-1527482797697-8795b05a13fe"),
-  house: image("photo-1600585154340-be6161a56a0c"),
-  road: image("photo-1473445361085-b9a07f55608b"),
+  homeShowcase: image("photo-1507525428034-b723cf961d3e"),
+  solutionRealEstate: image("photo-1600585154340-be6161a56a0c"),
+  solutionAerial: image("photo-1470770841072-f978cf4d019e"),
+  solutionVideo: image("photo-1519501025264-65ba15a82390"),
+  solutionInspection: image("photo-1511818966892-d7d671e672a2"),
+  solutionConstruction: image("photo-1541888946425-d81bb19240f5"),
+  solutionInfrastructure: image("photo-1486325212027-8081e485255e"),
+  solutionEmergency: image("photo-1527482797697-8795b05a13fe"),
+  solutionAgriculture: image("photo-1469474968028-56623f02e42e"),
+  solutionCommercial: image("photo-1511497584788-876760111969"),
+  projectHarbor: image("photo-1501785888041-af3ef285b470"),
+  projectConstruction: image("photo-1526498460520-4c246339dccb"),
+  projectListing: image("photo-1482192505345-5655af888cc4"),
+  projectLandscape: image("photo-1464822759023-fed622ff2c3b"),
+  projectStorm: image("photo-1530789253388-582c481c54b0"),
+  projectVideo: image("photo-1500530855697-b586d89ba3ee"),
+  projectInfrastructure: image("photo-1497366754035-f200968a6e72"),
+  projectRoof: image("photo-1518005020951-eccb494ad742"),
+  fleetSurveyor: image("photo-1461696114087-397271a7aedc"),
+  fleetVista: image("photo-1477959858617-67f85cf4f1df"),
+  fleetMapper: image("photo-1444723121867-7a241cacace9"),
+  mastheadSolutions: image("photo-1519608487953-e999c86e7459"),
+  mastheadFleet: image("photo-1500534623283-312aade485b7"),
+  mastheadPortfolio: image("photo-1526772662000-3f88f10405ff"),
+  mastheadSupport: image("photo-1500534314209-a25ddb2bd429"),
+  mastheadAbout: image("photo-1531058020387-3be344556be6"),
+  aboutPerspective: image("photo-1487958449943-2429e8be8625"),
+  aboutFieldwork: image("photo-1494522358652-f30e61a60313"),
+  mastheadContact: image("photo-1558618666-fcd25c85cd64"),
 };
 const solutionData = [
   [
@@ -48,63 +68,63 @@ const solutionData = [
     "Editorial aerial and ground coverage for property marketing.",
     "Property launches, listings, developments",
     "Stills, aerial perspectives, detail selects",
-    visual.house,
+    visual.solutionRealEstate,
   ],
   [
     "Aerial Photography",
     "A decisive viewpoint for landscapes, campaigns, and location stories.",
     "Land, hospitality, destination media",
     "Color-finished image collection",
-    visual.coast,
+    visual.solutionAerial,
   ],
   [
     "Aerial Video",
     "Purposeful motion that gives an audience a better sense of place.",
     "Walkthroughs, campaigns, events",
     "Short-form clips and hero footage",
-    visual.city,
+    visual.solutionVideo,
   ],
   [
     "Roof & Property Inspections",
     "Clear visual documentation from safer vantage points.",
     "Roof conditions, property review",
     "High-resolution documentation",
-    visual.roof,
+    visual.solutionInspection,
   ],
   [
     "Construction Progress",
     "Consistent aerial records that make change easy to communicate.",
     "Project milestones, stakeholder updates",
     "Scheduled progress sets",
-    visual.build,
+    visual.solutionConstruction,
   ],
   [
     "Tower & Infrastructure",
     "Visual context for difficult-to-reach infrastructure.",
     "Towers, utilities, industrial sites",
     "Inspection-ready visual sets",
-    visual.tower,
+    visual.solutionInfrastructure,
   ],
   [
     "Emergency Documentation",
     "Calm, organized evidence when conditions change quickly.",
     "Storm, flood, damage documentation",
     "Aerial and ground documentation",
-    visual.storm,
+    visual.solutionEmergency,
   ],
   [
     "Agriculture & Land Imaging",
     "A broad perspective for acreage, access, and land narratives.",
     "Farms, land, environmental context",
     "Mapped visual coverage",
-    visual.farm,
+    visual.solutionAgriculture,
   ],
   [
     "Commercial Media Production",
     "Aerial imagery designed to live within a complete story.",
     "Brands, venues, campaigns",
     "Photography and video selects",
-    visual.road,
+    visual.solutionCommercial,
   ],
 ];
 const projects = [
@@ -113,56 +133,56 @@ const projects = [
     "General Aerial Photography",
     "Coastal location",
     "Aerial stills",
-    visual.coast,
+    visual.projectHarbor,
   ],
   [
     "New site, new perspective",
     "Construction Progress",
     "Project location",
     "Progress documentation",
-    visual.build,
+    visual.projectConstruction,
   ],
   [
     "Above the listing",
     "Real Estate – Drone",
     "Property location",
     "Property media",
-    visual.house,
+    visual.projectListing,
   ],
   [
     "Working landscape",
     "Agriculture and Land Imaging",
     "Rural location",
     "Land imagery",
-    visual.farm,
+    visual.projectLandscape,
   ],
   [
     "After the weather",
     "Storm Damage",
     "Project location",
     "Damage documentation",
-    visual.storm,
+    visual.projectStorm,
   ],
   [
     "The route",
     "Aerial Video",
     "Regional location",
     "Cinematic motion",
-    visual.road,
+    visual.projectVideo,
   ],
   [
     "Reach and review",
     "Tower & Infrastructure",
     "Site location",
     "Inspection imagery",
-    visual.tower,
+    visual.projectInfrastructure,
   ],
   [
     "Roofline study",
     "Roof & Property Inspections",
     "Property location",
     "Roof documentation",
-    visual.roof,
+    visual.projectRoof,
   ],
 ];
 const categories = [
@@ -192,7 +212,7 @@ const fleet = [
     "4K motion capture",
     "Close visual review",
     "Up to 40 minutes",
-    visual.tower,
+    visual.fleetSurveyor,
   ],
   [
     "Vista Cine",
@@ -201,7 +221,7 @@ const fleet = [
     "4K cinematic capture",
     "Location overview",
     "Up to 38 minutes",
-    visual.city,
+    visual.fleetVista,
   ],
   [
     "Field Mapper",
@@ -210,7 +230,7 @@ const fleet = [
     "4K documentation",
     "Repeatable flight routes",
     "Up to 45 minutes",
-    visual.farm,
+    visual.fleetMapper,
   ],
 ];
 
@@ -579,7 +599,7 @@ function Home() {
               Explore selected work
             </Action>
           </div>
-          <img src={visual.coast} alt="Aerial coastline with blue water" />
+          <img src={visual.homeShowcase} alt="Aerial coastline with blue water" />
         </section>
       </Reveal>
       <section className="section">
@@ -659,7 +679,7 @@ function Solutions() {
         kicker="Solutions"
         title="Aerial capability, shaped to the work."
         copy="A considered set of drone and visual-documentation services designed to clarify a site, show progress, or tell a stronger location story."
-        image={visual.farm}
+        image={visual.mastheadSolutions}
       />
       <section className="section">
         <Reveal>
@@ -686,7 +706,7 @@ function Fleet() {
         kicker="Drone fleet"
         title="The right platform for a confident perspective."
         copy="Aircraft details shown here are editable placeholders until final fleet specifications are supplied. Each card keeps the essential operational conversation easy to compare."
-        image={visual.tower}
+        image={visual.mastheadFleet}
       />
       <section className="section">
         <Reveal>
@@ -786,7 +806,7 @@ function Portfolio() {
         kicker="Portfolio"
         title="A portfolio designed for the details that change the story."
         copy="Filter by assignment, then open a project to review its visual brief, location context, and intended deliverables."
-        image={visual.coast}
+        image={visual.mastheadPortfolio}
       />
       <section className="section portfolio">
         <Reveal>
@@ -917,7 +937,7 @@ function Support() {
         kicker="Service & support"
         title="A clear path from first brief to final handoff."
         copy="The working process stays practical: plan the capture, make the flight, organize the files, and keep communication easy when the project needs follow-up."
-        image={visual.build}
+        image={visual.mastheadSupport}
       />
       <section className="support-grid section">
         <Reveal>
@@ -986,12 +1006,12 @@ function About() {
         kicker="About Dream Big Drones"
         title="A more thoughtful view of every site."
         copy="Dream Big Drones by RLM brings a client-focused aerial approach to property, documentation, media, and location-led storytelling."
-        image={visual.farm}
+        image={visual.mastheadAbout}
       />
       <section className="about-grid section">
         <Reveal>
           <img
-            src={visual.city}
+            src={visual.aboutPerspective}
             alt="City from an elevated perspective"
             loading="lazy"
           />
@@ -1039,7 +1059,7 @@ function About() {
       </section>
       <section className="about-fieldwork section">
         <div className="about-image-stage">
-          <img src={visual.coast} alt="Aerial view of a coastline and water" loading="lazy" />
+          <img src={visual.aboutFieldwork} alt="Aerial view of a coastline and water" loading="lazy" />
         </div>
         <div className="about-fieldwork-copy">
           <h2>Thoughtful from the first coordinate to the final file.</h2>
@@ -1061,7 +1081,7 @@ function Contact() {
         kicker="Contact & project intake"
         title="Tell us what needs a better view."
         copy="Share the location, scope, and timing. The detailed project intake helps us begin with the right questions."
-        image={visual.roof}
+        image={visual.mastheadContact}
       />
       <section id="intake" className="contact-layout section">
         <Reveal>

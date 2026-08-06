@@ -460,3 +460,38 @@
     will-change: auto;
   }
 }
+
+/* Responsive containment: intrinsically wide media and dialogue columns must
+   never force a horizontal page scroll at the narrowest widths. */
+main,
+.section,
+.page-masthead,
+.project-modal,
+.project-modal > *,
+.support-grid > *,
+.about-grid > *,
+.contact-layout > * {
+  min-width: 0;
+}
+
+.project-modal {
+  width: min(960px, calc(100vw - 48px));
+  max-height: min(90dvh, 760px);
+}
+
+.project-modal > img {
+  min-width: 0;
+}
+
+@media (max-width: 680px) {
+  .project-modal {
+    width: min(100%, calc(100vw - 32px));
+    max-height: calc(100dvh - 32px);
+  }
+
+  .filters button,
+  .subfilters button {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}
