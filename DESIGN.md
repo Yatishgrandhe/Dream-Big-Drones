@@ -156,11 +156,12 @@ Layout direction:
 
 ### Desktop editorial motion layer
 
-- Desktop motion is loaded only after a `min-width: 1024px` media query passes and is kept in a GSAP/ScrollTrigger chunk. Lenis provides desktop-only inertial scrolling at a 1.2-second ease-out-quad profile; mobile and reduced-motion visitors never request the complex controller.
+- Desktop motion is loaded only after a `min-width: 1024px` media query passes and is kept in a GSAP/ScrollTrigger chunk. Lenis uses a responsive 0.72-second ease-out-cubic desktop profile: it settles smoothly but immediately responds to a fast wheel gesture. Mobile and reduced-motion visitors never request the complex controller.
 - Motion tokens: feedback `120–180ms`; controls `180–260ms`; small reveals `350–550ms`; section scenes `600–850ms`; hero scenes `900–1200ms`; primary easing uses `power3.out` / `power3.inOut`, with `power4.out` reserved for the hero and masked editorial headings.
 - The visual grammar borrows only interaction principles from the supplied NESH reference: masked headings, changing directional entrances, oversized route indices, image stages that reveal through a crop, and a single continuous navigation flight. It does not reuse reference assets, markup, copy, or source.
 - Each route has one story-specific moment: shuttered solution rows, technical fleet scans, FLIP portfolio filtering, a support process line, connected About principles, and restrained grouped Contact intake. Repeated generic fade-ups are prohibited.
 - The desktop scenes must read as a deliberate moment at normal scroll speed: Home gets an oversized launch-scale editorial reveal; Solutions uses alternating camera shutters; Fleet exposes a scanning specification sequence; Portfolio uses a filter-led FLIP choreography; Support carries a calm line through its FAQ; About resolves principles into a route; Contact concentrates attention into a staged intake approach.
+- Original flight-control SVG primitives—launch grids, survey rings, route traces, telemetry pulses, and card-level scan/route markers—provide the site’s technical detail. They are composed in brand navy, sky-cyan, and copper and are decorative only; no third-party artwork or source is reused.
 
 ## 7. Depth & Surface
 

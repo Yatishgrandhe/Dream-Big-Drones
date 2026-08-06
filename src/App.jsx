@@ -15,6 +15,7 @@ import "./RouteMasthead.css";
 import "./BrandArtwork.css";
 import "./FlightMotion.css";
 import "./HeaderSizing.css";
+import "./AerialInstruments.css";
 
 const DesktopMotion = lazy(() => import("./DesktopMotion"));
 
@@ -438,6 +439,8 @@ function HomeHero({ kicker, title, copy, children }) {
         fetchPriority="high"
       />
       <div className="hero-shade" />
+      <AerialHud className="hero-hud" variant="launch" />
+      <TelemetryGlyph className="hero-signal" />
       {desktopMotion ? (
         <motion.div className="hero-copy" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}>{content}</motion.div>
       ) : <div className="hero-copy">{content}</div>}
@@ -457,6 +460,7 @@ function PageMasthead({ kicker, title, copy, image }) {
         <p>{copy}</p>
       </div>
       {desktopMotion ? <motion.img src={image} alt="Aerial project context" initial={{ opacity: 0, scale: 1.05 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} /> : <img src={image} alt="Aerial project context" />}
+      <AerialHud className="masthead-hud" variant="survey" />
     </section>
   );
 }
@@ -481,6 +485,50 @@ function FlightRoute({ label = "Flight route" }) {
         <circle className="flight-route-destination" cx="1200" cy="46" r="7" />
       </svg>
     </div>
+  );
+}
+function AerialHud({ className = "", variant = "survey" }) {
+  const launch = variant === "launch";
+  return (
+    <svg className={`aerial-hud ${className}`} viewBox="0 0 640 420" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="hud-fade" x1="0" y1="0" x2="1" y2="1">
+          <stop stopColor="currentColor" stopOpacity=".8" />
+          <stop offset="1" stopColor="currentColor" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <g className="hud-grid" opacity=".34">
+        {[80, 160, 240, 320, 400, 480, 560].map((x) => <path key={`v${x}`} d={`M${x} 0V420`} />)}
+        {[70, 140, 210, 280, 350].map((y) => <path key={`h${y}`} d={`M0 ${y}H640`} />)}
+      </g>
+      <circle className="hud-orbit" cx="490" cy="150" r="94" />
+      <circle className="hud-orbit hud-orbit-inner" cx="490" cy="150" r="46" />
+      <path className="hud-route" d={launch ? "M-16 340 C142 250 198 386 330 266 S508 92 656 142" : "M-20 304 C120 226 234 356 344 238 S510 106 662 178"} />
+      <path className="hud-route-bright" d={launch ? "M156 318 C230 354 276 316 330 266 S454 122 534 130" : "M178 306 C240 322 292 292 344 238 S450 144 522 142"} />
+      <g className="hud-target" transform="translate(490 150)">
+        <path d="M-30 0H30M0-30V30" />
+        <circle r="14" />
+      </g>
+      <text x="28" y="44">RLM / AERIAL LINK</text>
+      <text x="28" y="388">ALTITUDE / 0042 FT</text>
+      <text x="514" y="276">{launch ? "LAUNCH" : "SURVEY"}</text>
+    </svg>
+  );
+}
+function TelemetryGlyph({ className = "" }) {
+  return (
+    <svg className={`telemetry-glyph ${className}`} viewBox="0 0 360 84" fill="none" aria-hidden="true">
+      <path className="glyph-base" d="M0 57H36L58 24L79 63L112 42L142 52L171 12L203 58L241 30L268 48L309 19H360" />
+      <path className="glyph-trace" d="M0 57H36L58 24L79 63L112 42L142 52L171 12L203 58L241 30L268 48L309 19H360" />
+      <circle className="glyph-ping" cx="171" cy="12" r="6" />
+    </svg>
+  );
+}
+function CardSignal({ type = "route" }) {
+  return (
+    <svg className="card-signal" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+      {type === "scan" ? <><circle cx="40" cy="40" r="27" /><path d="M40 5V75M5 40H75" /><path className="card-signal-sweep" d="M40 40L67 24" /></> : <><path d="M6 64C23 14 50 78 74 16" /><circle cx="6" cy="64" r="3" /><circle cx="74" cy="16" r="3" /></>}
+    </svg>
   );
 }
 function TelemetryLine() {
@@ -618,6 +666,7 @@ function SolutionCard({ item }) {
   return (
     <article className="solution-card">
       <img src={item[4]} alt="" loading="lazy" />
+      <CardSignal />
       <div>
         <p className="eyebrow">{item[2]}</p>
         <h3>{item[0]}</h3>
@@ -690,6 +739,7 @@ function FleetCard({ drone }) {
   return (
     <article className="fleet-card">
       <img src={drone[6]} alt="" loading="lazy" />
+      <CardSignal type="scan" />
       <div>
         <p className="eyebrow">{drone[1]}</p>
         <h3>{drone[0]}</h3>
@@ -805,6 +855,7 @@ function Portfolio() {
                 <strong>{project[0]}</strong>
                 <i>{project[3]}</i>
                 <ArrowRight className="project-arrow" size={18} aria-hidden="true" />
+                <CardSignal />
               </button>
             </Reveal>
           ))}

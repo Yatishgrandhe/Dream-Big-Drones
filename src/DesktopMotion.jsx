@@ -43,7 +43,14 @@ export default function DesktopMotion({ rootRef, path }) {
     const root = rootRef.current;
     if (!root) return;
     let removeHeroPointer = null;
-    const lenis = new Lenis({ duration: 1.2, easing: (t) => 1 - (1 - t) ** 2, smoothWheel: true });
+    // Responsive momentum: smooth enough to feel composed, short enough to keep up with fast input.
+    const lenis = new Lenis({
+      duration: 0.72,
+      easing: (t) => 1 - (1 - t) ** 3,
+      smoothWheel: true,
+      wheelMultiplier: 0.92,
+      syncTouch: false,
+    });
     const tick = (time) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
@@ -68,6 +75,31 @@ export default function DesktopMotion({ rootRef, path }) {
         .to(line, { strokeDashoffset: 0, duration: 1.15, ease: "power2.inOut" })
         .from(waypoint, { scale: 0, duration: .18 }, 0)
         .to(waypoint, { motionPath: { path: line, align: line, alignOrigin: [.5, .5] }, duration: 1.08, ease: "power2.inOut" }, 0);
+    });
+    root.querySelectorAll(".aerial-hud").forEach((hud) => {
+      const brightRoute = hud.querySelector(".hud-route-bright");
+      const orbit = hud.querySelector(".hud-orbit");
+      const target = hud.querySelector(".hud-target");
+      const scene = hud.parentElement;
+      if (brightRoute) {
+        const length = brightRoute.getTotalLength();
+        gsap.set(brightRoute, { strokeDasharray: length, strokeDashoffset: length });
+        gsap.to(brightRoute, {
+          strokeDashoffset: 0,
+          duration: 1.1,
+          ease: "power2.inOut",
+          scrollTrigger: { trigger: scene, start: "top 82%", once: true },
+        });
+      }
+      if (orbit) gsap.to(orbit, { rotation: 130, transformOrigin: "50% 50%", ease: "none", scrollTrigger: { trigger: scene, start: "top bottom", end: "bottom top", scrub: 0.45 } });
+      if (target) gsap.from(target, { scale: 0.35, autoAlpha: 0, duration: .55, ease: "power3.out", scrollTrigger: { trigger: scene, start: "top 80%", once: true } });
+    });
+    root.querySelectorAll(".telemetry-glyph").forEach((glyph) => {
+      const trace = glyph.querySelector(".glyph-trace");
+      if (!trace) return;
+      const length = trace.getTotalLength();
+      gsap.set(trace, { strokeDasharray: length, strokeDashoffset: length });
+      gsap.to(trace, { strokeDashoffset: 0, duration: 1.15, ease: "power2.inOut" });
     });
     if (path === "/") {
       const hero = root.querySelector(".hero-brand-art");
