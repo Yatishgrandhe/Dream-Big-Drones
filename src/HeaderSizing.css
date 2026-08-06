@@ -33,7 +33,7 @@
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 900px) {
   :root {
     --dbd-header-height: 68px;
   }
@@ -45,6 +45,13 @@
   .site-header .brand-logo {
     width: 112px;
     height: 68px;
+  }
+  .menu-button {
+    display: grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px;
   }
   .site-header nav {
     position: fixed;

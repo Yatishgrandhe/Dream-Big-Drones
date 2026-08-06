@@ -69,10 +69,10 @@ Layout direction:
 
 ### Hero Module
 
-- Full-bleed, unrounded product stage with left copy and a right hero image stage for the branded drone artwork.
-- Uses generous desktop height and deliberate edge-to-edge framing, inspired by DJI's 800px hero module, while preserving the Dream Big content and artwork.
-- A new secondary action: `See more pictures`.
-- Soft foreground wash at the bottom to echo the cleaner agricultural/product-page style without copying DJI branding.
+- The homepage protects the supplied brand artwork as a clear, full-width top stage. No headline, call-to-action, scrim, or decorative overlay may cover the sign or drone artwork.
+- A white information band beneath the artwork carries the headline, supporting copy, and two actions. This follows the supplied reference's visual rhythm while keeping the official mark legible as a standalone image.
+- On desktop the title, short explanation, and actions use a three-part horizontal composition. On tablet the actions move to a second row; on mobile all content stacks below the artwork with a light copper divider.
+- The desktop claim resolves as two deliberate lines: `Global vision.` then `Grounded results.`. The image remains immediately visible above it rather than competing with the copy.
 
 ### Placeholder Gallery Cards
 
@@ -87,8 +87,13 @@ Layout direction:
 
 ### Clean Service Cards
 
-- Three short, rounded cards with direct copy.
-- No overbuilt iconography or fake dashboard decoration.
+- The homepage uses an asymmetric lead-card composition: one tall first service beside two supporting services. Service context is sentence-case supporting copy, not a repeated uppercase eyebrow.
+- Inner service lists retain compact cards with direct copy and no overbuilt iconography or fake dashboard decoration.
+
+### Interaction Refinement
+
+- Primary actions, filters, and text controls share a concise press response (`scale(0.97)`) and strong gold focus outline. Hover motion remains desktop-pointer only.
+- Decorative flight-route labels are reserved for functional navigation only. Page sections no longer use route numbering or image-overlay labels as filler.
 
 ### Project Standards Strip
 

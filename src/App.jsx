@@ -417,36 +417,36 @@ function Reveal({ children, delay = 0, className = "" }) {
 function HomeHero({ kicker, title, copy, children }) {
   const desktopMotion = useDesktopMotionEnabled();
   const content = (
-    <>
-      <p className="eyebrow">{kicker}</p>
-      <h1 className="hero-headline">
-        {title.split(" ").map((word, index) => (
-          <span className="hero-word" key={`${word}${index}`}>
-            {word}&nbsp;
-          </span>
-        ))}
-      </h1>
-      <p>{copy}</p>
-      {children}
-    </>
+    <div className="hero-info-inner">
+      <div className="hero-title-block">
+        <p className="eyebrow">{kicker}</p>
+        <h1 className="hero-headline">
+          {title.split(" ").map((word, index) => (
+            <span className="hero-word" key={`${word}${index}`}>
+              {word}{" "}
+            </span>
+          ))}
+        </h1>
+      </div>
+      <div className="hero-detail-block">
+        <p>{copy}</p>
+      </div>
+      <div className="hero-actions">{children}</div>
+    </div>
   );
   return (
     <section className="page-hero">
-      <img
-        className="hero-brand-art"
-        src="/dream-big-drones-hero.png"
-        alt="Dream Big Drones by RLM drone and world-imagery artwork"
-        fetchPriority="high"
-      />
-      <div className="hero-shade" />
-      <AerialHud className="hero-hud" variant="launch" />
-      <TelemetryGlyph className="hero-signal" />
+      <div className="hero-art-stage">
+        <img
+          className="hero-brand-art"
+          src="/dream-big-drones-hero.png"
+          alt="Dream Big Drones by RLM drone and world-imagery artwork"
+          fetchPriority="high"
+        />
+      </div>
       {desktopMotion ? (
-        <motion.div className="hero-copy" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}>{content}</motion.div>
+        <motion.div className="hero-copy" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}>{content}</motion.div>
       ) : <div className="hero-copy">{content}</div>}
-      <p className="hero-caption">
-        Dream Big Drones <i>by RLM</i>
-      </p>
     </section>
   );
 }
@@ -470,20 +470,6 @@ function SectionHead({ eyebrow, title, copy }) {
       <p className="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
       {copy && <p>{copy}</p>}
-    </div>
-  );
-}
-function FlightRoute({ label = "Flight route" }) {
-  return (
-    <div className="flight-route" aria-hidden="true">
-      <span>{label}</span>
-      <svg viewBox="0 0 1200 180" preserveAspectRatio="none">
-        <path className="flight-route-base" d="M0 126 C150 18 262 184 424 92 S693 20 804 102 S1026 158 1200 46" />
-        <path className="flight-route-draw" d="M0 126 C150 18 262 184 424 92 S693 20 804 102 S1026 158 1200 46" />
-        <circle className="flight-route-origin" cx="0" cy="126" r="7" />
-        <circle className="flight-route-waypoint" cx="0" cy="126" r="5" />
-        <circle className="flight-route-destination" cx="1200" cy="46" r="7" />
-      </svg>
     </div>
   );
 }
@@ -512,15 +498,6 @@ function AerialHud({ className = "", variant = "survey" }) {
       <text x="28" y="44">RLM / AERIAL LINK</text>
       <text x="28" y="388">ALTITUDE / 0042 FT</text>
       <text x="514" y="276">{launch ? "LAUNCH" : "SURVEY"}</text>
-    </svg>
-  );
-}
-function TelemetryGlyph({ className = "" }) {
-  return (
-    <svg className={`telemetry-glyph ${className}`} viewBox="0 0 360 84" fill="none" aria-hidden="true">
-      <path className="glyph-base" d="M0 57H36L58 24L79 63L112 42L142 52L171 12L203 58L241 30L268 48L309 19H360" />
-      <path className="glyph-trace" d="M0 57H36L58 24L79 63L112 42L142 52L171 12L203 58L241 30L268 48L309 19H360" />
-      <circle className="glyph-ping" cx="171" cy="12" r="6" />
     </svg>
   );
 }
@@ -580,7 +557,7 @@ function Home() {
     <>
       <HomeHero
         kicker="Aerial services by RLM"
-        title="Global vision. Grounded execution."
+        title="Global vision. Grounded results."
         copy="A premium aerial partner for visual storytelling, property documentation, inspections, and the work that needs a clearer point of view."
       >
         <div className="hero-actions">
@@ -593,7 +570,6 @@ function Home() {
       <Reveal>
         <section className="showcase">
           <div>
-            <p className="eyebrow">Featured visual showcase</p>
             <h2>See the site before anyone steps onto it.</h2>
             <p>
               Purposeful aerial work gives a project its scale, setting, and
@@ -609,11 +585,10 @@ function Home() {
       <section className="section">
         <Reveal>
           <SectionHead
-            eyebrow="Featured solutions"
             title="Work built for the view that matters."
           />
         </Reveal>
-        <div className="solution-grid">
+        <div className="solution-grid home-solution-grid">
           {solutionData.slice(0, 3).map((item, index) => (
             <Reveal key={item[0]} delay={index * 0.09}>
               <SolutionCard item={item} />
@@ -648,11 +623,9 @@ function Home() {
           </Reveal>
         ))}
       </section>
-      <FlightRoute label="Flight plan · 01 / 03" />
       <Reveal>
         <section className="section cta-band">
           <SectionHead
-            eyebrow="Start with the brief"
             title="Have a project on the horizon?"
             copy="Tell us where it is, what needs to be captured, and what the finished work needs to accomplish."
           />
@@ -668,7 +641,7 @@ function SolutionCard({ item }) {
       <img src={item[4]} alt="" loading="lazy" />
       <CardSignal />
       <div>
-        <p className="eyebrow">{item[2]}</p>
+        <p className="service-context">{item[2]}</p>
         <h3>{item[0]}</h3>
         <p>{item[1]}</p>
         <small>{item[3]}</small>
@@ -686,7 +659,7 @@ function Solutions() {
         kicker="Solutions"
         title="Aerial capability, shaped to the work."
         copy="A considered set of drone and visual-documentation services designed to clarify a site, show progress, or tell a stronger location story."
-        image={visual.road}
+        image={visual.farm}
       />
       <section className="section">
         <Reveal>
@@ -741,7 +714,7 @@ function FleetCard({ drone }) {
       <img src={drone[6]} alt="" loading="lazy" />
       <CardSignal type="scan" />
       <div>
-        <p className="eyebrow">{drone[1]}</p>
+        <p className="service-context">{drone[1]}</p>
         <h3>{drone[0]}</h3>
         <dl>
           <div>
@@ -969,7 +942,6 @@ function Support() {
             </ul>
             <Action>Contact support</Action>
           </div>
-          <FlightRoute label="Support route · 01 / 04" />
         </Reveal>
         <Reveal delay={0.1}>
           <Faq questions={questions} />
@@ -1038,19 +1010,18 @@ function About() {
             </p>
             <div className="principles">
               <p>
-                <b>01 · Mission</b> Make the aerial perspective practical,
+                <b>Mission</b> Make the aerial perspective practical,
                 beautiful, and clear.
               </p>
               <p>
-                <b>02 · Quality</b> Give the final frame enough context to earn
+                <b>Quality</b> Give the final frame enough context to earn
                 attention.
               </p>
               <p>
-                <b>03 · Flexibility</b> Shape the flight plan around the
+                <b>Flexibility</b> Shape the flight plan around the
                 project, not the other way around.
               </p>
             </div>
-            <FlightRoute label="Mission route · 01 / 03" />
           </div>
         </Reveal>
       </section>
@@ -1069,10 +1040,8 @@ function About() {
       <section className="about-fieldwork section">
         <div className="about-image-stage">
           <img src={visual.coast} alt="Aerial view of a coastline and water" loading="lazy" />
-          <span>Field perspective</span>
         </div>
         <div className="about-fieldwork-copy">
-          <p className="eyebrow">How we work</p>
           <h2>Thoughtful from the first coordinate to the final file.</h2>
           <div className="about-notes">
             <article><b>Brief the purpose</b><p>Start with what the visual needs to help someone see, decide, or communicate.</p></article>
@@ -1113,7 +1082,6 @@ function Contact() {
                 details are not displayed publicly.
               </p>
             </div>
-            <FlightRoute label="Intake route · 01 / 01" />
           </div>
         </Reveal>
         <Reveal delay={0.12}>
