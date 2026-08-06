@@ -538,35 +538,39 @@ main,
   object-position: center;
 }
 
-/* Home-intro choreography follows the supplied reference: a single oversized
-   wordmark establishes the scene, the focal artwork resolves next, and the
-   supporting message arrives only after the image is legible. */
+/* Home intro: one contained launch brief that resolves directly into the
+   matching hero art. The route and rail explain loading progress; no extra
+   marketing card competes with the supplied artwork. */
 .loader {
   isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  padding: clamp(24px, 5vw, 72px);
   background: var(--dbd-sand);
 }
 
 .loader::before {
   position: absolute;
-  z-index: -3;
+  z-index: -2;
   inset: 0;
   content: "";
   background:
-    linear-gradient(115deg, rgb(255 253 249 / 0.94), rgb(232 227 215 / 0.82)),
+    linear-gradient(115deg, color-mix(in srgb, var(--dbd-paper) 94%, transparent), color-mix(in srgb, var(--dbd-sand) 82%, var(--dbd-paper))),
     var(--dbd-sand);
 }
 
-.loader-word {
+.loader-grid {
   position: absolute;
-  z-index: 0;
-  top: 50%;
-  left: clamp(22px, 6vw, 108px);
-  color: #e7b264;
-  font-family: Manrope, "Avenir Next", sans-serif;
-  font-size: clamp(7rem, 24vw, 27rem);
-  font-weight: 800;
-  line-height: 0.72;
-  letter-spacing: -0.1em;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.66;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--dbd-navy) 11%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--dbd-navy) 11%, transparent) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(circle at 50% 46%, #000 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -583,67 +587,59 @@ main,
   text-transform: uppercase;
 }
 
-.loader-art {
+.loader-art-frame {
+  position: relative;
   z-index: 1;
-  width: min(74vw, 1260px);
-  height: min(76dvh, 760px);
-  inset: auto 13vw 0;
+  grid-row: 1;
+  justify-self: center;
+  width: min(100%, 1160px);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--dbd-navy) 26%, transparent);
+  background: var(--dbd-paper);
+  box-shadow: 0 28px 76px color-mix(in srgb, var(--dbd-navy) 18%, transparent);
+  aspect-ratio: 1698 / 926;
+}
+
+.loader-art {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  object-position: center bottom;
-  mix-blend-mode: multiply;
+  object-position: center;
 }
 
 .loader-shade {
+  position: absolute;
+  inset: 0;
   z-index: 2;
-  background: linear-gradient(0deg, rgb(232 227 215 / 0.88), transparent 45%);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--dbd-paper) 18%, transparent), transparent 38%),
+    linear-gradient(0deg, color-mix(in srgb, var(--dbd-navy) 18%, transparent), transparent 44%);
 }
 
-.loader-card {
+.loader-status {
+  position: absolute;
   z-index: 3;
-  justify-items: start;
-  gap: 10px;
-  width: min(430px, calc(100vw - 48px));
-  min-width: 0;
-  margin: clamp(120px, 18vh, 180px) clamp(24px, 7vw, 128px) 0 auto;
-  padding: clamp(18px, 2.6vw, 30px);
-  color: var(--dbd-paper);
-  background: rgb(16 47 67 / 0.88);
-  border: 1px solid rgb(255 255 255 / 0.28);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 24px 70px rgb(16 47 67 / 0.26);
-}
-
-.loader-card span {
-  color: #e7b264;
-}
-
-.loader-card strong {
-  max-width: 12ch;
-  font-family: Georgia, serif;
-  font-size: clamp(1.6rem, 3.2vw, 3rem);
-  font-weight: 400;
-  line-height: 0.94;
-  letter-spacing: -0.05em;
-}
-
-.loader-card p {
-  max-width: 34ch;
-  margin: 2px 0 0;
-  color: rgb(255 255 255 / 0.76);
-  font-size: 0.78rem;
-  line-height: 1.55;
+  right: clamp(24px, 5vw, 72px);
+  bottom: clamp(26px, 5vw, 62px);
+  margin: 0;
+  color: var(--dbd-navy);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .loader-flight {
   position: absolute;
   z-index: 3;
   right: 0;
-  bottom: clamp(24px, 5vw, 72px);
+  bottom: clamp(44px, 7vw, 96px);
   left: 0;
   width: 100%;
   height: clamp(76px, 12vw, 150px);
   overflow: visible;
-  color: #e7b264;
+  color: var(--dbd-copper);
   pointer-events: none;
 }
 
@@ -661,13 +657,22 @@ main,
 
 .loader-flight-draw {
   stroke-width: 2;
-  filter: drop-shadow(0 0 8px rgb(231 178 100 / 0.6));
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--dbd-copper) 58%, transparent));
+}
+
+.loader-progress {
+  position: absolute;
+  z-index: 3;
+  right: clamp(24px, 5vw, 72px);
+  bottom: clamp(18px, 3vw, 30px);
+  left: clamp(24px, 5vw, 72px);
+  height: 2px;
+  background: var(--dbd-copper);
+  transform-origin: left;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loader-word,
-  .loader-art,
-  .loader-card,
+  .loader-art-frame,
   .loader-flight-draw {
     transform: none !important;
     filter: none !important;

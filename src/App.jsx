@@ -10,6 +10,7 @@ import {
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ContactForm } from "./components/ContactForm";
+import { MastheadImageReveal } from "./MastheadImageReveal";
 import "./App.css";
 import "./RouteMasthead.css";
 import "./BrandArtwork.css";
@@ -322,45 +323,36 @@ function Loader({ complete, home }) {
         <motion.div
           className="loader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: reduced ? 0.12 : 0.32 } }}
-          aria-label="Loading Dream Big Drones"
+          exit={{ opacity: 0, scale: reduced ? 1 : 1.015, transition: { duration: reduced ? 0.12 : 0.28, ease: [0.4, 0, 0.2, 1] } }}
+          role="status"
+          aria-label="Preparing Dream Big Drones"
         >
+          <div className="loader-grid" aria-hidden="true" />
           <motion.p
             className="loader-kicker"
             initial={{ opacity: 0, y: reduced ? 0 : -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduced ? 0.01 : 0.28, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: reduced ? 0.01 : 0.32, ease: [0.22, 1, 0.36, 1] }}
           >
             Dream Big Drones / RLM
           </motion.p>
           <motion.div
-            className="loader-word"
-            initial={{ x: reduced ? 0 : "110%" }}
-            animate={{ x: 0 }}
-            transition={{ duration: reduced ? 0.01 : 0.82, delay: reduced ? 0 : 0.08, ease: [0.16, 1, 0.3, 1] }}
-            aria-hidden="true"
+            className="loader-art-frame"
+            initial={{ scale: reduced ? 1 : 1.018 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: reduced ? 0.01 : 0.72, ease: [0.22, 1, 0.36, 1] }}
           >
-            DREAM
+            <img className="loader-art" src="/dream-big-drones-hero.png" alt="" />
+            <div className="loader-shade" aria-hidden="true" />
           </motion.div>
-          <motion.img
-            className="loader-art"
-            src="/dream-big-drones-hero.png"
-            alt=""
-            initial={{ opacity: 0, y: reduced ? 0 : "8%", scale: reduced ? 1 : 1.035, filter: reduced ? "blur(0px)" : "blur(16px)" }}
-            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-            transition={{ duration: reduced ? 0.01 : 0.68, delay: reduced ? 0 : 0.52, ease: [0.22, 1, 0.36, 1] }}
-          />
-          <div className="loader-shade" />
-          <motion.div
-            className="loader-card"
-            initial={{ opacity: 0, y: reduced ? 0 : 18, filter: reduced ? "blur(0px)" : "blur(7px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: reduced ? 0.01 : 0.42, delay: reduced ? 0 : 0.9, ease: [0.22, 1, 0.36, 1] }}
+          <motion.p
+            className="loader-status"
+            initial={{ opacity: 0, y: reduced ? 0 : 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0.01 : 0.36, delay: reduced ? 0 : 0.38, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span>Aerial services by RLM</span>
-            <strong>Global vision.<br />Grounded results.</strong>
-            <p>Visual storytelling, documentation, and inspection from a clearer point of view.</p>
-          </motion.div>
+            Preparing a clearer view
+          </motion.p>
           <svg className="loader-flight" viewBox="0 0 1200 240" fill="none" aria-hidden="true">
             <path className="loader-flight-base" d="M-20 174 C174 82 324 222 526 128 S852 26 1220 102" />
             <motion.path
@@ -369,9 +361,16 @@ function Loader({ complete, home }) {
               pathLength="1"
               initial={{ pathLength: 0, opacity: 0 }}
               animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: reduced ? 0.01 : 0.54, delay: reduced ? 0 : 1.1, ease: [0.4, 0, 0.2, 1] }}
+              transition={{ duration: reduced ? 0.01 : 0.72, delay: reduced ? 0 : 0.58, ease: [0.4, 0, 0.2, 1] }}
             />
           </svg>
+          <motion.i
+            className="loader-progress"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: reduced ? 0.01 : 0.84, delay: reduced ? 0 : 0.64, ease: [0.22, 1, 0.36, 1] }}
+            aria-hidden="true"
+          />
         </motion.div>
       )}
     </AnimatePresence>
@@ -498,7 +497,6 @@ function HomeHero({ kicker, title, copy, children }) {
   );
 }
 function PageMasthead({ kicker, title, copy, image }) {
-  const desktopMotion = useDesktopMotionEnabled();
   return (
     <section className="page-masthead">
       <div className="masthead-copy">
@@ -506,8 +504,7 @@ function PageMasthead({ kicker, title, copy, image }) {
         <h1>{title}</h1>
         <p>{copy}</p>
       </div>
-      {desktopMotion ? <motion.img src={image} alt="Aerial project context" initial={{ opacity: 0, scale: 1.05 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} /> : <img src={image} alt="Aerial project context" />}
-      <AerialHud className="masthead-hud" variant="survey" />
+      <MastheadImageReveal src={image} alt="Aerial project context" />
     </section>
   );
 }
@@ -518,34 +515,6 @@ function SectionHead({ eyebrow, title, copy }) {
       <h2>{title}</h2>
       {copy && <p>{copy}</p>}
     </div>
-  );
-}
-function AerialHud({ className = "", variant = "survey" }) {
-  const launch = variant === "launch";
-  return (
-    <svg className={`aerial-hud ${className}`} viewBox="0 0 640 420" fill="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="hud-fade" x1="0" y1="0" x2="1" y2="1">
-          <stop stopColor="currentColor" stopOpacity=".8" />
-          <stop offset="1" stopColor="currentColor" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <g className="hud-grid" opacity=".34">
-        {[80, 160, 240, 320, 400, 480, 560].map((x) => <path key={`v${x}`} d={`M${x} 0V420`} />)}
-        {[70, 140, 210, 280, 350].map((y) => <path key={`h${y}`} d={`M0 ${y}H640`} />)}
-      </g>
-      <circle className="hud-orbit" cx="490" cy="150" r="94" />
-      <circle className="hud-orbit hud-orbit-inner" cx="490" cy="150" r="46" />
-      <path className="hud-route" d={launch ? "M-16 340 C142 250 198 386 330 266 S508 92 656 142" : "M-20 304 C120 226 234 356 344 238 S510 106 662 178"} />
-      <path className="hud-route-bright" d={launch ? "M156 318 C230 354 276 316 330 266 S454 122 534 130" : "M178 306 C240 322 292 292 344 238 S450 144 522 142"} />
-      <g className="hud-target" transform="translate(490 150)">
-        <path d="M-30 0H30M0-30V30" />
-        <circle r="14" />
-      </g>
-      <text x="28" y="44">RLM / AERIAL LINK</text>
-      <text x="28" y="388">ALTITUDE / 0042 FT</text>
-      <text x="514" y="276">{launch ? "LAUNCH" : "SURVEY"}</text>
-    </svg>
   );
 }
 function CardSignal({ type = "route" }) {

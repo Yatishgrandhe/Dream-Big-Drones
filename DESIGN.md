@@ -74,6 +74,11 @@ Layout direction:
 - On desktop the title, short explanation, and actions use a three-part horizontal composition. On tablet the actions move to a second row; on mobile all content stacks below the artwork with a light copper divider.
 - The desktop claim resolves as two deliberate lines: `Global vision.` then `Grounded results.`. The image remains immediately visible above it rather than competing with the copy.
 
+### Masthead Image Route
+
+- Inner-route mastheads use a single right-hand image stage with a white-to-copper flight path. On desktop, DrawSVG draws the route before opening the image from the left; the waypoint markers then settle along the finished route.
+- The image itself is always in the document and fully visible for mobile and reduced-motion visitors. The route is supporting context, not a control or a source of essential information.
+
 ### Placeholder Gallery Cards
 
 - Presented as “Selected work,” using temporary Unsplash aerial photography until original work is available.
@@ -138,8 +143,8 @@ Layout direction:
 
 ### Cinematic Flight-Path Loader
 
-- Desktop-only warm-white flight briefing, under 2.1 seconds, with the supplied unaltered full logo centered inside a white framed presentation card.
-- Structure: a single logo-led entrance over a fine navy coordinate grid, restrained editorial flight route, short status line, and one gold progress rail. The loader must never run a preliminary animation before the branded scene; all visual elements resolve as one coordinated sequence.
+- Desktop-only warm-white flight briefing, under 2.1 seconds, with the supplied unaltered hero artwork centered inside a navy-hairline presentation frame.
+- Structure: one artwork-led entrance over a fine navy coordinate grid, restrained editorial flight route, short status line, and one gold progress rail. The loader must never run a preliminary animation before the branded scene; all visual elements resolve as one coordinated sequence.
 - States: desktop normal journey; reduced-motion 250ms fade. It is omitted below 768px.
 - Motion: SVG stroke-dashoffset draws the route and a gold trailing segment; logo-frame sheen, progress rail, and overlay exit use transform, opacity, and filter only.
 

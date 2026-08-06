@@ -68,7 +68,6 @@ export default function DesktopMotion({ rootRef, path }) {
     const masthead = root.querySelector(".page-masthead");
     if (masthead) {
       gsap.from(masthead.querySelector(".masthead-copy"), { autoAlpha: 0, x: -42, duration: .8, ease: "power3.out" });
-      gsap.fromTo(masthead.querySelector("img"), { clipPath: "inset(0 100% 0 0)", scale: 1.12 }, { clipPath: "inset(0)", scale: 1, duration: 1.05, ease: "power4.out" });
     }
     root.querySelectorAll(".masthead-copy h1, .section-head h2, .about-statement h2").forEach((heading) => {
       const split = SplitText.create(heading, { type: "lines", mask: "lines", autoSplit: true });
@@ -85,24 +84,6 @@ export default function DesktopMotion({ rootRef, path }) {
         .to(line, { strokeDashoffset: 0, duration: 1.15, ease: "power2.inOut" })
         .from(waypoint, { scale: .8, autoAlpha: 0, duration: .18, ease: "power3.out" }, 0)
         .to(waypoint, { motionPath: { path: line, align: line, alignOrigin: [.5, .5] }, duration: 1.08, ease: "power2.inOut" }, 0);
-    });
-    root.querySelectorAll(".aerial-hud").forEach((hud) => {
-      const brightRoute = hud.querySelector(".hud-route-bright");
-      const orbit = hud.querySelector(".hud-orbit");
-      const target = hud.querySelector(".hud-target");
-      const scene = hud.parentElement;
-      if (brightRoute) {
-        const length = brightRoute.getTotalLength();
-        gsap.set(brightRoute, { strokeDasharray: length, strokeDashoffset: length });
-        gsap.to(brightRoute, {
-          strokeDashoffset: 0,
-          duration: 1.1,
-          ease: "power2.inOut",
-          scrollTrigger: { trigger: scene, start: "top 82%", once: true },
-        });
-      }
-      if (orbit) gsap.to(orbit, { rotation: 130, transformOrigin: "50% 50%", ease: "none", scrollTrigger: { trigger: scene, start: "top bottom", end: "bottom top", scrub: 0.45 } });
-      if (target) gsap.from(target, { scale: 0.35, autoAlpha: 0, duration: .55, ease: "power3.out", scrollTrigger: { trigger: scene, start: "top 80%", once: true } });
     });
     root.querySelectorAll(".card-signal").forEach((signal) => {
       const paths = [...signal.querySelectorAll("path")];
