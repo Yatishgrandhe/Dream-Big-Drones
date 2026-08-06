@@ -267,6 +267,7 @@
   position: relative;
   overflow: hidden;
   background: var(--dbd-navy);
+  contain: paint;
 }
 
 .hero-brand-art {
@@ -277,6 +278,7 @@
   object-fit: cover;
   object-position: center 52%;
   filter: saturate(0.96) contrast(1.02);
+  will-change: clip-path, transform;
 }
 
 .hero-shade {
@@ -303,6 +305,14 @@
   min-height: clamp(232px, 18vw, 286px);
   margin: 0 auto;
   padding: clamp(32px, 4.5vw, 58px) 0;
+}
+
+.hero-detail-block,
+.hero-actions,
+.showcase > div,
+.showcase img,
+.proof-strip article {
+  will-change: transform, opacity;
 }
 
 .hero-title-block .eyebrow {
@@ -425,5 +435,16 @@
   .hero-actions .action {
     flex: 1 1 168px;
     justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-brand-art,
+  .hero-detail-block,
+  .hero-actions,
+  .showcase > div,
+  .showcase img,
+  .proof-strip article {
+    will-change: auto;
   }
 }

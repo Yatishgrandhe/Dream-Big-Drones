@@ -167,6 +167,7 @@ Layout direction:
 - Each route has one story-specific moment: shuttered solution rows, technical fleet scans, FLIP portfolio filtering, a support process line, connected About principles, and restrained grouped Contact intake. Repeated generic fade-ups are prohibited.
 - The desktop scenes must read as a deliberate moment at normal scroll speed: Home gets an oversized launch-scale editorial reveal; Solutions uses alternating camera shutters; Fleet exposes a scanning specification sequence; Portfolio uses a filter-led FLIP choreography; Support carries a calm line through its FAQ; About resolves principles into a route; Contact concentrates attention into a staged intake approach.
 - Original flight-control SVG primitives—launch grids, survey rings, route traces, telemetry pulses, and card-level scan/route markers—provide the site’s technical detail. They are composed in brand navy, sky-cyan, and copper and are decorative only; no third-party artwork or source is reused.
+- Home now has a richer staged journey: the protected artwork reveals through a vertical crop, its information band enters in three beats (claim, project context, actions), the artwork has a restrained scroll parallax inside its own clipped stage, the showcase image opens from a centered crop, and the proof strip rises as one related group. These moments use only transform, opacity, and clip-path, and are desktop-only; reduced-motion and smaller screens render the same content without staged movement.
 
 ## 7. Depth & Surface
 

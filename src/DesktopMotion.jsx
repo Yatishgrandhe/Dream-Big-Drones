@@ -94,6 +94,16 @@ export default function DesktopMotion({ rootRef, path }) {
       if (orbit) gsap.to(orbit, { rotation: 130, transformOrigin: "50% 50%", ease: "none", scrollTrigger: { trigger: scene, start: "top bottom", end: "bottom top", scrub: 0.45 } });
       if (target) gsap.from(target, { scale: 0.35, autoAlpha: 0, duration: .55, ease: "power3.out", scrollTrigger: { trigger: scene, start: "top 80%", once: true } });
     });
+    root.querySelectorAll(".card-signal").forEach((signal) => {
+      const paths = [...signal.querySelectorAll("path")];
+      paths.forEach((path) => {
+        const length = path.getTotalLength?.();
+        if (length) gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+      });
+      gsap.timeline({ scrollTrigger: { trigger: signal.closest("article"), start: "top 82%", once: true } })
+        .from(signal, { scale: .68, rotation: -18, autoAlpha: 0, duration: .38, ease: "power3.out" })
+        .to(paths, { strokeDashoffset: 0, duration: .46, stagger: .05, ease: "power2.out" }, "<.08");
+    });
     root.querySelectorAll(".telemetry-glyph").forEach((glyph) => {
       const trace = glyph.querySelector(".glyph-trace");
       if (!trace) return;
@@ -103,16 +113,39 @@ export default function DesktopMotion({ rootRef, path }) {
     });
     if (path === "/") {
       const hero = root.querySelector(".hero-brand-art");
+      const heroStage = root.querySelector(".hero-art-stage");
+      const heroInfo = root.querySelector(".hero-info-inner");
       const words = root.querySelectorAll(".hero-word");
       gsap.fromTo(hero, { clipPath: "inset(0 0 100% 0)", scale: 1.08 }, { clipPath: "inset(0)", scale: 1, duration: 1.1, ease: "power4.out" });
-      gsap.from(words, { yPercent: 130, autoAlpha: 0, stagger: .055, duration: .78, ease: "power4.out", delay: .18 });
+      const heroTimeline = gsap.timeline({ defaults: { ease: "power4.out" }, delay: .18 })
+        .from(words, { yPercent: 130, autoAlpha: 0, duration: .78, stagger: .055 });
+      const heroDetail = heroInfo?.querySelector(".hero-detail-block");
+      const heroActions = heroInfo?.querySelectorAll(".hero-actions .action");
+      if (heroDetail) heroTimeline.from(heroDetail, { x: -24, autoAlpha: 0, duration: .58 }, "<.22");
+      if (heroActions?.length) heroTimeline.from(heroActions, { y: 18, autoAlpha: 0, duration: .45, stagger: .1 }, "<.12");
+      if (hero && heroStage) {
+        gsap.to(hero, {
+          yPercent: -7,
+          scale: 1.045,
+          ease: "none",
+          scrollTrigger: { trigger: heroStage, start: "top top", end: "bottom top", scrub: 0.55 },
+        });
+      }
       const onMove = (event) => { const x = (event.clientX / innerWidth - .5) * 16; const y = (event.clientY / innerHeight - .5) * 12; gsap.to(hero, { x, y, duration: .7, ease: "power3.out", overwrite: true }); };
-      const heroStage = root.querySelector(".page-hero");
       heroStage?.addEventListener("pointermove", onMove);
       removeHeroPointer = () => heroStage?.removeEventListener("pointermove", onMove);
       const showcase = root.querySelector(".showcase img");
-      if (showcase) gsap.fromTo(showcase, { clipPath: "inset(0 30% 0 30%)", scale: 1.1 }, { clipPath: "inset(0)", scale: 1, duration: .85, ease: "power3.out", scrollTrigger: { trigger: showcase, start: "top 78%", once: true } });
+      const showcaseCopy = root.querySelector(".showcase > div");
+      if (showcase) {
+        gsap.fromTo(showcase, { clipPath: "inset(0 30% 0 30%)", scale: 1.1 }, { clipPath: "inset(0)", scale: 1, duration: .85, ease: "power3.out", scrollTrigger: { trigger: showcase, start: "top 78%", once: true } });
+        gsap.to(showcase, { yPercent: -5, ease: "none", scrollTrigger: { trigger: showcase, start: "top bottom", end: "bottom top", scrub: 0.6 } });
+      }
+      if (showcaseCopy) reveal(showcaseCopy.querySelectorAll("h2, p, .action"), { x: -28, y: 0, stagger: .1, duration: .64 });
       reveal(root.querySelectorAll(".solution-card"), { y: 52, stagger: .1 });
+      const proof = root.querySelector(".proof-strip");
+      if (proof) reveal(proof.querySelectorAll("article"), { y: 42, stagger: .14, duration: .7 });
+      const homeCta = root.querySelector(".cta-band .action");
+      if (homeCta) reveal([homeCta], { x: -22, y: 0, duration: .52 });
     }
     if (path === "/solutions") { const cards = [...root.querySelectorAll(".solution-card")]; for (let i = 0; i < cards.length; i += 3) reveal(cards.slice(i, i + 3), { x: i % 2 ? 36 : -36, y: 20, stagger: .09 }); }
     if (path === "/fleet") reveal(root.querySelectorAll(".fleet-card"), { y: 46, stagger: .12 });
