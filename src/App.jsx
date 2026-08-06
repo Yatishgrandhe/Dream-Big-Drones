@@ -238,6 +238,9 @@ function go(path) {
   window.history.pushState({}, "", path);
   window.dispatchEvent(new PopStateEvent("popstate"));
 }
+function normalizePath(pathname) {
+  return pathname === "/" ? "/" : pathname.replace(/\/+$/, "");
+}
 function useDesktopMotionEnabled() {
   const reduced = useReducedMotion();
   const [enabled, setEnabled] = useState(false);
@@ -777,6 +780,7 @@ function Portfolio() {
   const [filter, setFilter] = useState("All work");
   const [modal, setModal] = useState(null);
   const gridRef = useRef(null);
+  const modalTriggerRef = useRef(null);
   const list =
     filter === "All work"
       ? projects
@@ -795,11 +799,10 @@ function Portfolio() {
     const { flipAfterLayout } = await import("./DesktopMotion");
     flipAfterLayout(gridRef.current, () => setFilter(next));
   };
-  useEffect(() => {
-    const esc = (e) => e.key === "Escape" && setModal(null);
-    addEventListener("keydown", esc);
-    return () => removeEventListener("keydown", esc);
-  }, []);
+  const closeModal = () => {
+    setModal(null);
+    requestAnimationFrame(() => modalTriggerRef.current?.focus());
+  };
   return (
     <>
       <PageMasthead
@@ -837,7 +840,10 @@ function Portfolio() {
             <Reveal key={`${project[0]}${index}`} delay={(index % 4) * 0.07}>
               <button
                 className="project-card"
-                onClick={() => setModal(project)}
+                onClick={(event) => {
+                  modalTriggerRef.current = event.currentTarget;
+                  setModal(project);
+                }}
               >
                 <img
                   src={project[4]}
@@ -865,13 +871,41 @@ function Portfolio() {
       </section>
       <AnimatePresence>
         {modal && (
-          <ProjectModal project={modal} onClose={() => setModal(null)} />
+          <ProjectModal project={modal} onClose={closeModal} />
         )}
       </AnimatePresence>
     </>
   );
 }
 function ProjectModal({ project, onClose }) {
+  const closeButtonRef = useRef(null);
+  const dialogRef = useRef(null);
+  useEffect(() => {
+    closeButtonRef.current?.focus();
+    const handleKeydown = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusable = dialogRef.current?.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    addEventListener("keydown", handleKeydown);
+    return () => removeEventListener("keydown", handleKeydown);
+  }, [onClose]);
   return (
     <motion.div
       className="modal-backdrop"
@@ -881,6 +915,7 @@ function ProjectModal({ project, onClose }) {
       onMouseDown={onClose}
     >
       <motion.article
+        ref={dialogRef}
         className="project-modal"
         initial={{ y: 24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -890,7 +925,7 @@ function ProjectModal({ project, onClose }) {
         aria-modal="true"
         aria-label={project[0]}
       >
-        <button className="modal-close" onClick={onClose}>
+        <button ref={closeButtonRef} className="modal-close" onClick={onClose}>
           <X />
           <span className="sr-only">Close project</span>
         </button>
@@ -1112,8 +1147,25 @@ function Contact() {
   );
 }
 
+function NotFound() {
+  return (
+    <section className="not-found section">
+      <p className="eyebrow">404 · Route not found</p>
+      <h1>This flight path does not exist.</h1>
+      <p>
+        The address may have changed, or it may not be available. Return to
+        the main site or tell us what you need.
+      </p>
+      <div className="hero-actions">
+        <Action to="/">Return home</Action>
+        <Action to="/contact" quiet>Start an inquiry</Action>
+      </div>
+    </section>
+  );
+}
+
 function App() {
-  const [path, setPath] = useState(location.pathname);
+  const [path, setPath] = useState(normalizePath(location.pathname));
   const [loading, setLoading] = useState(true);
   const [desktopMotion, setDesktopMotion] = useState(false);
   const rootRef = useRef(null);
@@ -1129,7 +1181,7 @@ function App() {
   }, [reduced]);
   useEffect(() => {
     const update = () => {
-      setPath(location.pathname);
+      setPath(normalizePath(location.pathname));
       scrollTo({ top: 0, behavior: "instant" });
     };
     addEventListener("popstate", update);
@@ -1160,7 +1212,7 @@ function App() {
     return () => removeEventListener("dbd:navigate", navigate);
   }, [path, reduced]);
   useEffect(() => {
-    const name = routes.find(([route]) => route === path)?.[1] ?? "Home";
+    const name = routes.find(([route]) => route === path)?.[1] ?? "Page not found";
     document.title =
       name === "Home"
         ? "Dream Big Drones by RLM"
@@ -1192,7 +1244,7 @@ function App() {
       </a>
       <Header path={path} />
       <main id="main" tabIndex="-1">
-        {pages[path] || <Home />}
+        {pages[path] || <NotFound />}
       </main>
       <Footer />
     </div>
