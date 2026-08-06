@@ -312,42 +312,66 @@ function Action({ to = "/contact", children, quiet = false, onClick }) {
   );
 }
 
-function Loader({ complete }) {
+function Loader({ complete, home }) {
   const reduced = useReducedMotion();
   const desktopMotion = useDesktopMotionEnabled();
-  if (!desktopMotion) return null;
+  if (!desktopMotion || !home) return null;
   return (
     <AnimatePresence>
       {!complete && (
         <motion.div
           className="loader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: reduced ? 0.12 : 0.38 } }}
+          exit={{ opacity: 0, transition: { duration: reduced ? 0.12 : 0.32 } }}
           aria-label="Loading Dream Big Drones"
         >
+          <motion.p
+            className="loader-kicker"
+            initial={{ opacity: 0, y: reduced ? 0 : -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0.01 : 0.28, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Dream Big Drones / RLM
+          </motion.p>
+          <motion.div
+            className="loader-word"
+            initial={{ x: reduced ? 0 : "110%" }}
+            animate={{ x: 0 }}
+            transition={{ duration: reduced ? 0.01 : 0.82, delay: reduced ? 0 : 0.08, ease: [0.16, 1, 0.3, 1] }}
+            aria-hidden="true"
+          >
+            DREAM
+          </motion.div>
           <motion.img
             className="loader-art"
             src="/dream-big-drones-hero.png"
             alt=""
-            initial={{ opacity: 0.68, scale: reduced ? 1 : 1.06 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: reduced ? 0.01 : 1.1 }}
+            initial={{ opacity: 0, y: reduced ? 0 : "8%", scale: reduced ? 1 : 1.035, filter: reduced ? "blur(0px)" : "blur(16px)" }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+            transition={{ duration: reduced ? 0.01 : 0.68, delay: reduced ? 0 : 0.52, ease: [0.22, 1, 0.36, 1] }}
           />
           <div className="loader-shade" />
           <motion.div
             className="loader-card"
-            initial={{ opacity: 0, y: reduced ? 0 : 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduced ? 0.01 : 0.42 }}
+            initial={{ opacity: 0, y: reduced ? 0 : 18, filter: reduced ? "blur(0px)" : "blur(7px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: reduced ? 0.01 : 0.42, delay: reduced ? 0 : 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span>Dream Big Drones by RLM</span>
-            <strong>Preparing your aerial perspective</strong>
-            <motion.i
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: reduced ? 0.01 : 1.08, delay: 0.1 }}
-            />
+            <span>Aerial services by RLM</span>
+            <strong>Global vision.<br />Grounded results.</strong>
+            <p>Visual storytelling, documentation, and inspection from a clearer point of view.</p>
           </motion.div>
+          <svg className="loader-flight" viewBox="0 0 1200 240" fill="none" aria-hidden="true">
+            <path className="loader-flight-base" d="M-20 174 C174 82 324 222 526 128 S852 26 1220 102" />
+            <motion.path
+              className="loader-flight-draw"
+              d="M-20 174 C174 82 324 222 526 128 S852 26 1220 102"
+              pathLength="1"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: reduced ? 0.01 : 0.54, delay: reduced ? 0 : 1.1, ease: [0.4, 0, 0.2, 1] }}
+            />
+          </svg>
         </motion.div>
       )}
     </AnimatePresence>
@@ -1185,7 +1209,7 @@ function App() {
       scrollTo({ top: 0, behavior: "instant" });
     };
     addEventListener("popstate", update);
-    const timer = setTimeout(() => setLoading(false), 1250);
+    const timer = setTimeout(() => setLoading(false), 1725);
     return () => {
       removeEventListener("popstate", update);
       clearTimeout(timer);
@@ -1234,7 +1258,7 @@ function App() {
           <DesktopMotion rootRef={rootRef} path={path} />
         </Suspense>
       )}
-      <Loader complete={!loading} />
+      <Loader complete={!loading} home={path === "/"} />
       <div className="flight-overlay" ref={overlayRef} aria-hidden="true">
         <div className="route-line" />
         <img ref={routeLogoRef} src="/dream-big-drones-nav-logo.png" alt="" />
