@@ -65,7 +65,7 @@ Layout direction:
 
 - Sticky 64px/56px white header with the supplied full logo at 160px/136px, fine lower divider, and compact gold CTA on the right.
 - A translucent blur and shadow only appear after scroll. Navigation links use a fine gold underline state.
-- Navigation is constrained to `Home`, `About`, `Services`, `Portfolio`, and `Contact`; the matching scroll section receives the active underline. Pricing is custom-quote copy inside Contact only, never a navigation destination.
+- Navigation is constrained to `Home`, `About Us`, `Services`, `Portfolio`, and `Contact`; the matching route receives the active underline. Portfolio holds all drone-photo collections; fleet and support remain reachable only from contextual page links, not the primary menu. Pricing is custom-quote copy inside Contact only, never a navigation destination.
 
 ### Hero Module
 
@@ -138,7 +138,8 @@ Layout direction:
 
 ### About narrative extension
 
-- The About masthead remains free of decorative route numerals so the company point of view leads. Its body follows a three-part editorial rhythm: an approach image and principles, a dark point-of-view statement, then a field-perspective image with concise working notes and a project-brief conversion. This adds depth without inventing credentials, scale claims, or client names.
+- The About masthead remains free of decorative route numerals so the company point of view leads. Its body follows the owner-defined sequence: About Us; Professional Background & Credentials; Our Core Values; Our Process — From Your Vision to the View Above; then Ready to Get Started? with the project-brief conversion.
+- Until owner-provided credential copy arrives, the credential section makes no claims and carries only an explicit, temporary content note.
 
 ### Official Brand Assets
 
@@ -207,6 +208,7 @@ Accepted debt:
 | Owned gallery imagery pending | Selected work gallery and hero | Temporary Unsplash aerial imagery keeps the layout editorial while the user gathers original photos | Replace each temporary source with Dream Big Drones photos when assets arrive |
 | Live Calendly URL pending | Booking CTA | Calendly setup is not yet supplied | Swap placeholder CTA target with the final booking URL |
 | First admin credential provisioning | Convex Auth password provider | A strong unique password must be selected by the owner; no default can be safely generated or committed | Run `npm run admin:hash`, set the resulting hash as `ADMIN_PASSWORD_HASH` on Convex, then create the single allowed admin account |
+| Professional background and credentials copy pending | About page, section 02 | The owner will provide the approved content in follow-up messages; no credentials may be inferred | Replace the interim note with owner-provided copy and any approved supporting evidence |
 
 ## 9. August 2026 rebuild contract
 

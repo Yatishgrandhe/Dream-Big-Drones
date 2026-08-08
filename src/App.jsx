@@ -30,6 +30,13 @@ const routes = [
   ["/about", "About Us"],
   ["/contact", "Contact"],
 ];
+const primaryRoutes = [
+  ["/", "Home"],
+  ["/about", "About Us"],
+  ["/solutions", "Services"],
+  ["/portfolio", "Portfolio"],
+  ["/contact", "Contact"],
+];
 
 const image = (id, width = 1500) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=82`;
@@ -422,7 +429,7 @@ function Header({ path }) {
         aria-label="Primary navigation"
         aria-hidden={!open && undefined}
       >
-        {routes.map(([to, label]) => (
+        {primaryRoutes.map(([to, label]) => (
           <Link
             key={to}
             to={to}
@@ -439,9 +446,6 @@ function Header({ path }) {
             )}
           </Link>
         ))}
-        <Action to="/contact" onClick={closeMenu}>
-          Request a quote
-        </Action>
       </nav>
     </header>
   );
@@ -553,7 +557,7 @@ function Footer() {
       </div>
       <div>
         <b>Explore</b>
-        {routes.slice(1).map(([to, name]) => (
+        {primaryRoutes.slice(1).map(([to, name]) => (
           <Link key={to} to={to}>
             {name}
           </Link>
@@ -1051,7 +1055,7 @@ function About() {
         copy="Dream Big Drones by RLM brings a client-focused aerial approach to property, documentation, media, and location-led storytelling."
         image={visual.mastheadAbout}
       />
-      <section className="about-grid section">
+      <section className="about-grid about-introduction section">
         <Reveal>
           <img
             src={visual.aboutPerspective}
@@ -1062,7 +1066,7 @@ function About() {
         <Reveal delay={0.1}>
           <div>
             <SectionHead
-              eyebrow="Our approach"
+              eyebrow="01 / About Us"
               title="Prepared, precise, and easy to work with."
             />
             <p>
@@ -1071,7 +1075,29 @@ function About() {
               conditions, safety, and the people who need to use the finished
               work.
             </p>
-            <div className="principles">
+          </div>
+        </Reveal>
+      </section>
+      <section className="about-credentials">
+        <div className="about-credentials-inner">
+          <p className="eyebrow">02 / Professional Background & Credentials</p>
+          <h2>Experience that informs every flight plan.</h2>
+          <p>
+            Professional background and credentials will be added here as they
+            are finalized.
+          </p>
+        </div>
+      </section>
+      <section className="about-values section">
+        <Reveal>
+          <SectionHead
+            eyebrow="03 / Our Core Values"
+            title="The principles behind the perspective."
+            copy="The work stays practical, clear, and shaped around the decision each visual needs to support."
+          />
+        </Reveal>
+        <Reveal delay={0.1}>
+          <div className="principles">
               <p>
                 <b>Mission</b> Make the aerial perspective practical,
                 beautiful, and clear.
@@ -1084,35 +1110,31 @@ function About() {
                 <b>Flexibility</b> Shape the flight plan around the
                 project, not the other way around.
               </p>
-            </div>
           </div>
         </Reveal>
-      </section>
-      <section className="about-statement">
-        <div>
-          <p className="eyebrow">The point of view</p>
-          <h2>Aerial work should make a place easier to understand before it asks for attention.</h2>
-        </div>
-        <p>
-          The best aerial perspective is not simply higher—it is more useful.
-          Dream Big Drones by RLM approaches each location with a clear brief,
-          a considered flight plan, and respect for the people who will rely on
-          the finished visual work.
-        </p>
       </section>
       <section className="about-fieldwork section">
         <div className="about-image-stage">
           <img src={visual.aboutFieldwork} alt="Aerial view of a coastline and water" loading="lazy" />
         </div>
         <div className="about-fieldwork-copy">
-          <h2>Thoughtful from the first coordinate to the final file.</h2>
+          <SectionHead
+            eyebrow="04 / Our Process"
+            title="From Your Vision to the View Above"
+          />
           <div className="about-notes">
             <article><b>Brief the purpose</b><p>Start with what the visual needs to help someone see, decide, or communicate.</p></article>
             <article><b>Plan the perspective</b><p>Shape the capture around the site, its conditions, and the information that matters.</p></article>
             <article><b>Hand off with clarity</b><p>Deliver an organized visual set that is ready for the next conversation.</p></article>
           </div>
-          <Action to="/contact">Start a project brief</Action>
         </div>
+      </section>
+      <section className="about-cta">
+        <div>
+          <p className="eyebrow">05 / Ready to Get Started?</p>
+          <h2>Let&apos;s bring your project to life from a whole new perspective.</h2>
+        </div>
+        <Action to="/contact">Start a project brief</Action>
       </section>
     </>
   );
