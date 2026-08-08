@@ -37,6 +37,28 @@ const primaryRoutes = [
   ["/portfolio", "Portfolio"],
   ["/contact", "Contact"],
 ];
+const professionalCredentials = [
+  "FAA Part 107 Remote Pilot Certificate",
+  "North Carolina Licensed Insurance Adjuster",
+  "OSHA Authorized Safety & Construction Trainer — 10-Hour & 30-Hour",
+  "Property Inspection, Insurance & Risk Assessment Experience",
+  "Compliance & Regulatory Experience",
+  "FEMA Disaster Housing Inspection Experience",
+];
+const technologyCapabilities = [
+  "AI & Digital Productivity Tools",
+  "Drone Imaging & Aerial Data Collection",
+  "Digital Property & Damage Documentation",
+];
+const coreValues = [
+  ["Respect & Professionalism", "We treat every client, property, community, and project with respect. Professional communication, reliability, confidentiality, and responsible operations are central to how we conduct business."],
+  ["Inclusive Service", "We welcome clients from all backgrounds and communities and are committed to providing every client with fair, professional, and thoughtful service."],
+  ["Fair Pricing", "Professional drone services should provide real value without unnecessary or confusing costs. We are committed to competitive, transparent pricing based on the scope and requirements of each project."],
+  ["Safety & Responsibility", "Safety is incorporated into every stage of our operations. We approach drone flights, property documentation, inspections, and project sites with careful planning and a commitment to responsible operating practices."],
+  ["Integrity & Accountability", "We believe in doing business honestly. We communicate clearly about our capabilities, follow through on our commitments, and take responsibility for the quality of the services we provide."],
+  ["Quality & Attention to Detail", "Every image, video, inspection assignment, and documentation project represents our work. We strive to provide clear, organized, professional results that clients can confidently use."],
+  ["Innovation With Purpose", "We embrace drone technology, digital tools, and artificial intelligence when they can improve efficiency, documentation, communication, and the client experience. Technology should make our services more useful—not unnecessarily complicated."],
+];
 
 const image = (id, width = 1500) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=82`;
@@ -1067,49 +1089,84 @@ function About() {
           <div>
             <SectionHead
               eyebrow="01 / About Us"
-              title="Prepared, precise, and easy to work with."
+              title="Accurate visual information for informed decisions."
             />
             <p>
-              Each project begins with the purpose behind the visual request—not
-              an off-the-shelf package. The workflow stays attentive to quality,
-              conditions, safety, and the people who need to use the finished
-              work.
+              We provide professional drone imaging, aerial data collection,
+              property documentation, and inspection support services designed
+              to help businesses capture accurate visual information and make
+              informed decisions.
+            </p>
+            <p>
+              Our experience combines drone technology, property inspections,
+              insurance, risk assessment, construction safety, compliance, and
+              digital documentation. This multidisciplinary background allows
+              us to understand both the technology being used and the real-world
+              business needs behind the data being collected.
             </p>
           </div>
         </Reveal>
       </section>
       <section className="about-credentials">
         <div className="about-credentials-inner">
-          <p className="eyebrow">02 / Professional Background & Credentials</p>
-          <h2>Experience that informs every flight plan.</h2>
-          <p>
-            Professional background and credentials will be added here as they
-            are finalized.
-          </p>
+          <div className="about-credentials-title">
+            <p className="eyebrow">02 / Professional Background, Licenses & Certifications</p>
+            <h2>Experience that informs every flight plan.</h2>
+          </div>
+          <ul className="credential-list">
+            {professionalCredentials.map((credential) => <li key={credential}>{credential}</li>)}
+          </ul>
         </div>
+        <div className="about-technology">
+          <div>
+            <p className="eyebrow">Technology & Innovation</p>
+            <h3>Modern tools, applied with purpose.</h3>
+          </div>
+          <ul>
+            {technologyCapabilities.map((capability) => <li key={capability}>{capability}</li>)}
+          </ul>
+        </div>
+      </section>
+      <section className="about-project-value section">
+        <Reveal>
+          <SectionHead
+            eyebrow="What We Bring to Your Project"
+            title="Useful information—not simply photographs or video."
+          />
+        </Reveal>
+        <Reveal delay={0.1}>
+          <div className="about-project-value-copy">
+            <p>
+              Whether supporting property documentation, construction projects,
+              insurance-related inspections, damage documentation, or other
+              commercial needs, we focus on professionalism, safety, accurate
+              documentation, and efficient data collection.
+            </p>
+            <p>
+              We combine field experience with modern drone and digital
+              technology to help clients document conditions, identify areas
+              requiring attention, improve project visibility, and maintain
+              reliable visual records.
+            </p>
+          </div>
+        </Reveal>
       </section>
       <section className="about-values section">
         <Reveal>
           <SectionHead
             eyebrow="03 / Our Core Values"
             title="The principles behind the perspective."
-            copy="The work stays practical, clear, and shaped around the decision each visual needs to support."
+            copy="Our values guide how we serve our clients, conduct our operations, and build lasting professional relationships."
           />
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="principles">
-              <p>
-                <b>Mission</b> Make the aerial perspective practical,
-                beautiful, and clear.
-              </p>
-              <p>
-                <b>Quality</b> Give the final frame enough context to earn
-                attention.
-              </p>
-              <p>
-                <b>Flexibility</b> Shape the flight plan around the
-                project, not the other way around.
-              </p>
+          <div className="core-values-grid">
+            {coreValues.map(([title, copy]) => (
+              <article key={title}>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </article>
+            ))}
           </div>
         </Reveal>
       </section>

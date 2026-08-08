@@ -567,6 +567,24 @@ main,
   flex: none;
 }
 
+.about-introduction > div > div > p + p { margin-top: 18px; }
+.about-credentials { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(320px,.8fr); }
+.about-credentials-inner { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); align-items: start; }
+.about-credentials-title h2 { max-width: 10ch; }
+.credential-list,.about-technology ul { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.credential-list li,.about-technology li { padding: 17px 0; border-top: 1px solid rgb(255 255 255/.2); font-size: .95rem; font-weight: 700; line-height: 1.45; }
+.about-technology { display: grid; align-content: space-between; gap: 54px; padding: clamp(68px,9vw,118px) clamp(28px,5vw,80px); color: var(--dbd-navy); background: #e7b264; }
+.about-technology .eyebrow { color: var(--dbd-navy); }
+.about-technology h3 { max-width: 9ch; margin: 0; font-family: Georgia,serif; font-size: clamp(2rem,3vw,3.35rem); font-weight: 400; line-height: 1; letter-spacing: -.04em; }
+.about-technology li { border-color: rgb(16 47 67/.22); }
+.about-project-value { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: clamp(36px,8vw,110px); }
+.about-project-value-copy { display: grid; gap: 24px; padding-top: 38px; border-top: 1px solid var(--dbd-line); }
+.about-project-value-copy p { max-width: 58ch; margin: 0; color: var(--dbd-slate); font-size: clamp(1.05rem,1.5vw,1.26rem); line-height: 1.7; }
+.core-values-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1px; overflow: hidden; border: 1px solid var(--dbd-line); background: var(--dbd-line); }
+.core-values-grid article { min-height: 210px; padding: clamp(24px,3.2vw,42px); background: var(--dbd-paper); }
+.core-values-grid h3 { margin: 0 0 18px; color: var(--dbd-navy); font-family: Georgia,serif; font-size: clamp(1.35rem,2vw,1.9rem); font-weight: 400; line-height: 1.06; letter-spacing: -.035em; }
+.core-values-grid p { margin: 0; color: var(--dbd-slate); font-size: .92rem; line-height: 1.62; }
+
 @media (max-width: 680px) {
   .project-modal {
     width: min(100%, calc(100vw - 32px));
@@ -590,6 +608,12 @@ main,
   .about-values .principles {
     grid-template-columns: 1fr;
   }
+
+  .about-credentials,.about-credentials-inner,.about-project-value { grid-template-columns: 1fr; }
+  .about-credentials-inner { gap: 44px; }
+  .about-technology { gap: 38px; }
+  .core-values-grid { grid-template-columns: 1fr; }
+  .core-values-grid article { min-height: 0; }
 }
 
 /* The supplied homepage artwork is a finished illustration, so its full frame

@@ -138,8 +138,8 @@ Layout direction:
 
 ### About narrative extension
 
-- The About masthead remains free of decorative route numerals so the company point of view leads. Its body follows the owner-defined sequence: About Us; Professional Background & Credentials; Our Core Values; Our Process — From Your Vision to the View Above; then Ready to Get Started? with the project-brief conversion.
-- Until owner-provided credential copy arrives, the credential section makes no claims and carries only an explicit, temporary content note.
+- The About masthead remains free of decorative route numerals so the company point of view leads. Its body follows the owner-defined sequence: About Us; Professional Background, Licenses & Certifications; Technology & Innovation; What We Bring to Your Project; Our Core Values; Our Process — From Your Vision to the View Above; then Ready to Get Started? with the project-brief conversion.
+- Credentials and technology use a semantically structured, high-contrast list; the core values are an editorial card grid that becomes a single reading column on mobile. No emojis serve as icons or meaning-bearing controls.
 
 ### Official Brand Assets
 
@@ -208,7 +208,6 @@ Accepted debt:
 | Owned gallery imagery pending | Selected work gallery and hero | Temporary Unsplash aerial imagery keeps the layout editorial while the user gathers original photos | Replace each temporary source with Dream Big Drones photos when assets arrive |
 | Live Calendly URL pending | Booking CTA | Calendly setup is not yet supplied | Swap placeholder CTA target with the final booking URL |
 | First admin credential provisioning | Convex Auth password provider | A strong unique password must be selected by the owner; no default can be safely generated or committed | Run `npm run admin:hash`, set the resulting hash as `ADMIN_PASSWORD_HASH` on Convex, then create the single allowed admin account |
-| Professional background and credentials copy pending | About page, section 02 | The owner will provide the approved content in follow-up messages; no credentials may be inferred | Replace the interim note with owner-provided copy and any approved supporting evidence |
 
 ## 9. August 2026 rebuild contract
 
