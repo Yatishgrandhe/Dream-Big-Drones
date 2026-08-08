@@ -140,6 +140,14 @@ Layout direction:
 
 - The About masthead remains free of decorative route numerals so the company point of view leads. Its body follows the owner-defined sequence: About Us; Professional Background, Licenses & Certifications; Technology & Innovation; What We Bring to Your Project; Our Core Values; Our Process — From Your Vision to the View Above; then Ready to Get Started? with the project-brief conversion.
 - Credentials and technology use a semantically structured, high-contrast list; the core values are an editorial card grid that becomes a single reading column on mobile. No emojis serve as icons or meaning-bearing controls.
+- Core-value cards carry distinct Lucide line icons inside a restrained copper-ring treatment. The icons reinforce the value headings—respect, inclusion, fair pricing, safety, integrity, detail, and purposeful innovation—without becoming decorative emoji substitutes.
+
+### Connected Process Route
+
+- The About process is one image-backed planning journey, not a stack of generic feature cards: a concise heading and purpose statement lead into five numbered stages connected by a single copper dashed flight route.
+- Every stage pairs a Lucide line icon with the owner-approved title and explanation. A small real-image strip anchors the stages in the fieldwork they represent; images are cropped as consistent, bordered editorial frames and remain decorative support rather than a replacement for the written steps.
+- On desktop the route reads left-to-right across five equal stages; at tablet it becomes a two-column grid without relying on the decorative line; at mobile it becomes one clear reading column with the route omitted. Reduced-motion users receive the fully readable static arrangement.
+- The closing conversion is a dark navy callout within the same visual stage. It uses the existing `Action` primitive and the exact `Get a quote` label, routing to the Contact intake rather than creating a second form.
 
 ### Official Brand Assets
 

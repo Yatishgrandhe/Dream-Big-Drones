@@ -1,10 +1,21 @@
 import {
   ArrowRight,
+  BadgeCheck,
+  Camera,
   Check,
   ChevronDown,
+  FolderCheck,
+  Globe,
+  Handshake,
+  Lightbulb,
+  MapPin,
   Menu,
+  MessageCircle,
   Search,
+  SearchCheck,
   Send,
+  ShieldCheck,
+  Scale,
   X,
 } from "lucide-react";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
@@ -51,13 +62,13 @@ const technologyCapabilities = [
   "Digital Property & Damage Documentation",
 ];
 const coreValues = [
-  ["Respect & Professionalism", "We treat every client, property, community, and project with respect. Professional communication, reliability, confidentiality, and responsible operations are central to how we conduct business."],
-  ["Inclusive Service", "We welcome clients from all backgrounds and communities and are committed to providing every client with fair, professional, and thoughtful service."],
-  ["Fair Pricing", "Professional drone services should provide real value without unnecessary or confusing costs. We are committed to competitive, transparent pricing based on the scope and requirements of each project."],
-  ["Safety & Responsibility", "Safety is incorporated into every stage of our operations. We approach drone flights, property documentation, inspections, and project sites with careful planning and a commitment to responsible operating practices."],
-  ["Integrity & Accountability", "We believe in doing business honestly. We communicate clearly about our capabilities, follow through on our commitments, and take responsibility for the quality of the services we provide."],
-  ["Quality & Attention to Detail", "Every image, video, inspection assignment, and documentation project represents our work. We strive to provide clear, organized, professional results that clients can confidently use."],
-  ["Innovation With Purpose", "We embrace drone technology, digital tools, and artificial intelligence when they can improve efficiency, documentation, communication, and the client experience. Technology should make our services more useful—not unnecessarily complicated."],
+  ["Respect & Professionalism", "We treat every client, property, community, and project with respect. Professional communication, reliability, confidentiality, and responsible operations are central to how we conduct business.", Handshake],
+  ["Inclusive Service", "We welcome clients from all backgrounds and communities and are committed to providing every client with fair, professional, and thoughtful service.", Globe],
+  ["Fair Pricing", "Professional drone services should provide real value without unnecessary or confusing costs. We are committed to competitive, transparent pricing based on the scope and requirements of each project.", Scale],
+  ["Safety & Responsibility", "Safety is incorporated into every stage of our operations. We approach drone flights, property documentation, inspections, and project sites with careful planning and a commitment to responsible operating practices.", ShieldCheck],
+  ["Integrity & Accountability", "We believe in doing business honestly. We communicate clearly about our capabilities, follow through on our commitments, and take responsibility for the quality of the services we provide.", BadgeCheck],
+  ["Quality & Attention to Detail", "Every image, video, inspection assignment, and documentation project represents our work. We strive to provide clear, organized, professional results that clients can confidently use.", SearchCheck],
+  ["Innovation With Purpose", "We embrace drone technology, digital tools, and artificial intelligence when they can improve efficiency, documentation, communication, and the client experience. Technology should make our services more useful—not unnecessarily complicated.", Lightbulb],
 ];
 
 const image = (id, width = 1500) =>
@@ -91,8 +102,20 @@ const visual = {
   mastheadAbout: image("photo-1531058020387-3be344556be6"),
   aboutPerspective: image("photo-1487958449943-2429e8be8625"),
   aboutFieldwork: image("photo-1494522358652-f30e61a60313"),
+  processBrief: image("photo-1556761175-b413da4baf72"),
+  processPlan: image("photo-1516321318423-f06f85e504b3"),
+  processSafety: image("photo-1531058020387-3be344556be6"),
+  processCapture: image("photo-1500530855697-b586d89ba3ee"),
+  processDelivery: image("photo-1497366754035-f200968a6e72"),
   mastheadContact: image("photo-1558618666-fcd25c85cd64"),
 };
+const processSteps = [
+  ["01", "Tell Us About Your Project", "Tell us what you need, where the project is located, your preferred timeframe, and what you hope to accomplish. We’ll work with you to understand the scope and desired deliverables.", MessageCircle, visual.processBrief],
+  ["02", "Plan the Mission", "We develop a flight and data-collection approach based on your project’s requirements. We consider the location, property or site conditions, requested imagery, project scope, scheduling, and other mission-specific factors.", MapPin, visual.processPlan],
+  ["03", "Safety & Airspace Review", "Before takeoff, we evaluate applicable airspace requirements, weather conditions, site considerations, and potential flight restrictions. When required, appropriate FAA airspace authorization is obtained before operations begin.", ShieldCheck, visual.processSafety],
+  ["04", "Capture & Document", "It’s time to fly. We conduct the mission and collect the aerial imagery, video, or project documentation requested. Our focus is on safe operations, quality imagery, attention to detail, and capturing information that supports your project’s goals.", Camera, visual.processCapture],
+  ["05", "Review & Deliver", "After the mission, collected imagery and documentation are reviewed and organized according to the project scope. Your completed deliverables are then provided digitally, giving you convenient access to the information you need.", FolderCheck, visual.processDelivery],
+];
 const solutionData = [
   [
     "Real Estate Photography",
@@ -1161,8 +1184,9 @@ function About() {
         </Reveal>
         <Reveal delay={0.1}>
           <div className="core-values-grid">
-            {coreValues.map(([title, copy]) => (
+            {coreValues.map(([title, copy, Icon]) => (
               <article key={title}>
+                <div className="core-value-icon" aria-hidden="true"><Icon /></div>
                 <h3>{title}</h3>
                 <p>{copy}</p>
               </article>
@@ -1170,28 +1194,49 @@ function About() {
           </div>
         </Reveal>
       </section>
-      <section className="about-fieldwork section">
-        <div className="about-image-stage">
-          <img src={visual.aboutFieldwork} alt="Aerial view of a coastline and water" loading="lazy" />
-        </div>
-        <div className="about-fieldwork-copy">
-          <SectionHead
-            eyebrow="04 / Our Process"
-            title="From Your Vision to the View Above"
-          />
-          <div className="about-notes">
-            <article><b>Brief the purpose</b><p>Start with what the visual needs to help someone see, decide, or communicate.</p></article>
-            <article><b>Plan the perspective</b><p>Shape the capture around the site, its conditions, and the information that matters.</p></article>
-            <article><b>Hand off with clarity</b><p>Deliver an organized visual set that is ready for the next conversation.</p></article>
+      <section className="about-process">
+        <div className="about-process-inner">
+          <Reveal>
+            <div className="about-process-intro">
+              <p className="eyebrow">04 / Our Process</p>
+              <h2>From Your Vision to the View Above</h2>
+              <p>
+                Every project starts with understanding what you need. From property
+                documentation and inspections to construction progress, aerial
+                photography, and damage documentation, our process is designed to
+                keep your project clear, safe, and organized from start to finish.
+              </p>
+            </div>
+          </Reveal>
+          <div className="process-route" aria-hidden="true">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+              <path d="M 42 64 C 160 4, 240 116, 360 58 S 560 0, 680 62 S 880 120, 1000 56 S 1100 18, 1175 56" />
+            </svg>
           </div>
+          <div className="process-steps">
+            {processSteps.map(([number, title, copy, Icon, imageSrc]) => (
+              <Reveal key={number} delay={Number(number) * 0.04}>
+                <article className="process-step">
+                  <div className="process-icon" aria-hidden="true"><Icon /></div>
+                  <p className="process-number">Step {number}</p>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                  <img src={imageSrc} alt="" loading="lazy" />
+                </article>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={0.15}>
+            <div className="process-quote">
+              <div className="process-quote-mark" aria-hidden="true"><MapPin /></div>
+              <div>
+                <p className="eyebrow">Ready to Get Your Project Off the Ground?</p>
+                <h2>Tell us about your project and we&apos;ll help determine the right approach for your aerial imaging or documentation needs.</h2>
+              </div>
+              <Action to="/contact">Get a quote</Action>
+            </div>
+          </Reveal>
         </div>
-      </section>
-      <section className="about-cta">
-        <div>
-          <p className="eyebrow">05 / Ready to Get Started?</p>
-          <h2>Let&apos;s bring your project to life from a whole new perspective.</h2>
-        </div>
-        <Action to="/contact">Start a project brief</Action>
       </section>
     </>
   );
