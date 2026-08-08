@@ -141,6 +141,7 @@ Layout direction:
 - The About masthead remains free of decorative route numerals so the company point of view leads. Its body follows the owner-defined sequence: About Us; Professional Background, Licenses & Certifications; Technology & Innovation; What We Bring to Your Project; Our Core Values; Our Process — From Your Vision to the View Above; then Ready to Get Started? with the project-brief conversion.
 - Credentials and technology use a semantically structured, high-contrast list; the core values are an editorial card grid that becomes a single reading column on mobile. No emojis serve as icons or meaning-bearing controls.
 - Core-value cards carry distinct Lucide line icons inside a restrained copper-ring treatment. The icons reinforce the value headings—respect, inclusion, fair pricing, safety, integrity, detail, and purposeful innovation—without becoming decorative emoji substitutes.
+- The seven-card core-values collection never exposes an accidental empty grid remainder: the final innovation card spans the last desktop row in a deliberate icon / heading / supporting-copy arrangement, then reverts to the standard reading card on small screens.
 
 ### Connected Process Route
 
