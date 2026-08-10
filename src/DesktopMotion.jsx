@@ -145,7 +145,6 @@ export default function DesktopMotion({ rootRef, path }) {
     if (path === "/portfolio") reveal(root.querySelectorAll(".project-card"), { scale: .94, y: 0, stagger: .07 });
     if (path === "/support") reveal(root.querySelectorAll(".faq article"), { x: 34, y: 0, stagger: .09 });
     if (path === "/about") reveal(root.querySelectorAll(".principles p, .about-notes article"), { x: 44, y: 0, stagger: .1 });
-    if (path === "/contact") reveal(root.querySelectorAll(".contact-layout > *, .contact-form .form-field"), { y: 26, stagger: .05, duration: .6 });
     const footer = root.querySelector(".site-footer");
     if (footer) reveal(footer.children, { y: 26, stagger: .07, duration: .65 });
     const refreshFrame = requestAnimationFrame(refreshLayout);

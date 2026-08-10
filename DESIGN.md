@@ -13,7 +13,7 @@
 
 ## 1. Atmosphere & Identity
 
-An editorial aerial journal for elevated local stories. The signature is real, full-bleed photography framed by warm off-white space, charcoal type, and a restrained golden signal—less service-template UI, more considered visual publication.
+An editorial aerial journal for elevated local stories. The signature is real, full-bleed photography framed by warm off-white space, charcoal type, and a restrained golden signal, less service-template UI and more considered visual publication.
 
 ## 2. Color
 
@@ -115,6 +115,7 @@ Layout direction:
 - Contact uses a deliberate two-column editorial composition: calm explanation and scheduling handoff on the left; a white, navy-hairline form panel with a single muted-gold flight-path line on the right.
 - Form fields are square-edged, clearly labelled, and use gold focus treatment with inline red error text. The success state replaces the form in-place so the reading rhythm never jumps.
 - The invisible honeypot is visually removed without taking keyboard focus. Server-side submission limiting is intentionally invisible unless it needs to explain a retry.
+- The Contact intake always renders on a direct `/contact` document load. Desktop animation may enhance the section after it is available, but no animation wrapper may control whether the form is visible.
 
 ### Private Studio Dashboard
 
@@ -138,9 +139,10 @@ Layout direction:
 
 ### About narrative extension
 
-- The About masthead remains free of decorative route numerals so the company point of view leads. Its body follows the owner-defined sequence: About Us; Professional Background, Licenses & Certifications; Technology & Innovation; What We Bring to Your Project; Our Core Values; Our Process — From Your Vision to the View Above; then Ready to Get Started? with the project-brief conversion.
+- The About masthead remains free of decorative route numerals so the company point of view leads. Its body follows the owner-defined sequence: About Us; Professional Background, Licenses & Certifications; Technology & Innovation; What We Bring to Your Project; Our Core Values; Our Process, From Your Vision to the View Above; then Ready to Get Started? with the project-brief conversion.
+- The owner-approved About hierarchy removes the redundant oversized display headlines from the masthead, introduction, credentials, technology, and project-value blocks. Their orange or copper labels become the visible headings, with a stronger weight and a modestly larger scale; the semantic page heading remains available to assistive technology.
 - Credentials and technology use a semantically structured, high-contrast list; the core values are an editorial card grid that becomes a single reading column on mobile. No emojis serve as icons or meaning-bearing controls.
-- Core-value cards carry distinct Lucide line icons inside a restrained copper-ring treatment. The icons reinforce the value headings—respect, inclusion, fair pricing, safety, integrity, detail, and purposeful innovation—without becoming decorative emoji substitutes.
+- Core-value cards carry distinct Lucide line icons inside a restrained copper-ring treatment. The icons reinforce the value headings for respect, inclusion, fair pricing, safety, integrity, detail, and purposeful innovation without becoming decorative emoji substitutes.
 - The seven-card core-values collection never exposes an accidental empty grid remainder: the final innovation card spans the last desktop row in a deliberate icon / heading / supporting-copy arrangement, then reverts to the standard reading card on small screens.
 
 ### Connected Process Route
@@ -186,7 +188,7 @@ Layout direction:
 - The visual grammar borrows only interaction principles from the supplied NESH reference: masked headings, changing directional entrances, oversized route indices, image stages that reveal through a crop, and a single continuous navigation flight. It does not reuse reference assets, markup, copy, or source.
 - Each route has one story-specific moment: shuttered solution rows, technical fleet scans, FLIP portfolio filtering, a support process line, connected About principles, and restrained grouped Contact intake. Repeated generic fade-ups are prohibited.
 - The desktop scenes must read as a deliberate moment at normal scroll speed: Home gets an oversized launch-scale editorial reveal; Solutions uses alternating camera shutters; Fleet exposes a scanning specification sequence; Portfolio uses a filter-led FLIP choreography; Support carries a calm line through its FAQ; About resolves principles into a route; Contact concentrates attention into a staged intake approach.
-- Original flight-control SVG primitives—launch grids, survey rings, route traces, telemetry pulses, and card-level scan/route markers—provide the site’s technical detail. They are composed in brand navy, sky-cyan, and copper and are decorative only; no third-party artwork or source is reused.
+- Original flight-control SVG primitives, including launch grids, survey rings, route traces, telemetry pulses, and card-level scan and route markers, provide the site’s technical detail. They are composed in brand navy, sky-cyan, and copper and are decorative only; no third-party artwork or source is reused.
 - Home now has a richer staged journey: the protected artwork remains visible from first paint and settles from a subtle scale, its information band enters in three beats (claim, project context, actions), the artwork has a restrained scroll parallax inside its own clipped stage, the showcase image opens from a centered crop, and the proof strip rises as one related group. These moments use only transform, opacity, and clip-path, and are desktop-only; reduced-motion and smaller screens render the same content without staged movement.
 
 ## 7. Depth & Surface
@@ -225,7 +227,7 @@ Accepted debt:
 - The supplied browser screenshot is the structural reference: a legible brand header, cinematic hero, editorial media stage, solution cards, and a utilitarian contact/footer ending. It is not a visual style to copy; the new surface replaces its dated cards and cramped proportions with a spacious navy, sand, and copper editorial system.
 - The supplied original `dream-big-drones-hero.png` is the official hero/logo artwork. It is never recolored, stretched, cropped, or replaced with an invented drone mark. `dream-big-drones-logo.png` remains the clean wordmark treatment for navigation and footer surfaces.
 - Signature moment: a single logo-led launch brief. It paints as one complete scene from the first frame, then fades away; no preliminary logo flash, competing animation, or second loader is permitted.
-- August 2026 visual correction: `dream-big-drones-hero.png` is a complete illustrated brand scene (drone, destination bubbles, stonework sign, sky, and park), not just a wordmark. The global tone now takes its cues from that scene: sky blue, deep blue-green, leaf green, weathered limestone, warm copper, and the logo's jewel-like cyan/red/gold details. The homepage hero is always full-bleed art with an accessible navy gradient for copy—never a split stock-photo panel with the artwork reduced to a floating card.
+- August 2026 visual correction: `dream-big-drones-hero.png` is a complete illustrated brand scene (drone, destination bubbles, stonework sign, sky, and park), not just a wordmark. The global tone now takes its cues from that scene: sky blue, deep blue-green, leaf green, weathered limestone, warm copper, and the logo's jewel-like cyan/red/gold details. The homepage hero is always full-bleed art with an accessible navy gradient for copy, never a split stock-photo panel with the artwork reduced to a floating card.
 - The loader begins with the official brand artwork at full stage scale, has one brief focus/settle motion, and dissolves directly into the matching homepage hero. It does not introduce a disconnected card or secondary logo treatment.
 - Route hierarchy correction: only Home uses the full-viewport illustrated brand hero. Inner routes use compact, individually art-directed mastheads with their own content image, information density, and task-oriented headline. This preserves the homepage as the signature moment and makes route changes feel intentional.
 - Motion correction: section content enters only when it becomes relevant in the viewport; cards stagger in as a related group, images settle from a subtle scale, and interactive panels transition only when their state changes. Every sequence uses opacity, transform, and filter; reduced-motion users receive fully visible static content.

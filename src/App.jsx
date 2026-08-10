@@ -51,7 +51,7 @@ const primaryRoutes = [
 const professionalCredentials = [
   "FAA Part 107 Remote Pilot Certificate",
   "North Carolina Licensed Insurance Adjuster",
-  "OSHA Authorized Safety & Construction Trainer — 10-Hour & 30-Hour",
+  "OSHA Authorized Safety & Construction Trainer: 10-Hour & 30-Hour",
   "Property Inspection, Insurance & Risk Assessment Experience",
   "Compliance & Regulatory Experience",
   "FEMA Disaster Housing Inspection Experience",
@@ -68,7 +68,7 @@ const coreValues = [
   ["Safety & Responsibility", "Safety is incorporated into every stage of our operations. We approach drone flights, property documentation, inspections, and project sites with careful planning and a commitment to responsible operating practices.", ShieldCheck],
   ["Integrity & Accountability", "We believe in doing business honestly. We communicate clearly about our capabilities, follow through on our commitments, and take responsibility for the quality of the services we provide.", BadgeCheck],
   ["Quality & Attention to Detail", "Every image, video, inspection assignment, and documentation project represents our work. We strive to provide clear, organized, professional results that clients can confidently use.", SearchCheck],
-  ["Innovation With Purpose", "We embrace drone technology, digital tools, and artificial intelligence when they can improve efficiency, documentation, communication, and the client experience. Technology should make our services more useful—not unnecessarily complicated.", Lightbulb],
+  ["Innovation With Purpose", "We embrace drone technology, digital tools, and artificial intelligence when they can improve efficiency, documentation, communication, and the client experience. Technology should make our services more useful, not unnecessarily complicated.", Lightbulb],
 ];
 
 const image = (id, width = 1500) =>
@@ -546,12 +546,12 @@ function HomeHero({ kicker, title, copy, children }) {
     </section>
   );
 }
-function PageMasthead({ kicker, title, copy, image, revealImage = true }) {
+function PageMasthead({ kicker, title, copy, image, revealImage = true, className = "", hideTitle = false }) {
   return (
-    <section className="page-masthead">
+    <section className={`page-masthead ${className}`}>
       <div className="masthead-copy">
-        <p className="eyebrow">{kicker}</p>
-        <h1>{title}</h1>
+        <p className={`eyebrow ${className ? `${className}-kicker` : ""}`}>{kicker}</p>
+        {title && <h1 className={hideTitle ? "sr-only" : ""}>{title}</h1>}
         <p>{copy}</p>
       </div>
       {revealImage ? (
@@ -568,7 +568,7 @@ function SectionHead({ eyebrow, title, copy }) {
   return (
     <div className="section-head">
       <p className="eyebrow">{eyebrow}</p>
-      <h2>{title}</h2>
+      {title && <h2>{title}</h2>}
       {copy && <p>{copy}</p>}
     </div>
   );
@@ -597,7 +597,7 @@ function Footer() {
         </div>
         <p>
           Elevated visual documentation, imagery, and aerial
-          storytelling—planned around the job in front of you.
+          storytelling, planned around the job in front of you.
         </p>
       </div>
       <div>
@@ -1096,9 +1096,11 @@ function About() {
     <>
       <PageMasthead
         kicker="About Dream Big Drones"
-        title="A more thoughtful view of every site."
+        title="About Us"
         copy="Dream Big Drones by RLM brings a client-focused aerial approach to property, documentation, media, and location-led storytelling."
         image={visual.mastheadAbout}
+        className="about-masthead"
+        hideTitle
       />
       <section className="about-grid about-introduction section">
         <Reveal>
@@ -1112,7 +1114,6 @@ function About() {
           <div>
             <SectionHead
               eyebrow="01 / About Us"
-              title="Accurate visual information for informed decisions."
             />
             <p>
               We provide professional drone imaging, aerial data collection,
@@ -1134,7 +1135,6 @@ function About() {
         <div className="about-credentials-inner">
           <div className="about-credentials-title">
             <p className="eyebrow">02 / Professional Background, Licenses & Certifications</p>
-            <h2>Experience that informs every flight plan.</h2>
           </div>
           <ul className="credential-list">
             {professionalCredentials.map((credential) => <li key={credential}>{credential}</li>)}
@@ -1143,7 +1143,6 @@ function About() {
         <div className="about-technology">
           <div>
             <p className="eyebrow">Technology & Innovation</p>
-            <h3>Modern tools, applied with purpose.</h3>
           </div>
           <ul>
             {technologyCapabilities.map((capability) => <li key={capability}>{capability}</li>)}
@@ -1154,7 +1153,6 @@ function About() {
         <Reveal>
           <SectionHead
             eyebrow="What We Bring to Your Project"
-            title="Useful information—not simply photographs or video."
           />
         </Reveal>
         <Reveal delay={0.1}>
@@ -1251,29 +1249,25 @@ function Contact() {
         image={visual.mastheadContact}
       />
       <section id="intake" className="contact-layout section">
-        <Reveal>
-          <div>
-            <SectionHead
-              eyebrow="Project intake"
-              title="A useful brief makes the best first flight."
-            />
+        <div>
+          <SectionHead
+            eyebrow="Project intake"
+            title="A useful brief makes the best first flight."
+          />
+          <p>
+            For multi-site or portfolio work, include the approximate total
+            site count. Tell us whether you need photos, video, 3D models,
+            thermal imaging, mapping, or another deliverable.
+          </p>
+          <div className="contact-note">
+            <Send />
             <p>
-              For multi-site or portfolio work, include the approximate total
-              site count. Tell us whether you need photos, video, 3D models,
-              thermal imaging, mapping, or another deliverable.
+              Fields marked required are needed to prepare a response. Your
+              details are not displayed publicly.
             </p>
-            <div className="contact-note">
-              <Send />
-              <p>
-                Fields marked required are needed to prepare a response. Your
-                details are not displayed publicly.
-              </p>
-            </div>
           </div>
-        </Reveal>
-        <Reveal delay={0.12}>
-          <ContactForm />
-        </Reveal>
+        </div>
+        <ContactForm />
       </section>
     </>
   );
