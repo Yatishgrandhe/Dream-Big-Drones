@@ -379,7 +379,7 @@ function BrandLogo({ compact = false }) {
   return (
     <img
       className={compact ? "brand-logo compact" : "brand-logo"}
-      src="/dream-big-drones-nav-logo.png"
+      src="/dream-big-drones-logo.png"
       alt="Dream Big Drones by RLM official logo"
     />
   );
@@ -1399,7 +1399,7 @@ function App() {
       <Loader complete={!loading} home={path === "/"} />
       <div className="flight-overlay" ref={overlayRef} aria-hidden="true">
         <div className="route-line" />
-        <img ref={routeLogoRef} src="/dream-big-drones-nav-logo.png" alt="" />
+        <img ref={routeLogoRef} src="/dream-big-drones-logo.png" alt="" />
       </div>
       <a className="skip-link" href="#main">
         Skip to content
