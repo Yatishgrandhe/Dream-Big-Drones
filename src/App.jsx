@@ -375,11 +375,11 @@ function Link({ to, children, className = "", onClick }) {
     </a>
   );
 }
-function BrandLogo({ compact = false }) {
+function BrandLogo({ compact = false, navigation = false }) {
   return (
     <img
       className={compact ? "brand-logo compact" : "brand-logo"}
-      src="/dream-big-drones-logo.png"
+      src={navigation ? "/dream-big-drones-nav-logo.png" : "/dream-big-drones-logo.png"}
       alt="Dream Big Drones by RLM official logo"
     />
   );
@@ -487,7 +487,7 @@ function Header({ path }) {
   return (
     <header className="site-header">
       <Link to="/" className="logo-link" onClick={closeMenu}>
-        <BrandLogo />
+        <BrandLogo navigation />
       </Link>
       <button
         ref={menuButtonRef}
@@ -1399,7 +1399,7 @@ function App() {
       <Loader complete={!loading} home={path === "/"} />
       <div className="flight-overlay" ref={overlayRef} aria-hidden="true">
         <div className="route-line" />
-        <img ref={routeLogoRef} src="/dream-big-drones-logo.png" alt="" />
+        <img ref={routeLogoRef} src="/dream-big-drones-nav-logo.png" alt="" />
       </div>
       <a className="skip-link" href="#main">
         Skip to content
