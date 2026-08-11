@@ -1,13 +1,18 @@
 import {
   ArrowRight,
   BadgeCheck,
+  BriefcaseBusiness,
   Camera,
   Check,
   ChevronDown,
+  Download,
   FolderCheck,
   Globe,
   Handshake,
+  HardHat,
+  House,
   Lightbulb,
+  Map,
   MapPin,
   Menu,
   MessageCircle,
@@ -179,6 +184,32 @@ const solutionData = [
     "Brands, venues, campaigns",
     "Photography and video selects",
     visual.solutionCommercial,
+  ],
+];
+const homeServices = [
+  [
+    "Construction Site Monitoring",
+    "Monitor construction progress from above. Track site development, verify milestones, and identify potential issues to keep projects on schedule and within budget.",
+    visual.solutionConstruction,
+    HardHat,
+  ],
+  [
+    "Residential Real Estate Photography",
+    "Showcase homes in their best light with aerial photography and videography that highlights property features, neighborhood appeal, and lifestyle.",
+    visual.solutionRealEstate,
+    House,
+  ],
+  [
+    "Commercial Real Estate Photography",
+    "High-quality aerial imagery and video that helps businesses, investors, and developers market commercial properties and attract the right opportunities.",
+    visual.solutionCommercial,
+    BriefcaseBusiness,
+  ],
+  [
+    "Drone Inspection Services",
+    "Safe, efficient, and cost-effective inspections for roofs, structures, towers, and hard-to-reach areas. Identify potential concerns with high-resolution aerial data.",
+    visual.solutionInspection,
+    ShieldCheck,
   ],
 ];
 const projects = [
@@ -531,12 +562,12 @@ function HomeHero({ kicker, title, copy, children }) {
     </div>
   );
   return (
-    <section className="page-hero">
+    <section className="page-hero home-reference-hero">
       <div className="hero-art-stage">
         <img
           className="hero-brand-art"
-          src="/dream-big-drones-hero.png"
-          alt="Dream Big Drones by RLM drone and world-imagery artwork"
+          src={visual.homeShowcase}
+          alt="Aerial view of a coastal project area"
           fetchPriority="high"
         />
       </div>
@@ -624,83 +655,88 @@ function Footer() {
   );
 }
 
+function HomeServiceCard({ item: [title, copy, imageUrl, Icon] }) {
+  return (
+    <article className="home-service-card">
+      <img src={imageUrl} alt="" loading="lazy" />
+      <div className="home-service-card-copy">
+        <Icon aria-hidden="true" />
+        <div>
+          <h3>{title}</h3>
+          <p>{copy}</p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 function Home() {
   return (
     <>
       <HomeHero
-        kicker="Aerial services by RLM"
-        title="Global vision. Grounded results."
-        copy="A premium aerial partner for visual storytelling, property documentation, inspections, and the work that needs a clearer point of view."
+        kicker="Dream Big Drones by RLM"
+        title="Your Vision. Captured from Above."
+        copy="Professional drone imaging, aerial documentation, and visual solutions that help businesses see more, plan smarter, and achieve more."
       >
         <div className="hero-actions">
-          <Action to="/solutions">Explore solutions</Action>
-          <Action to="/portfolio" quiet>
-            View portfolio
+          <Action to="/portfolio">View our work</Action>
+          <Action to="/solutions" quiet>
+            Explore services
           </Action>
         </div>
       </HomeHero>
-      <Reveal>
-        <section className="showcase">
-          <div>
-            <h2>See the site before anyone steps onto it.</h2>
-            <p>
-              Purposeful aerial work gives a project its scale, setting, and
-              story in a single glance.
-            </p>
-            <Action to="/portfolio" quiet>
-              Explore selected work
-            </Action>
-          </div>
-          <img src={visual.homeShowcase} alt="Aerial coastline with blue water" />
-        </section>
-      </Reveal>
-      <section className="section">
+      <section className="section home-services">
         <Reveal>
           <SectionHead
+            eyebrow="Our services"
             title="Work built for the view that matters."
           />
         </Reveal>
-        <div className="solution-grid home-solution-grid">
-          {solutionData.slice(0, 3).map((item, index) => (
+        <div className="home-service-grid">
+          {homeServices.map((item, index) => (
             <Reveal key={item[0]} delay={index * 0.09}>
-              <SolutionCard item={item} />
+              <HomeServiceCard item={item} />
             </Reveal>
           ))}
         </div>
       </section>
-      <section className="proof-strip">
+      <section className="proof-strip home-proof-strip" aria-label="Project standards">
         {[
           [
             "01",
             "Plan with clarity",
             "We align the location, conditions, and deliverables before takeoff.",
+            Map,
           ],
           [
             "02",
             "Capture with purpose",
             "Every flight is shaped around the decision the work must support.",
+            Camera,
           ],
           [
             "03",
             "Deliver with context",
             "Organized visual files prepared for the way your team will use them.",
+            Download,
           ],
-        ].map(([no, title, text], index) => (
+        ].map(([no, title, text, Icon], index) => (
           <Reveal key={no} delay={index * 0.1}>
             <article>
               <span>{no}</span>
               <h3>{title}</h3>
               <p>{text}</p>
+              <Icon aria-hidden="true" />
             </article>
           </Reveal>
         ))}
       </section>
       <Reveal>
-        <section className="section cta-band">
-          <SectionHead
-            title="Have a project on the horizon?"
-            copy="Tell us where it is, what needs to be captured, and what the finished work needs to accomplish."
-          />
+        <section className="home-closing-callout">
+          <div>
+            <h2>Have a project on the horizon?</h2>
+            <p>Tell us where it is, what needs to be captured, and what the finished work needs to accomplish.</p>
+          </div>
           <Action>Request a quote</Action>
         </section>
       </Reveal>

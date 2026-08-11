@@ -252,3 +252,27 @@ Accepted debt:
 |---|---|---|
 | Placeholder imagery is hosted by Unsplash | Visitors with offline/slow connections | Replace with supplied, responsive client photography once available. Fallback color treatments remain in place. |
 | Mail/delivery endpoint requires Convex deployment configuration | Prospective clients | The built form submits to the existing Convex integration when configured; the UI communicates retry rather than pretending delivery succeeded. |
+
+## 10. Homepage reference refresh, August 11, 2026
+
+### Visual contract
+
+- The supplied `1000050562.png`, `1000050563.png`, and `1000050564.png` screenshots are the homepage composition contract. They replace the prior illustrated-homepage requirement only; navigation, footer, inner routes, and existing form behavior remain unchanged.
+- The page begins with a warm ivory, wide editorial hero. On desktop, the two-line serif promise occupies the left third, a thin vertical divider separates the explanatory copy, and a full-width aerial image recedes from the lower right. The text remains on a calm ivory field instead of sitting over the imagery.
+- Hero headline: `Your Vision.` in navy and `Captured from Above.` in copper. Supporting copy and controls sit to the right of the divider. Controls are a filled navy `View our work` action and a quiet outlined `Explore services` action.
+- The service section begins immediately after the hero. Its copper eyebrow, compact navy display heading, and two-by-two image-led cards follow the supplied reference. Each card uses an actual Lucide line icon, a 16:10 cropped image, concise service title, and a short, readable description.
+- The proof strip is exactly three equal, navy panels. Each panel includes a copper number, a serif title, a short description, and a copper Lucide icon that is decorative and hidden from assistive technology. No emoji icons are used.
+- The closing conversion returns to warm ivory with a wide two-column layout: large navy serif heading and supporting copy left, one compact navy pill action right.
+
+### Tokens and responsive behavior
+
+- Homepage layout tokens: `--dbd-home-max: 1880px`, `--dbd-home-gutter: clamp(24px, 4.5vw, 92px)`, `--dbd-home-section: clamp(72px, 8vw, 136px)`, and `--dbd-home-card-radius: 14px`.
+- Desktop is designed from the 2170px-wide reference. At 1280px, the hero maintains its text, divider, and controls in a three-column layout. At 768px, the hero and closeout stack cleanly while services remain two columns. At 375px, all modules become one reading column, cards retain their full image-to-copy hierarchy, and controls are full-width touch targets.
+- Hero and service imagery are temporary stock placeholders pending owner photography. Each image has an explicit aspect ratio and descriptive alt text when it conveys content; decorative proof-strip icons are `aria-hidden`.
+
+### Homepage primitives and states
+
+- `HomeReferenceHero`: default, keyboard-focus-visible CTA state, reduced-motion static state.
+- `HomeServiceCard`: default, hover media lift on fine pointers, keyboard-focus-visible action state, single-column mobile state.
+- `ProjectProofStrip`: static three-panel desktop state, stacked tablet/mobile state, reduced-motion static state.
+- `HomeClosingCallout`: split desktop state and stacked mobile state, with a visible focus style on its action.
