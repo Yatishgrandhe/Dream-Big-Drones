@@ -1,43 +1,29 @@
 # Dream Big Drones by RLM
 
-Editorial one-page aerial portfolio with a Convex-backed project inquiry form and a private studio dashboard.
+Editorial one-page aerial portfolio with a Supabase-backed inquiry form and a private studio dashboard.
 
 ## Local development
 
 ```bash
 npm install
-npx convex dev
 npm run dev
 ```
 
-The Vite client reads `VITE_CONVEX_URL` from `.env.local`; the Convex CLI creates it when the project is linked.
+For local admin access, add `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` to `.env.local`. Run local API routes with `vercel dev` when testing submissions.
 
 ## Admin setup
 
-Choose a strong, unique password (at least 16 characters) and generate a Scrypt hash locally:
+The private studio uses Supabase Auth. Create the owner account from the unlisted `/setup` admin route, confirm the email if Supabase requires it, then sign in from the private admin route. The Vercel server only permits the email in `ADMIN_EMAIL` to read or update inquiries.
 
-```bash
-npm run admin:hash
-npx convex env set ADMIN_PASSWORD_HASH '<paste-the-generated-hash>'
-```
+## Resend notifications
 
-`ADMIN_EMAIL` is already restricted to the studio owner on the Convex development deployment. Use the unlisted setup URL formed by adding `/setup` to the private path in `.env.local` once, create the single account with that email and password, then use the private path itself to sign in.
+Every successful inquiry is stored in the private Supabase `inquiries` table and then emailed to `dreambigdronesbyrlm@gmail.com`. The server uses `Dream Big Drones <onboarding@resend.dev>` until a verified sender domain is configured with `RESEND_FROM_EMAIL`.
 
-## Free Resend notifications (no domain)
-
-Create a free Resend account using `rmorrison339@gmail.com`, verify that inbox, and create an API key. During this domain-free stage, Resend sends only to that verified account from `Dream Big Drones <onboarding@resend.dev>`; it is ideal for owner notifications, not public email delivery.
-
-```bash
-npx convex env set RESEND_API_KEY 're_...'
-npx convex env set NOTIFICATION_TO_EMAIL 'rmorrison339@gmail.com'
-```
-
-Every successful inquiry schedules a server-side notification. It is marked `notificationSent: true` only after Resend accepts it. If the key is absent or Resend is unavailable, the customer form still succeeds and the submission remains safely stored with `notificationSent: false`.
+See [Google Sheets setup](./docs/GOOGLE_SHEETS_SETUP.md) to enable a live inquiry sheet with a `Viewed` column.
 
 ## Verification
 
 ```bash
-npx tsc --noEmit -p convex/tsconfig.json
 npm run build
 npm run lint
 ```

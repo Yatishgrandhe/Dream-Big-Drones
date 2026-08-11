@@ -218,7 +218,7 @@ Accepted debt:
 |---|---|---|---|
 | Owned gallery imagery pending | Selected work gallery and hero | Temporary Unsplash aerial imagery keeps the layout editorial while the user gathers original photos | Replace each temporary source with Dream Big Drones photos when assets arrive |
 | Live Calendly URL pending | Booking CTA | Calendly setup is not yet supplied | Swap placeholder CTA target with the final booking URL |
-| First admin credential provisioning | Convex Auth password provider | A strong unique password must be selected by the owner; no default can be safely generated or committed | Run `npm run admin:hash`, set the resulting hash as `ADMIN_PASSWORD_HASH` on Convex, then create the single allowed admin account |
+| First admin credential provisioning | Supabase Auth password provider | A strong unique password must be selected by the owner; no default can be safely generated or committed | Create the single owner account from the private setup route, then sign in through the private studio route |
 
 ## 9. August 2026 rebuild contract
 
@@ -251,7 +251,7 @@ Accepted debt:
 | Item | Affected users | Resolution path |
 |---|---|---|
 | Placeholder imagery is hosted by Unsplash | Visitors with offline/slow connections | Replace with supplied, responsive client photography once available. Fallback color treatments remain in place. |
-| Mail/delivery endpoint requires Convex deployment configuration | Prospective clients | The built form submits to the existing Convex integration when configured; the UI communicates retry rather than pretending delivery succeeded. |
+| Mail/delivery endpoint requires Google Sheets web app configuration | Prospective clients | The built form already stores inquiries and emails the owner; Sheet synchronization begins after its protected Apps Script web app URL is configured. | Add `GOOGLE_SHEETS_WEBHOOK_URL` and `GOOGLE_SHEETS_WEBHOOK_SECRET` in Vercel, then redeploy. |
 
 ## 10. Homepage reference refresh, August 11, 2026
 
