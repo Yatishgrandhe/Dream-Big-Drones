@@ -548,13 +548,13 @@ function HomeHero({ kicker, title, copy, children }) {
     <div className="hero-info-inner">
       <div className="hero-title-block">
         <p className="eyebrow">{kicker}</p>
-        <h1 className="hero-headline">
+        <h2 className="hero-headline">
           {title.split(" ").map((word, index) => (
             <span className="hero-word" key={`${word}${index}`}>
               {word}{" "}
             </span>
           ))}
-        </h1>
+        </h2>
       </div>
       <div className="hero-detail-block">
         <p>{copy}</p>
@@ -573,6 +573,25 @@ function HomeHero({ kicker, title, copy, children }) {
           alt="Aerial view of a coastal city at sunset"
           fetchPriority="high"
         />
+      </div>
+    </section>
+  );
+}
+function LegacyHomeHero() {
+  return (
+    <section className="legacy-home-hero" aria-labelledby="legacy-home-title">
+      <img
+        className="legacy-home-hero-art"
+        src="/dream-big-drones-hero.png"
+        alt="Dream Big Drones illustrated scene with a drone above a park and project destinations"
+        fetchPriority="high"
+      />
+      <div className="legacy-home-hero-shade" aria-hidden="true" />
+      <div className="legacy-home-hero-copy">
+        <p className="eyebrow">Dream Big Drones by RLM</p>
+        <h1 id="legacy-home-title">A clearer perspective starts here.</h1>
+        <p>Thoughtful aerial imagery and documentation for the work ahead.</p>
+        <Action to="/contact">Start a project</Action>
       </div>
     </section>
   );
@@ -673,6 +692,7 @@ function HomeServiceCard({ item: [title, copy, imageUrl, Icon] }) {
 function Home() {
   return (
     <>
+      <LegacyHomeHero />
       <HomeHero
         kicker="Dream Big Drones by RLM"
         title="Your Vision. Captured from Above."
