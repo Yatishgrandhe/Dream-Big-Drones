@@ -122,6 +122,7 @@ Layout direction:
 - The unlinked studio route uses the same white/navy/gold system, but trims the marketing motion in favour of fast, accessible data scanning.
 - Desktop uses a structured table and restrained status pills; mobile deliberately changes to stacked inquiry cards rather than shrinking the table into an unreadable surface.
 - The detail drawer is a white editorial sheet with no dark SaaS chrome. Its only decorative treatment is typography and navy/gold hierarchy.
+- Login, search, and status-filter inputs use clear white bounded surfaces with a navy border; focus strengthens the boundary with a restrained gold ring so fields remain easy to scan and operate.
 
 ### Editorial Proof Blocks
 
