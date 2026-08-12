@@ -257,6 +257,7 @@ Accepted debt:
 
 ### Visual contract
 
+- Owner correction, August 12, 2026: restore the supplied `dream-big-drones-hero.png` as the first, full-viewport Home scene above the newer service, proof, and conversion modules. The official illustrated artwork is treated as the immersive hero backdrop with a navy accessibility gradient, rather than as a stock-image-led editorial panel. The existing headline, supporting copy, and two actions remain readable in the foreground.
 - The supplied `1000050562.png`, `1000050563.png`, and `1000050564.png` screenshots are the homepage composition contract. They replace the prior illustrated-homepage requirement only; navigation, footer, inner routes, and existing form behavior remain unchanged.
 - The page begins with a warm ivory, wide editorial hero. On desktop, the two-line serif promise occupies the left third, a thin vertical divider separates the explanatory copy, and a full-width aerial image recedes from the lower right. The text remains on a calm ivory field instead of sitting over the imagery.
 - Hero headline: `Your Vision.` in navy and `Captured from Above.` in copper. Supporting copy and controls sit to the right of the divider. Controls are a filled navy `View our work` action and a quiet outlined `Explore services` action.

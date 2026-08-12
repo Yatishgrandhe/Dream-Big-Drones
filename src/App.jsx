@@ -80,7 +80,7 @@ const coreValues = [
 const image = (id, width = 1500) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=82`;
 const visual = {
-  homeShowcase: image("photo-1507525428034-b723cf961d3e"),
+  homeShowcase: "/dream-big-drones-hero.png",
   solutionRealEstate: image("photo-1600585154340-be6161a56a0c"),
   solutionAerial: image("photo-1470770841072-f978cf4d019e"),
   solutionVideo: image("photo-1519501025264-65ba15a82390"),
@@ -568,7 +568,7 @@ function HomeHero({ kicker, title, copy, children }) {
         <img
           className="hero-brand-art"
           src={visual.homeShowcase}
-          alt="Aerial view of a coastal project area"
+          alt="Dream Big Drones illustrated scene with a drone above a park and project destinations"
           fetchPriority="high"
         />
       </div>

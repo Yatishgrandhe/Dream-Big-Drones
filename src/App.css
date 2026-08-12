@@ -1213,3 +1213,94 @@ main,
     filter: none !important;
   }
 }
+
+/* Owner correction: the official illustrated scene leads Home before every
+   editorial module, restoring the original full-viewport launch moment. */
+.home-reference-hero {
+  min-height: calc(100svh - var(--dbd-header-height));
+  background: var(--dbd-navy);
+}
+
+.home-reference-hero::before {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgb(8 31 44 / 0.94) 0%, rgb(8 31 44 / 0.79) 34%, rgb(8 31 44 / 0.35) 61%, rgb(8 31 44 / 0.06) 100%),
+    linear-gradient(0deg, rgb(8 31 44 / 0.5), transparent 54%);
+}
+
+.home-reference-hero .hero-art-stage {
+  z-index: -2;
+  height: 100%;
+  aspect-ratio: auto;
+  background: var(--dbd-navy);
+}
+
+.home-reference-hero .hero-brand-art {
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.96) contrast(1.03);
+}
+
+.home-reference-hero .hero-copy {
+  color: var(--dbd-paper);
+}
+
+.home-reference-hero .hero-info-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 660px);
+  align-content: center;
+  gap: clamp(24px, 3vw, 38px);
+  min-height: calc(100svh - var(--dbd-header-height));
+  padding: clamp(72px, 11vw, 156px) 0 clamp(72px, 8vw, 116px);
+}
+
+.home-reference-hero .hero-title-block .eyebrow {
+  color: #e7b264;
+}
+
+.home-reference-hero .hero-copy h1 {
+  max-width: 11ch;
+  color: var(--dbd-paper);
+  font-size: clamp(3.5rem, 6.2vw, 7rem);
+  text-shadow: 0 4px 18px rgb(0 0 0 / 0.25);
+}
+
+.home-reference-hero .hero-detail-block {
+  max-width: 38rem;
+  padding: 0;
+  border: 0;
+}
+
+.home-reference-hero .hero-detail-block > p {
+  max-width: 43ch;
+  color: rgb(255 255 255 / 0.9);
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  line-height: 1.68;
+  text-shadow: 0 2px 12px rgb(0 0 0 / 0.28);
+}
+
+.home-reference-hero .hero-actions .action-quiet {
+  color: var(--dbd-paper);
+  border-color: rgb(255 255 255 / 0.72);
+  background: rgb(16 47 67 / 0.28);
+}
+
+@media (max-width: 760px) {
+  .home-reference-hero .hero-info-inner {
+    min-height: calc(100svh - var(--dbd-header-height));
+    padding: 70px 0 56px;
+  }
+
+  .home-reference-hero .hero-art-stage {
+    opacity: 1;
+  }
+
+  .home-reference-hero .hero-brand-art {
+    object-position: 58% center;
+  }
+
+  .home-reference-hero .hero-detail-block {
+    padding: 0;
+    border: 0;
+  }
+}
