@@ -80,7 +80,7 @@ const coreValues = [
 const image = (id, width = 1500) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=82`;
 const visual = {
-  homeShowcase: "/dream-big-drones-hero.png",
+  homeShowcase: image("photo-1507525428034-b723cf961d3e", 1900),
   solutionRealEstate: image("photo-1600585154340-be6161a56a0c"),
   solutionAerial: image("photo-1470770841072-f978cf4d019e"),
   solutionVideo: image("photo-1519501025264-65ba15a82390"),
@@ -564,17 +564,16 @@ function HomeHero({ kicker, title, copy, children }) {
   );
   return (
     <section className="page-hero home-reference-hero">
-      <div className="hero-art-stage">
-        <img
-          className="hero-brand-art"
-          src={visual.homeShowcase}
-          alt="Dream Big Drones illustrated scene with a drone above a park and project destinations"
-          fetchPriority="high"
-        />
-      </div>
       {desktopMotion ? (
         <motion.div className="hero-copy" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}>{content}</motion.div>
       ) : <div className="hero-copy">{content}</div>}
+      <div className="home-hero-media">
+        <img
+          src={visual.homeShowcase}
+          alt="Aerial view of a coastal city at sunset"
+          fetchPriority="high"
+        />
+      </div>
     </section>
   );
 }
