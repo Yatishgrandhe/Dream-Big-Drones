@@ -9,7 +9,7 @@
 - Product context: placeholders are intentional because the user plans to send additional drone photography later. The layout needs obvious drop zones that feel designed now and easy to replace later.
 - DJI runtime study (Chrome, 2026-08-03): inspected the rendered homepage at desktop, tablet, and mobile viewport overrides. Its product modules use edge-led media, 16px gutters, 576px desktop media tiles, compact 48px-top text treatment, and deliberate two-up / full-width grid spans rather than isolated floating cards. We are borrowing that layout grammar only, not DJI copy, branding, or assets.
 - Image sourcing: selected three temporary, replaceable Unsplash aerial images for the portfolio placeholders. Each remains visibly labelled as a placeholder and can be swapped for original Dream Big Drones photography later.
-- Official logo asset: extracted the supplied Dream Big Drones by RLM PNG into a non-destructive full wordmark (`public/dream-big-drones-logo.png`) and compact flight-path crop (`public/dream-big-drones-mark.png`). These preserve the original navy/gold artwork and are matted for use against white.
+- Official logo asset: use the supplied `public/dream-big-drones-nav-logo.png` unchanged for all rendered logo placements.
 
 ## 1. Atmosphere & Identity
 
@@ -154,9 +154,9 @@ Layout direction:
 
 ### Official Brand Assets
 
-- Use `dream-big-drones-logo.png` for desktop/mobile navigation, the hero anchor, and footer.
-- Use `dream-big-drones-mark.png` only for loader and mobile navigation treatment.
-- Never redraw, recolor, or place the supplied raster logo against a grey or dark boxed background. The footer uses a small white logo frame for legibility.
+- Use `dream-big-drones-nav-logo.png` for every rendered logo treatment: desktop/mobile navigation, footer, administration screens, and browser icons.
+- `dream-big-drones-hero.png` remains the homepage illustration and loader artwork; it is not a substitute for the official logo.
+- Never redraw, recolor, crop, or replace the supplied raster logo. The footer presents it directly against the navy surface without a substitute wordmark.
 
 ### Cinematic Flight-Path Loader
 
@@ -225,13 +225,13 @@ Accepted debt:
 ### Reference fidelity and direction
 
 - The supplied browser screenshot is the structural reference: a legible brand header, cinematic hero, editorial media stage, solution cards, and a utilitarian contact/footer ending. It is not a visual style to copy; the new surface replaces its dated cards and cramped proportions with a spacious navy, sand, and copper editorial system.
-- The supplied original `dream-big-drones-hero.png` is the official hero/logo artwork. It is never recolored, stretched, cropped, or replaced with an invented drone mark. `dream-big-drones-logo.png` remains the clean wordmark treatment for navigation and footer surfaces.
+- The supplied original `dream-big-drones-hero.png` is the official homepage illustration. It is never recolored, stretched, cropped, or replaced with an invented drone scene. `dream-big-drones-nav-logo.png` is the confirmed logo treatment for navigation and footer surfaces.
 - Signature moment: a single logo-led launch brief. It paints as one complete scene from the first frame, then fades away; no preliminary logo flash, competing animation, or second loader is permitted.
 - August 2026 visual correction: `dream-big-drones-hero.png` is a complete illustrated brand scene (drone, destination bubbles, stonework sign, sky, and park), not just a wordmark. The global tone now takes its cues from that scene: sky blue, deep blue-green, leaf green, weathered limestone, warm copper, and the logo's jewel-like cyan/red/gold details. The homepage hero is always full-bleed art with an accessible navy gradient for copy, never a split stock-photo panel with the artwork reduced to a floating card.
 - The loader begins with the official brand artwork at full stage scale, has one brief focus/settle motion, and dissolves directly into the matching homepage hero. It does not introduce a disconnected card or secondary logo treatment.
 - Route hierarchy correction: only Home uses the full-viewport illustrated brand hero. Inner routes use compact, individually art-directed mastheads with their own content image, information density, and task-oriented headline. This preserves the homepage as the signature moment and makes route changes feel intentional.
 - Motion correction: section content enters only when it becomes relevant in the viewport; cards stagger in as a related group, images settle from a subtle scale, and interactive panels transition only when their state changes. Every sequence uses opacity, transform, and filter; reduced-motion users receive fully visible static content.
-- Brand asset correction: the navigation, footer, and browser-tab icon use `dream-big-drones-hero.png`, the owner-confirmed official logo artwork. It stays at its native 16:9 proportion in contained branded frames.
+- Brand asset correction: the navigation, footer, administration screens, and browser-tab icon use `dream-big-drones-nav-logo.png`, the owner-confirmed official logo artwork. It stays contained at its native proportion.
 - Motion system upgrade: GSAP + ScrollTrigger owns page travel, image parallax, route-line drawing, and footer landing. Navigation uses a navy flight overlay with the current Dream Big Drones logo as its central altitude-change object; it is bypassed under reduced motion. Motion duration stays between 0.45–0.9s and only transforms, opacity, filter, and clip-path are animated.
 
 ### Route grammar

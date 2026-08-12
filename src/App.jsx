@@ -376,11 +376,11 @@ function Link({ to, children, className = "", onClick }) {
     </a>
   );
 }
-function BrandLogo({ compact = false, navigation = false }) {
+function BrandLogo({ compact = false }) {
   return (
     <img
       className={compact ? "brand-logo compact" : "brand-logo"}
-      src={navigation ? navigationLogoSrc : "/dream-big-drones-logo.png"}
+      src={navigationLogoSrc}
       alt="Dream Big Drones by RLM official logo"
     />
   );
@@ -488,7 +488,7 @@ function Header({ path }) {
   return (
     <header className="site-header">
       <Link to="/" className="logo-link" onClick={closeMenu}>
-        <BrandLogo navigation />
+        <BrandLogo />
       </Link>
       <button
         ref={menuButtonRef}
