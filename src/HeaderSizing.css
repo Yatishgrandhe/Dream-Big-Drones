@@ -11,11 +11,13 @@
   display: flex;
   align-items: center;
   height: 100%;
+  overflow: hidden;
 }
 .site-header .brand-logo {
-  width: 132px;
+  width: 156px;
   height: 80px;
   object-fit: contain;
+  transform: scale(1.26);
 }
 @media (max-width: 1023px) {
   .nav-link,
@@ -38,8 +40,9 @@
     padding-block: 0;
   }
   .site-header .brand-logo {
-    width: 112px;
+    width: 124px;
     height: 68px;
+    transform: scale(1.2);
   }
   .menu-button {
     display: grid;

@@ -36,6 +36,7 @@ import "./HeaderSizing.css";
 import "./AerialInstruments.css";
 
 const DesktopMotion = lazy(() => import("./DesktopMotion"));
+const navigationLogoSrc = "/dream-big-drones-nav-logo.png?v=20260812";
 
 const routes = [
   ["/", "Home"],
@@ -379,7 +380,7 @@ function BrandLogo({ compact = false, navigation = false }) {
   return (
     <img
       className={compact ? "brand-logo compact" : "brand-logo"}
-      src={navigation ? "/dream-big-drones-nav-logo.png" : "/dream-big-drones-logo.png"}
+      src={navigation ? navigationLogoSrc : "/dream-big-drones-logo.png"}
       alt="Dream Big Drones by RLM official logo"
     />
   );
@@ -1399,7 +1400,7 @@ function App() {
       <Loader complete={!loading} home={path === "/"} />
       <div className="flight-overlay" ref={overlayRef} aria-hidden="true">
         <div className="route-line" />
-        <img ref={routeLogoRef} src="/dream-big-drones-nav-logo.png" alt="" />
+        <img ref={routeLogoRef} src={navigationLogoSrc} alt="" />
       </div>
       <a className="skip-link" href="#main">
         Skip to content
