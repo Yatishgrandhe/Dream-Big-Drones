@@ -258,7 +258,7 @@ Accepted debt:
 
 ### Visual contract
 
-- Hero sequence correction, August 12, 2026: keep the original supplied `dream-big-drones-hero.png` as the first full-viewport illustrated launch scene, with its concise copy held to the left for readable contrast. The screenshot-aligned ivory editorial `HomeReferenceHero` remains immediately below as a distinct side-by-side text-and-aerial section; it preserves the oversized promise, divider-led explanation, and paired actions. The services grid, navy proof strip, and light closing conversion follow afterward.
+- Hero sequence correction, August 13, 2026: the original supplied `dream-big-drones-hero.png` is an artwork-only first viewport with no overlaid text, controls, or shade. Its message and all next-step actions move into the immediately following ivory editorial introduction, preserving an unobstructed brand entrance while keeping portfolio, services, and project-intake paths clear.
 - The supplied `1000050562.png`, `1000050563.png`, and `1000050564.png` screenshots are the homepage composition contract. They replace the prior illustrated-homepage requirement only; navigation, footer, inner routes, and existing form behavior remain unchanged.
 - The page begins with a warm ivory, wide editorial hero. On desktop, the two-line serif promise occupies the left third, a thin vertical divider separates the explanatory copy, and a full-width aerial image recedes from the lower right. The text remains on a calm ivory field instead of sitting over the imagery.
 - Hero headline: `Your Vision.` in navy and `Captured from Above.` in copper. Supporting copy and controls sit to the right of the divider. Controls are a filled navy `View our work` action and a quiet outlined `Explore services` action.
