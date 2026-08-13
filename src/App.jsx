@@ -567,13 +567,6 @@ function HomeHero({ kicker, title, copy, children }) {
       {desktopMotion ? (
         <motion.div className="hero-copy" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}>{content}</motion.div>
       ) : <div className="hero-copy">{content}</div>}
-      <div className="home-hero-media">
-        <img
-          src={visual.homeShowcase}
-          alt="Aerial view of a coastal city at sunset"
-          fetchPriority="high"
-        />
-      </div>
     </section>
   );
 }

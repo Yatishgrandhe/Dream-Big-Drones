@@ -1415,10 +1415,7 @@ main,
 /* The opening artwork is intentionally free of interface chrome. The landing
    introduction follows as its own readable decision point. */
 .home-introduction {
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
-  min-height: clamp(520px, 46vw, 680px);
-  overflow: hidden;
+  display: block;
   background: var(--dbd-paper);
 }
 
@@ -1433,14 +1430,13 @@ main,
 
 .home-introduction .hero-info-inner {
   display: grid;
-  grid-template-columns: minmax(250px, 0.82fr) minmax(240px, 0.72fr);
+  grid-template-columns: minmax(280px, 0.95fr) minmax(280px, 0.82fr);
   align-content: center;
   column-gap: clamp(30px, 4vw, 76px);
   row-gap: clamp(24px, 3.2vw, 46px);
   width: min(calc(100% - (var(--dbd-home-gutter) * 2)), var(--dbd-home-max));
-  min-height: 100%;
   margin: 0 auto;
-  padding: clamp(44px, 6vw, 98px) 0;
+  padding: clamp(56px, 7vw, 108px) 0;
 }
 
 .home-introduction .hero-title-block .eyebrow {
@@ -1477,8 +1473,7 @@ main,
 
 .home-introduction .hero-actions {
   display: flex;
-  grid-column: 2;
-  grid-row: 2;
+  grid-column: 1 / -1;
   flex-wrap: wrap;
   gap: 12px;
   justify-content: flex-start;
@@ -1503,30 +1498,7 @@ main,
   background: #287c89;
 }
 
-.home-introduction .home-hero-media {
-  grid-column: 2;
-  grid-row: 1;
-  min-width: 0;
-  height: 100%;
-  align-self: stretch;
-  overflow: hidden;
-  background: var(--dbd-sand);
-}
-
-.home-introduction .home-hero-media img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  filter: saturate(0.86) contrast(1.04);
-}
-
 @media (max-width: 1050px) {
-  .home-introduction {
-    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
-  }
-
   .home-introduction .hero-info-inner {
     grid-template-columns: 1fr;
     align-content: center;
@@ -1552,8 +1524,6 @@ main,
   }
 
   .home-introduction {
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) 210px;
     min-height: 0;
   }
 
@@ -1593,9 +1563,4 @@ main,
     min-height: 46px;
   }
 
-  .home-introduction .home-hero-media {
-    grid-column: 1;
-    grid-row: 2;
-    min-height: 0;
-  }
 }
